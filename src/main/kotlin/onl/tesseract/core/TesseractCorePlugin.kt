@@ -1,6 +1,7 @@
 package onl.tesseract.core
 
 import onl.tesseract.core.achievement.AchievementService
+import onl.tesseract.core.afk.AfkManager
 import onl.tesseract.core.persistence.hibernate.achievement.AchievementHibernateRepository
 import onl.tesseract.core.persistence.hibernate.title.TitleHibernateRepository
 import onl.tesseract.core.title.StaffTitle
@@ -21,6 +22,8 @@ class TesseractCorePlugin : JavaPlugin() {
         )
 
         StaffTitle.entries.forEach { titleService.save(it.title) }
+
+        this.server.pluginManager.registerEvents(AfkManager.getINSTANCE(), this)
     }
 
     override fun onDisable() {
