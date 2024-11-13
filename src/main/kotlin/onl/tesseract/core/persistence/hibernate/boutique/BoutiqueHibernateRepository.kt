@@ -48,7 +48,7 @@ fun TPlayerInfo.toModel(): PlayerBoutiqueInfo {
 }
 
 private fun fromModel(model: PlayerBoutiqueInfo): TPlayerInfo {
-    TPlayerInfo(
+    return TPlayerInfo(
         model.playerID,
         Gender.OTHER,
         model.activeTrail,
