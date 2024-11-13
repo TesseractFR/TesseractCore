@@ -31,6 +31,10 @@ class BoutiqueService(private val repository: BoutiqueRepository) {
         CosmeticManager.giveCosmetic(player.uniqueId, cosmetic)
     }
 
+    fun addMarketCurrency(playerID: UUID, amount: Int) {
+        repository.addMarketCurrency(playerID, amount)
+    }
+
     fun tryToBuy(player: Player, mainMenu: Menu, cosmetic: Cosmetic) {
         val playerBoutiqueInfo = getPlayerBoutiqueInfo(player.uniqueId)
         if (playerBoutiqueInfo.marketCurrency >= cosmetic.price) {
