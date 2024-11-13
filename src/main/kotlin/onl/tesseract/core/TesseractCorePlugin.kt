@@ -43,3 +43,5 @@ class TesseractCorePlugin : JavaPlugin() {
         lateinit var instance: TesseractCorePlugin
     }
 }
+
+internal val log = TesseractCorePlugin.instance.logger
