@@ -1,7 +1,7 @@
 package onl.tesseract.core.command.staff;
 
 import onl.tesseract.core.cosmetics.CosmeticManager;
-import onl.tesseract.tesseractlib.cosmetics.Cosmetic;
+import onl.tesseract.core.cosmetics.Cosmetic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;

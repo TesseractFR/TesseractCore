@@ -8,12 +8,12 @@ import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuService
 import onl.tesseract.lib.repository.Repository
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.tesseractlib.cosmetics.Cosmetic
+import onl.tesseract.core.cosmetics.Cosmetic
 import onl.tesseract.core.cosmetics.CosmeticManager
-import onl.tesseract.tesseractlib.cosmetics.ElytraTrails
-import onl.tesseract.tesseractlib.cosmetics.FlyFilter
-import onl.tesseract.tesseractlib.cosmetics.TeleportationAnimation
-import onl.tesseract.tesseractlib.util.ChatFormats
+import onl.tesseract.core.cosmetics.ElytraTrails
+import onl.tesseract.core.cosmetics.FlyFilter
+import onl.tesseract.core.cosmetics.TeleportationAnimation
+import onl.tesseract.lib.util.ChatFormats
 import org.bukkit.entity.Player
 import java.util.UUID
 

@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import onl.tesseract.tesseractlib.cosmetics.ElytraTrails;
-import onl.tesseract.tesseractlib.cosmetics.FlyFilter;
-import onl.tesseract.tesseractlib.cosmetics.TeleportationAnimation;
+import onl.tesseract.core.cosmetics.ElytraTrails;
+import onl.tesseract.core.cosmetics.FlyFilter;
+import onl.tesseract.core.cosmetics.TeleportationAnimation;
 import onl.tesseract.core.cosmetics.familier.Pet;
-import onl.tesseract.tesseractlib.player.Gender;
+import onl.tesseract.lib.player.Gender;
 import org.hibernate.annotations.JdbcTypeCode;
 
 import java.io.Serializable;

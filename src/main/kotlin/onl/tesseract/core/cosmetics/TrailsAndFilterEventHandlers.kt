@@ -4,9 +4,7 @@ import com.destroystokyo.paper.ParticleBuilder
 import onl.tesseract.core.TesseractCorePlugin
 import onl.tesseract.core.boutique.BoutiqueService
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.tesseractlib.cosmetics.ElytraTrails
-import onl.tesseract.tesseractlib.cosmetics.FlyFilter
-import onl.tesseract.tesseractlib.util.Util
+import onl.tesseract.lib.util.Util
 import org.bukkit.Color
 import org.bukkit.Particle
 import org.bukkit.entity.EntityType

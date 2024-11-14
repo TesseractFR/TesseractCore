@@ -3,7 +3,7 @@ package onl.tesseract.core.achievement
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.event.HoverEvent
 import net.kyori.adventure.text.format.NamedTextColor
-import onl.tesseract.tesseractlib.util.ChatFormats
+import onl.tesseract.lib.util.ChatFormats
 import org.bukkit.Bukkit
 import java.util.UUID
 

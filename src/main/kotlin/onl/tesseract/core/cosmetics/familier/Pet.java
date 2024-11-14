@@ -5,7 +5,7 @@ import net.kyori.adventure.text.Component;
 import onl.tesseract.lib.menu.ItemBuilder;
 import onl.tesseract.lib.profile.PlayerProfileService;
 import onl.tesseract.lib.service.ServiceContainer;
-import onl.tesseract.tesseractlib.cosmetics.Cosmetic;
+import onl.tesseract.core.cosmetics.Cosmetic;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 

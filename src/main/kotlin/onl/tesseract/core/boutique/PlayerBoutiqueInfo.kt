@@ -1,8 +1,8 @@
 package onl.tesseract.core.boutique
 
-import onl.tesseract.tesseractlib.cosmetics.ElytraTrails
-import onl.tesseract.tesseractlib.cosmetics.FlyFilter
-import onl.tesseract.tesseractlib.cosmetics.TeleportationAnimation
+import onl.tesseract.core.cosmetics.ElytraTrails
+import onl.tesseract.core.cosmetics.FlyFilter
+import onl.tesseract.core.cosmetics.TeleportationAnimation
 import onl.tesseract.core.cosmetics.familier.Pet
 import java.util.UUID
 

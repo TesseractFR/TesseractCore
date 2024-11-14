@@ -5,8 +5,8 @@ import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.core.cosmetics.CosmeticManager
-import onl.tesseract.tesseractlib.cosmetics.ElytraTrails
-import onl.tesseract.tesseractlib.cosmetics.FlyFilter
+import onl.tesseract.core.cosmetics.ElytraTrails
+import onl.tesseract.core.cosmetics.FlyFilter
 import onl.tesseract.core.cosmetics.familier.Pet
 import org.bukkit.Material
 import org.bukkit.entity.Player

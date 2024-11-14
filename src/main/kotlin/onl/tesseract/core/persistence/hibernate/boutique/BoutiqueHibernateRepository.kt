@@ -3,10 +3,10 @@ package onl.tesseract.core.persistence.hibernate.boutique
 import onl.tesseract.core.boutique.BoutiqueRepository
 import onl.tesseract.core.boutique.PlayerBoutiqueInfo
 import onl.tesseract.core.persistence.hibernate.DaoUtils
-import onl.tesseract.tesseractlib.cosmetics.ElytraTrails
-import onl.tesseract.tesseractlib.cosmetics.FlyFilter
-import onl.tesseract.tesseractlib.cosmetics.TeleportationAnimation
-import onl.tesseract.tesseractlib.player.Gender
+import onl.tesseract.core.cosmetics.ElytraTrails
+import onl.tesseract.core.cosmetics.FlyFilter
+import onl.tesseract.core.cosmetics.TeleportationAnimation
+import onl.tesseract.lib.player.Gender
 import java.util.UUID
 
 object BoutiqueHibernateRepository : BoutiqueRepository {

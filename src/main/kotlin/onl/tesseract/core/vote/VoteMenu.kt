@@ -14,8 +14,8 @@ import onl.tesseract.lib.profile.PlayerProfileService
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.lib.task.TaskScheduler
 import onl.tesseract.core.persistence.hibernate.vote.VoteRepository
-import onl.tesseract.tesseractlib.util.ItemLoreBuilder
-import onl.tesseract.tesseractlib.util.Util
+import onl.tesseract.lib.util.ItemLoreBuilder
+import onl.tesseract.lib.util.Util
 import onl.tesseract.core.vote.goal.VoteGoal
 import onl.tesseract.core.vote.goal.VoteGoalManager
 import onl.tesseract.core.vote.goal.VoteGoalRepository
