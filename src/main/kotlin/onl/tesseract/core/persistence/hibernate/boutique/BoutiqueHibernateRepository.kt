@@ -3,6 +3,9 @@ package onl.tesseract.core.persistence.hibernate.boutique
 import onl.tesseract.core.boutique.BoutiqueRepository
 import onl.tesseract.core.boutique.PlayerBoutiqueInfo
 import onl.tesseract.core.persistence.hibernate.DaoUtils
+import onl.tesseract.tesseractlib.cosmetics.ElytraTrails
+import onl.tesseract.tesseractlib.cosmetics.FlyFilter
+import onl.tesseract.tesseractlib.cosmetics.TeleportationAnimation
 import onl.tesseract.tesseractlib.entity.TPlayerInfo
 import onl.tesseract.tesseractlib.player.Gender
 import java.util.UUID
@@ -31,6 +34,30 @@ object BoutiqueHibernateRepository : BoutiqueRepository {
             it.persist(info)
         }
     }
+
+    override fun setActiveTrail(id: UUID, trail: ElytraTrails) {
+        DaoUtils.executeInsideTransaction {
+            val info = it.find(TPlayerInfo::class.java, id) ?: TPlayerInfo(id)
+            info.active_trail = trail
+            it.persist(info)
+        }
+    }
+
+    override fun setActiveFilter(id: UUID, filter: FlyFilter) {
+        DaoUtils.executeInsideTransaction {
+            val info = it.find(TPlayerInfo::class.java, id) ?: TPlayerInfo(id)
+            info.active_fly_filter = filter
+            it.persist(info)
+        }
+    }
+
+    override fun setActiveTpAnimation(id: UUID, animation: TeleportationAnimation) {
+        DaoUtils.executeInsideTransaction {
+            val info = it.find(TPlayerInfo::class.java, id) ?: TPlayerInfo(id)
+            info.active_tp_animation = animation
+            it.persist(info)
+        }
+    }
 }
 
 fun TPlayerInfo.toModel(): PlayerBoutiqueInfo {
@@ -38,6 +65,7 @@ fun TPlayerInfo.toModel(): PlayerBoutiqueInfo {
         this.uuid,
         this.active_trail,
         this.active_fly_filter,
+        this.active_tp_animation,
         this.market_currency,
         this.shop_point,
         this.elytraTrails,
@@ -53,6 +81,7 @@ private fun fromModel(model: PlayerBoutiqueInfo): TPlayerInfo {
         Gender.OTHER,
         model.activeTrail,
         model.activeFlyFilter,
+        model.activeTpAnimation,
         model.marketCurrency,
         model.shopPoints,
         mutableSetOf(),

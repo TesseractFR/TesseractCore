@@ -11,6 +11,7 @@ data class PlayerBoutiqueInfo(
     val playerID: UUID,
     val activeTrail: ElytraTrails = ElytraTrails.NONE,
     val activeFlyFilter: FlyFilter = FlyFilter.NONE,
+    val activeTpAnimation: TeleportationAnimation = TeleportationAnimation.WATER,
     val marketCurrency: Int = 0,
     val shopPoints: Int = 0,
     val elytraTrails: Collection<ElytraTrails> = emptyList(),
