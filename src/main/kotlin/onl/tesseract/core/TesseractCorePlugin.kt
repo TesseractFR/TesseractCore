@@ -16,6 +16,9 @@ import onl.tesseract.core.command.staff.VoteGoalCommand
 import onl.tesseract.core.command.staff.VoteTopRewardCommand
 import onl.tesseract.core.cosmetics.TrailsAndFilterEventHandlers
 import onl.tesseract.core.cosmetics.familier.PetManager
+import onl.tesseract.core.event.ColoredChat
+import onl.tesseract.core.event.EntityBossBar
+import onl.tesseract.core.event.PlayerSit
 import onl.tesseract.core.persistence.hibernate.BDDManager
 import onl.tesseract.core.persistence.hibernate.achievement.AchievementHibernateRepository
 import onl.tesseract.core.persistence.hibernate.boutique.BoutiqueHibernateRepository
@@ -55,6 +58,9 @@ class TesseractCorePlugin : JavaPlugin() {
         this.server.pluginManager.registerEvents(AfkManager.getINSTANCE(), this)
         this.server.pluginManager.registerEvents(TrailsAndFilterEventHandlers(), this)
         this.server.pluginManager.registerEvents(PetManager(), this)
+        this.server.pluginManager.registerEvents(EntityBossBar(), this)
+        this.server.pluginManager.registerEvents(PlayerSit(), this)
+        this.server.pluginManager.registerEvents(ColoredChat(), this)
 
         TesseractPlaceHolder(this).register()
         registerCommands()

@@ -5,7 +5,7 @@ import onl.tesseract.core.boutique.BoutiqueService;
 import onl.tesseract.lib.service.ServiceContainer;
 import onl.tesseract.tesseractlib.TesseractLib;
 import onl.tesseract.core.persistence.hibernate.vote.VoteRepository;
-import onl.tesseract.tesseractlib.util.ChatFormats;
+import onl.tesseract.lib.util.ChatFormats;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

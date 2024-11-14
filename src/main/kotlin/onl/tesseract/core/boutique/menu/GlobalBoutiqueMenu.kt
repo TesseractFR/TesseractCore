@@ -9,11 +9,11 @@ import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.core.cosmetics.CosmeticManager
-import onl.tesseract.tesseractlib.cosmetics.ElytraTrails
-import onl.tesseract.tesseractlib.cosmetics.FlyFilter
-import onl.tesseract.tesseractlib.cosmetics.TeleportationAnimation
+import onl.tesseract.core.cosmetics.ElytraTrails
+import onl.tesseract.core.cosmetics.FlyFilter
+import onl.tesseract.core.cosmetics.TeleportationAnimation
 import onl.tesseract.core.cosmetics.familier.Pet
-import onl.tesseract.tesseractlib.util.ItemLoreBuilder
+import onl.tesseract.lib.util.ItemLoreBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player

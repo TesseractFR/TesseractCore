@@ -9,9 +9,9 @@ import onl.tesseract.lib.menu.MenuService
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfoService
-import onl.tesseract.tesseractlib.util.ChatFormats
-import onl.tesseract.tesseractlib.util.ItemBuilder
-import onl.tesseract.tesseractlib.util.ItemLoreBuilder
+import onl.tesseract.lib.util.ChatFormats
+import onl.tesseract.lib.util.ItemBuilder
+import onl.tesseract.lib.util.ItemLoreBuilder
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack

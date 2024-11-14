@@ -7,7 +7,7 @@ import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.core.cosmetics.familier.PetCategory
 import onl.tesseract.core.cosmetics.familier.PetManager
-import onl.tesseract.tesseractlib.util.ChatFormats
+import onl.tesseract.lib.util.ChatFormats
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import java.util.UUID

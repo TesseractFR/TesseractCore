@@ -11,8 +11,8 @@ import onl.tesseract.core.cosmetics.CosmeticManager
 import onl.tesseract.core.cosmetics.familier.Pet
 import onl.tesseract.core.cosmetics.familier.PetCategory
 import onl.tesseract.core.cosmetics.familier.PetManager
-import onl.tesseract.tesseractlib.util.ChatFormats
-import onl.tesseract.tesseractlib.util.ItemLoreBuilder
+import onl.tesseract.lib.util.ChatFormats
+import onl.tesseract.lib.util.ItemLoreBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
