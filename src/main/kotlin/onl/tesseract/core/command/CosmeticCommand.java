@@ -3,7 +3,7 @@ package onl.tesseract.core.command;
 import net.kyori.adventure.text.Component;
 import onl.tesseract.core.cosmetics.menu.CosmeticMenu;
 import onl.tesseract.tesseractlib.cosmetics.Cosmetic;
-import onl.tesseract.tesseractlib.cosmetics.CosmeticManager;
+import onl.tesseract.core.cosmetics.CosmeticManager;
 import onl.tesseract.tesseractlib.util.ChatFormats;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;

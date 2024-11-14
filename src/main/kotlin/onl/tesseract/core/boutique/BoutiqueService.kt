@@ -9,7 +9,7 @@ import onl.tesseract.lib.menu.MenuService
 import onl.tesseract.lib.repository.Repository
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.tesseractlib.cosmetics.Cosmetic
-import onl.tesseract.tesseractlib.cosmetics.CosmeticManager
+import onl.tesseract.core.cosmetics.CosmeticManager
 import onl.tesseract.tesseractlib.cosmetics.ElytraTrails
 import onl.tesseract.tesseractlib.cosmetics.FlyFilter
 import onl.tesseract.tesseractlib.cosmetics.TeleportationAnimation
@@ -74,7 +74,7 @@ class BoutiqueService(private val repository: BoutiqueRepository) {
     }
 
     fun setTpAnimation(playerID: UUID, animation: TeleportationAnimation) {
-        // TODO
+        repository.setActiveTpAnimation(playerID, animation)
     }
 }
 

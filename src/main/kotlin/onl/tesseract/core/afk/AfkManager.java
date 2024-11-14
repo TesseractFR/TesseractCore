@@ -27,7 +27,6 @@ import java.util.UUID;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AfkManager implements Listener {
-    @Getter
     static AfkManager INSTANCE = new AfkManager();
     Set<UUID> afks = new HashSet<>();
     HashMap<UUID, Instant> lastMessage = new HashMap<>();
@@ -123,4 +122,7 @@ public class AfkManager implements Listener {
             event.getPlayer().sendMessage(Component.text("Vous n'êtes plus AFK", NamedTextColor.GRAY));
     }
 
+    public static AfkManager getINSTANCE() {
+        return INSTANCE;
+    }
 }

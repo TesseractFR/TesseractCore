@@ -5,14 +5,16 @@ import jakarta.persistence.Id
 import onl.tesseract.core.title.Title
 
 @Entity
-class TitleEntity {
+class TitleEntity(
     @Id
-    var id: String? = null
-    var nameM: String? = null
-    var nameF: String? = null
+    var id: String?,
+    var nameM: String?,
+    var nameF: String?,
+) {
+    constructor() : this(null, null, null)
 
     fun toModel(): Title {
-        return Title(id, nameM, nameF)
+        return Title(id!!, nameM!!, nameF!!)
     }
 
     companion object {

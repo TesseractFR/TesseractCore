@@ -1,6 +1,8 @@
 package onl.tesseract.core.persistence.hibernate
 
 import onl.tesseract.core.Config
+import onl.tesseract.core.achievement.Achievement
+import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfo
 import org.hibernate.SessionFactory
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder
 import org.hibernate.cfg.AvailableSettings
@@ -17,8 +19,8 @@ object HibernateUtil {
             val configuration = setConfiguration(Config())
 
             // Enregistrer les classes d'entité
-//            configuration.addAnnotatedClass(TPlayerInfo.class);
-//            configuration.addAnnotatedClass(Achievement.class); TODO
+            configuration.addAnnotatedClass(TPlayerInfo::class.java)
+            configuration.addAnnotatedClass(Achievement::class.java)
             val serviceRegistry: ServiceRegistry? =
                 StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build()
             return configuration.buildSessionFactory(serviceRegistry)

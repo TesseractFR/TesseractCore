@@ -8,7 +8,7 @@ import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuService
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.tesseractlib.service.TPlayerInfoService
+import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfoService
 import onl.tesseract.tesseractlib.util.ChatFormats
 import onl.tesseract.tesseractlib.util.ItemBuilder
 import onl.tesseract.tesseractlib.util.ItemLoreBuilder

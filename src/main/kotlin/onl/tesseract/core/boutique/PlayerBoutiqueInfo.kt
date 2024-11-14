@@ -1,10 +1,9 @@
 package onl.tesseract.core.boutique
 
-import onl.tesseract.tesseractlib.cosmetics.Cosmetic
 import onl.tesseract.tesseractlib.cosmetics.ElytraTrails
 import onl.tesseract.tesseractlib.cosmetics.FlyFilter
 import onl.tesseract.tesseractlib.cosmetics.TeleportationAnimation
-import onl.tesseract.tesseractlib.cosmetics.familier.Pet
+import onl.tesseract.core.cosmetics.familier.Pet
 import java.util.UUID
 
 data class PlayerBoutiqueInfo(
