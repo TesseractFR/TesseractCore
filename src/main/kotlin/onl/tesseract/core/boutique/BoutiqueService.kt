@@ -10,6 +10,9 @@ import onl.tesseract.lib.repository.Repository
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.tesseractlib.cosmetics.Cosmetic
 import onl.tesseract.tesseractlib.cosmetics.CosmeticManager
+import onl.tesseract.tesseractlib.cosmetics.ElytraTrails
+import onl.tesseract.tesseractlib.cosmetics.FlyFilter
+import onl.tesseract.tesseractlib.cosmetics.TeleportationAnimation
 import onl.tesseract.tesseractlib.util.ChatFormats
 import org.bukkit.entity.Player
 import java.util.UUID
@@ -24,11 +27,11 @@ class BoutiqueService(private val repository: BoutiqueRepository) {
         return CosmeticManager.hasCosmetic(playerID, type, cosmetic)
     }
 
-    fun buyCosmetic(player: Player, cosmetic: Cosmetic) {
-        if (getPlayerBoutiqueInfo(player.uniqueId).marketCurrency < cosmetic.price) return
+    fun buyCosmetic(playerID: UUID, cosmetic: Cosmetic) {
+        if (getPlayerBoutiqueInfo(playerID).marketCurrency < cosmetic.price) return
 
-        repository.addMarketCurrency(player.uniqueId, -cosmetic.price)
-        CosmeticManager.giveCosmetic(player.uniqueId, cosmetic)
+        repository.addMarketCurrency(playerID, -cosmetic.price)
+        CosmeticManager.giveCosmetic(playerID, cosmetic)
     }
 
     fun addMarketCurrency(playerID: UUID, amount: Int) {
@@ -43,7 +46,7 @@ class BoutiqueService(private val repository: BoutiqueRepository) {
                 Component.text("Êtes vous sur de vouloir acheter le cosmétique " + cosmetic.getName()),
                 mainMenu
             ) {
-                buyCosmetic(player, cosmetic)
+                buyCosmetic(player.uniqueId, cosmetic)
             }
         } else {
             mainMenu.close()
@@ -61,9 +64,25 @@ class BoutiqueService(private val repository: BoutiqueRepository) {
             );
         }
     }
+
+    fun setActiveElytraTrail(playerID: UUID, trail: ElytraTrails) {
+        repository.setActiveTrail(playerID, trail)
+    }
+
+    fun setActiveFlyFilter(playerID: UUID, filter: FlyFilter) {
+        repository.setActiveFilter(playerID, filter)
+    }
+
+    fun setTpAnimation(playerID: UUID, animation: TeleportationAnimation) {
+        // TODO
+    }
 }
 
 interface BoutiqueRepository : Repository<PlayerBoutiqueInfo, UUID> {
 
     fun addMarketCurrency(id: UUID, amount: Int)
+
+    fun setActiveTrail(id: UUID, trail: ElytraTrails)
+    fun setActiveFilter(id: UUID, filter: FlyFilter)
+    fun setActiveTpAnimation(id: UUID, animation: TeleportationAnimation)
 }
