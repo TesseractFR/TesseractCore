@@ -5,8 +5,8 @@ import net.kyori.adventure.text.format.NamedTextColor
 import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
-import onl.tesseract.tesseractlib.cosmetics.familier.PetCategory
-import onl.tesseract.tesseractlib.cosmetics.familier.PetManager
+import onl.tesseract.core.cosmetics.familier.PetCategory
+import onl.tesseract.core.cosmetics.familier.PetManager
 import onl.tesseract.tesseractlib.util.ChatFormats
 import org.bukkit.Material
 import org.bukkit.entity.Player

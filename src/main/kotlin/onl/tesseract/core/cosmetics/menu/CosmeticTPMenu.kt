@@ -8,7 +8,7 @@ import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.tesseractlib.cosmetics.CosmeticManager
+import onl.tesseract.core.cosmetics.CosmeticManager
 import onl.tesseract.tesseractlib.cosmetics.TeleportationAnimation
 import onl.tesseract.tesseractlib.util.ChatFormats
 import onl.tesseract.tesseractlib.util.ItemLoreBuilder

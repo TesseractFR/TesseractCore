@@ -6,7 +6,6 @@ import onl.tesseract.core.persistence.hibernate.DaoUtils
 import onl.tesseract.tesseractlib.cosmetics.ElytraTrails
 import onl.tesseract.tesseractlib.cosmetics.FlyFilter
 import onl.tesseract.tesseractlib.cosmetics.TeleportationAnimation
-import onl.tesseract.tesseractlib.entity.TPlayerInfo
 import onl.tesseract.tesseractlib.player.Gender
 import java.util.UUID
 
