@@ -9,10 +9,11 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.BiFunction;
 
-public enum TeleportationAnimation implements Cosmetic {
+public enum TeleportationAnimation implements CosmeticWithMaterial {
     WATER("Eau", Material.WATER_BUCKET, (plugin, location, duration) -> {
         return new SmoothCylinder(plugin)
                 .setParticle(Particle.DRIPPING_WATER)
@@ -254,6 +255,11 @@ public enum TeleportationAnimation implements Cosmetic {
 
     public Material getIcon()
     {
+        return icon;
+    }
+
+    @Override
+    public @NotNull Material getMaterial() {
         return icon;
     }
 }

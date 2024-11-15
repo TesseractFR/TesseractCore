@@ -1,6 +1,11 @@
-package onl.tesseract.core.cosmetics;
+package onl.tesseract.core.cosmetics
 
-import onl.tesseract.lib.MarketObject;
+import onl.tesseract.lib.MarketObject
+import org.bukkit.Material
 
-public interface Cosmetic extends MarketObject {
+interface Cosmetic : MarketObject
+
+interface CosmeticWithMaterial : Cosmetic {
+
+    val material: Material
 }

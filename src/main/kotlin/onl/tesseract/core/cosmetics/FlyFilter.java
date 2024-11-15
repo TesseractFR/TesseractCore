@@ -5,7 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 
-public enum FlyFilter implements Cosmetic {
+public enum FlyFilter implements CosmeticWithMaterial {
     AMOUR(ChatColor.GRAY + "Amour", Material.APPLE, 2, Particle.HEART),
     COLERE(ChatColor.DARK_RED + "Colère", Material.NETHER_WART, 3, Particle.ANGRY_VILLAGER),
     CONNAISSANCE(ChatColor.BLUE+"Connaissance",Material.BOOK,4,Particle.ENCHANT),

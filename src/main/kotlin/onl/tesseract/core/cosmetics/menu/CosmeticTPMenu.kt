@@ -4,26 +4,23 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
 import onl.tesseract.core.boutique.BoutiqueService
 import onl.tesseract.core.boutique.menu.GlobalBoutiqueMenu
+import onl.tesseract.core.cosmetics.CosmeticManager
+import onl.tesseract.core.cosmetics.TeleportationAnimation
 import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.core.cosmetics.CosmeticManager
-import onl.tesseract.core.cosmetics.TeleportationAnimation
 import onl.tesseract.lib.util.ChatFormats
-import onl.tesseract.lib.util.ItemLoreBuilder
 import onl.tesseract.lib.util.plus
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import java.util.UUID
 
-class CosmeticTPMenu(val playerID: UUID, previous: Menu? = null) : Menu(
-    MenuSize.Three, "Particules de téléportation", NamedTextColor.LIGHT_PURPLE, previous) {
+class CosmeticTPMenu(val playerID: UUID, previous: Menu? = null) : AbstractCosmeticMenu(
+    MenuSize.Three, "Particules de téléportation", previous) {
 
     override fun placeButtons(viewer: Player) {
         val boutiqueService = ServiceContainer[BoutiqueService::class.java]
-        val playerBoutiqueInfo = boutiqueService.getPlayerBoutiqueInfo(playerID)
         fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, " ").build())
 
         addBackButton()
@@ -38,32 +35,9 @@ class CosmeticTPMenu(val playerID: UUID, previous: Menu? = null) : Menu(
                         hasAnimation = true
                         CosmeticManager.giveCosmetic(playerID, animation)
                     }
-
-                    val lore = ItemLoreBuilder()
-                            .newline()
-                    if (hasAnimation) lore.append("Débloqué", NamedTextColor.GREEN)
-                            .newline()
-                            .append("Cliquez pour utiliser le filtre ${animation.name}")
-                    else lore.append("Bloqué", NamedTextColor.RED)
-                            .newline()
-                            .append("Cliquez pour acheter ${animation.name}")
-                            .newline()
-                            .append("Coût : ${animation.price} lys d'or", NamedTextColor.GRAY)
-                            .newline()
-                            .append("Vous avez : ${playerBoutiqueInfo.marketCurrency} lys d'or", NamedTextColor.GRAY)
-
                     val buttonIndex = if (index < 8) index else index + 1
-                    addButton(
-                        buttonIndex, ItemBuilder(animation.getIcon())
-                                .name(animation.getName())
-                                .lore(lore.get())
-                                .enchanted(playerBoutiqueInfo.activeTpAnimation == animation)
-                                .build()) {
-                        if (hasAnimation)
-                            boutiqueService.setTpAnimation(playerID, animation)
-                        else
-                            boutiqueService.tryToBuy(Bukkit.getPlayer(playerID) ?: return@addButton, this, animation)
-                        this.close()
+                    placeCosmeticButton(buttonIndex, animation, hasAnimation, playerID) {
+                        boutiqueService.setTpAnimation(playerID, it)
                     }
                 }
 
