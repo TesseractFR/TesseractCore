@@ -1,6 +1,6 @@
 package onl.tesseract.core.event;
 
-import onl.tesseract.tesseractlib.TesseractLib;
+import onl.tesseract.core.TesseractCorePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.boss.BarColor;
@@ -54,7 +54,7 @@ public class EntityBossBar implements Listener {
                     map.remove(event.getEntity().getUniqueId());
 
             }
-        }.runTaskLater(TesseractLib.instance, 150));
+        }.runTaskLater(TesseractCorePlugin.instance, 150));
     }
 
     @EventHandler (priority = EventPriority.HIGH)

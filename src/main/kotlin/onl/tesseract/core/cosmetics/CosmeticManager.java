@@ -3,7 +3,7 @@ package onl.tesseract.core.cosmetics;
 import lombok.Getter;
 import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfo;
 import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfoService;
-import onl.tesseract.tesseractlib.TesseractLib;
+import onl.tesseract.core.TesseractCorePlugin;
 import onl.tesseract.core.cosmetics.familier.Pet;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -34,7 +34,7 @@ public class CosmeticManager {
                 TPlayerInfoService.getInstance().save(tPlayerInfo);
             }
         };
-        runnable.runTaskAsynchronously(TesseractLib.instance);
+        runnable.runTaskAsynchronously(TesseractCorePlugin.instance);
     }
 
 
@@ -54,7 +54,7 @@ public class CosmeticManager {
                 }
             }
         };
-        runnable.runTaskAsynchronously(TesseractLib.instance);
+        runnable.runTaskAsynchronously(TesseractCorePlugin.instance);
     }
     public static boolean hasCosmetic(Player player, String type, Cosmetic cosmetic) {
         return hasCosmetic(player.getUniqueId(), type, cosmetic);

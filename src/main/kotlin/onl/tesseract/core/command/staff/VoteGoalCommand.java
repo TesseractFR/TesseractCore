@@ -1,6 +1,6 @@
 package onl.tesseract.core.command.staff;
 
-import onl.tesseract.tesseractlib.TesseractLib;
+import onl.tesseract.core.TesseractCorePlugin;
 import onl.tesseract.core.vote.goal.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -86,7 +86,7 @@ public class VoteGoalCommand implements CommandExecutor, TabCompleter {
         VoteGoal newVoteGoal = new VoteGoal(-1, start.toInstant(), end.toInstant(), quantity, reward);
         VoteGoalRepository.createVoteGoal(newVoteGoal);
         sender.sendMessage(ChatColor.GREEN + "Vote goal créé !");
-        TesseractLib.logger().info("Created new vote goal");
+        TesseractCorePlugin.instance.getLogger().info("Created new vote goal");
     }
 
     public void list(final CommandSender sender, final String[] args)

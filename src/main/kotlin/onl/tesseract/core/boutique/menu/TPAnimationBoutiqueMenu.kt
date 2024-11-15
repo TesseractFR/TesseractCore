@@ -9,6 +9,7 @@ import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.core.cosmetics.CosmeticPreview
 import onl.tesseract.core.cosmetics.TeleportationAnimation
+import onl.tesseract.lib.task.TaskScheduler
 import org.bukkit.Material
 import org.bukkit.entity.Player
 
@@ -55,7 +56,7 @@ class TPAnimationBoutiqueMenu(
                         if (event.isRightClick && !CosmeticPreview.hasPreviewed(viewer.uniqueId, animation))
                         {
                             close()
-                            animation.animate(viewer.getLocation(), 3.0 * 20)
+                            animation.animate(ServiceContainer[TaskScheduler::class.java].plugin, viewer.getLocation(), 3.0 * 20)
                             CosmeticPreview.setPreview(viewer.uniqueId, animation)
                         }
                         else if (event.isLeftClick)

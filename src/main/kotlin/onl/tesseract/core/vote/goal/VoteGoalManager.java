@@ -4,7 +4,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import onl.tesseract.tesseractlib.TesseractLib;
+import onl.tesseract.core.TesseractCorePlugin;
 import onl.tesseract.lib.util.ChatFormats;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -31,7 +31,7 @@ public class VoteGoalManager {
      */
     public static void startLoops()
     {
-        TesseractLib.logger().info("Starting VoteGoalManager");
+        TesseractCorePlugin.instance.getLogger().info("Starting VoteGoalManager");
         new BukkitRunnable() {
             int step = 0;
 
@@ -47,7 +47,7 @@ public class VoteGoalManager {
                 // Display boss bars for 30 seconds every 3 minutes
                 step = (step + 1) % 6;
             }
-        }.runTaskTimerAsynchronously(TesseractLib.instance, REFRESH_RATE * 20, REFRESH_RATE * 20);
+        }.runTaskTimerAsynchronously(TesseractCorePlugin.instance, REFRESH_RATE * 20, REFRESH_RATE * 20);
     }
 
     public static void update()
@@ -122,7 +122,7 @@ public class VoteGoalManager {
 
     private static void onNewGoal(final VoteGoal goal)
     {
-        TesseractLib.logger().info("Detected new vote goal of duration " + goal.getPrintableDuration() + ", goal: " + goal.requiredQuantity());
+        TesseractCorePlugin.instance.getLogger().info("Detected new vote goal of duration " + goal.getPrintableDuration() + ", goal: " + goal.requiredQuantity());
 
         String duration = goal.getPrintableDuration();
         Component[] components = new Component[] {
@@ -154,7 +154,7 @@ public class VoteGoalManager {
 
     private static void onGoalCompleted(final VoteGoal goal)
     {
-        TesseractLib.logger().info("Vote goal completed");
+        TesseractCorePlugin.instance.getLogger().info("Vote goal completed");
         Component component = ChatFormats.VOTE.append(Component.text("Le vote goal a été atteint !"));
         Bukkit.getOnlinePlayers().forEach(p -> {
             p.sendMessage(component);
@@ -169,7 +169,7 @@ public class VoteGoalManager {
 
     private static void onGoalFailed()
     {
-        TesseractLib.logger().info("Vote goal failed");
+        TesseractCorePlugin.instance.getLogger().info("Vote goal failed");
         Component component = ChatFormats.VOTE.append(Component.text("Le vote goal n'a pas été atteint ='("));
         Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(component));
     }

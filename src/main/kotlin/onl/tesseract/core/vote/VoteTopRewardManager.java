@@ -1,9 +1,9 @@
 package onl.tesseract.core.vote;
 
 import net.kyori.adventure.text.Component;
+import onl.tesseract.core.TesseractCorePlugin;
 import onl.tesseract.core.boutique.BoutiqueService;
 import onl.tesseract.lib.service.ServiceContainer;
-import onl.tesseract.tesseractlib.TesseractLib;
 import onl.tesseract.core.persistence.hibernate.vote.VoteRepository;
 import onl.tesseract.lib.util.ChatFormats;
 import org.bukkit.Bukkit;
@@ -26,7 +26,7 @@ public class VoteTopRewardManager {
         {
             if (index == 3)
                 break;
-            TesseractLib.logger().log(Level.INFO, "Giving top " + (index + 1) + " vote reward to " + player.toString());
+            TesseractCorePlugin.instance.getLogger().log(Level.INFO, "Giving top " + (index + 1) + " vote reward to " + player.toString());
             giveReward(player, rewards[index++]);
         }
     }

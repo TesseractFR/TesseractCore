@@ -4,7 +4,7 @@ import onl.tesseract.core.TesseractCorePlugin;
 import onl.tesseract.core.vote.Vote;
 import onl.tesseract.core.vote.VoteManager;
 import onl.tesseract.core.vote.VoteSite;
-import onl.tesseract.tesseractlib.TesseractLib;
+import onl.tesseract.core.TesseractCorePlugin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -66,7 +66,7 @@ public class VoteRepository {
             }
             catch (SQLException throwables)
             {
-                TesseractLib.logger().log(Level.SEVERE, "Failed to retrieve vote sites", throwables);
+                TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to retrieve vote sites", throwables);
             }
             return 0;
         }
@@ -112,7 +112,7 @@ public class VoteRepository {
         }
         catch (SQLException throwables)
         {
-            TesseractLib.logger().log(Level.SEVERE, "Failed to retrieve vote sites", throwables);
+            TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to retrieve vote sites", throwables);
         }
         return Collections.emptyList();
     }
@@ -142,7 +142,7 @@ public class VoteRepository {
         }
         catch (SQLException throwables)
         {
-            TesseractLib.logger().log(Level.SEVERE, "Failed to retrieve vote sites", throwables);
+            TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to retrieve vote sites", throwables);
         }
         return Optional.empty();
     }
@@ -168,7 +168,7 @@ public class VoteRepository {
         }
         catch (SQLException throwables)
         {
-            TesseractLib.logger().log(Level.SEVERE, "Failed to retrieve votes", throwables);
+            TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to retrieve votes", throwables);
         }
         return map;
     }
@@ -191,7 +191,7 @@ public class VoteRepository {
         }
         catch (SQLException throwables)
         {
-            TesseractLib.logger().log(Level.SEVERE, "Failed to retrieve vote keys", throwables);
+            TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to retrieve vote keys", throwables);
         }
         return 0;
     }
@@ -210,7 +210,7 @@ public class VoteRepository {
         }
         catch (SQLException throwables)
         {
-            TesseractLib.logger().log(Level.SEVERE, "Failed to retrieve vote keys", throwables);
+            TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to retrieve vote keys", throwables);
         }
     }
 }

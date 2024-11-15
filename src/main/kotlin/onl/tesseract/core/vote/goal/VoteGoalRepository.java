@@ -1,7 +1,6 @@
 package onl.tesseract.core.vote.goal;
 
 import onl.tesseract.core.TesseractCorePlugin;
-import onl.tesseract.tesseractlib.TesseractLib;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
@@ -54,7 +53,7 @@ public final class VoteGoalRepository {
                 }
                 catch (IllegalArgumentException e)
                 {
-                    TesseractLib.logger().log(Level.WARNING, "Failed to load vote goal from database", e);
+                    TesseractCorePlugin.instance.getLogger().log(Level.WARNING, "Failed to load vote goal from database", e);
                     continue;
                 }
 
@@ -64,7 +63,7 @@ public final class VoteGoalRepository {
         }
         catch (SQLException throwables)
         {
-            TesseractLib.instance.getLogger().log(Level.SEVERE, "Failed to execute sql statement", throwables);
+            TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to execute sql statement", throwables);
         }
         return Collections.emptyList();
     }
@@ -86,7 +85,7 @@ public final class VoteGoalRepository {
         }
         catch (SQLException throwables)
         {
-            TesseractLib.instance.getLogger().log(Level.SEVERE, "Failed to execute sql statement", throwables);
+            TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to execute sql statement", throwables);
             return 0;
         }
     }
@@ -120,7 +119,7 @@ public final class VoteGoalRepository {
         }
         catch (SQLException throwables)
         {
-            TesseractLib.instance.getLogger().log(Level.SEVERE, "Failed to execute sql statement", throwables);
+            TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to execute sql statement", throwables);
         }
     }
 
@@ -147,7 +146,7 @@ public final class VoteGoalRepository {
         }
         catch (SQLException throwables)
         {
-            TesseractLib.instance.getLogger().log(Level.SEVERE, "Failed to retrieve vote goal contributors", throwables);
+            TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to retrieve vote goal contributors", throwables);
             return Collections.emptyList();
         }
     }

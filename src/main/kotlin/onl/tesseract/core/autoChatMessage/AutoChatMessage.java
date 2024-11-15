@@ -3,7 +3,7 @@ package onl.tesseract.core.autoChatMessage;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.kyori.adventure.text.Component;
-import onl.tesseract.tesseractlib.TesseractLib;
+import onl.tesseract.core.TesseractCorePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -44,6 +44,6 @@ public class AutoChatMessage {
                     currentMessageIndex %= messages.size();
                 }
             }
-        }.runTaskTimer(TesseractLib.instance, 0, PERIOD);
+        }.runTaskTimer(TesseractCorePlugin.instance, 0, PERIOD);
     }
 }

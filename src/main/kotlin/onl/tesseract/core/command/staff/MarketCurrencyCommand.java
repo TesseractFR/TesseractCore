@@ -4,7 +4,7 @@ import net.kyori.adventure.text.Component;
 import onl.tesseract.core.boutique.BoutiqueService;
 import onl.tesseract.core.boutique.PlayerBoutiqueInfo;
 import onl.tesseract.lib.service.ServiceContainer;
-import onl.tesseract.tesseractlib.TesseractLib;
+import onl.tesseract.core.TesseractCorePlugin;
 import onl.tesseract.lib.util.ChatFormats;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -78,7 +78,7 @@ public class MarketCurrencyCommand implements CommandExecutor {
                             "Le joueur " + player.getName() + " possède " + playerBoutiqueInfo.getMarketCurrency() + " lys d'or");
                 }
             }
-        }.runTaskAsynchronously(TesseractLib.instance);
+        }.runTaskAsynchronously(TesseractCorePlugin.instance);
 
 
 
