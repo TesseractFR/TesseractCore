@@ -16,12 +16,14 @@ import onl.tesseract.core.command.staff.VoteGoalCommand
 import onl.tesseract.core.command.staff.VoteTopRewardCommand
 import onl.tesseract.core.cosmetics.TrailsAndFilterEventHandlers
 import onl.tesseract.core.cosmetics.familier.PetManager
+import onl.tesseract.core.dailyConnection.DailyConnectionService
 import onl.tesseract.core.event.ColoredChat
 import onl.tesseract.core.event.EntityBossBar
 import onl.tesseract.core.event.PlayerSit
 import onl.tesseract.core.persistence.hibernate.BDDManager
 import onl.tesseract.core.persistence.hibernate.achievement.AchievementHibernateRepository
 import onl.tesseract.core.persistence.hibernate.boutique.BoutiqueHibernateRepository
+import onl.tesseract.core.persistence.hibernate.dailyConnection.DailyConnectionHibernateRepository
 import onl.tesseract.core.persistence.hibernate.title.TitleHibernateRepository
 import onl.tesseract.core.placeholder.TesseractPlaceHolder
 import onl.tesseract.core.title.StaffTitle
@@ -54,6 +56,8 @@ class TesseractCorePlugin : JavaPlugin() {
                 BoutiqueHibernateRepository
             )
         )
+        val dailyConnectionService = DailyConnectionService(config.serverName, DailyConnectionHibernateRepository)
+        ServiceContainer.getInstance().registerService(DailyConnectionService::class.java, dailyConnectionService)
 
         this.server.pluginManager.registerEvents(AfkManager.getINSTANCE(), this)
         this.server.pluginManager.registerEvents(TrailsAndFilterEventHandlers(), this)
@@ -61,6 +65,7 @@ class TesseractCorePlugin : JavaPlugin() {
         this.server.pluginManager.registerEvents(EntityBossBar(), this)
         this.server.pluginManager.registerEvents(PlayerSit(), this)
         this.server.pluginManager.registerEvents(ColoredChat(), this)
+        this.server.pluginManager.registerEvents(dailyConnectionService, this)
 
         TesseractPlaceHolder(this).register()
         registerCommands()

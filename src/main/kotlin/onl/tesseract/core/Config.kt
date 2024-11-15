@@ -13,6 +13,7 @@ class Config private constructor(
     var dbUsername: String,
     var dbPassword: String,
     var dbPort: Int,
+    var serverName: String,
 ) {
     companion object {
         private lateinit var instance: Config
@@ -40,6 +41,7 @@ class Config private constructor(
                 dbPort = yaml.getInt("db_port"),
                 firstSpawnLocation = yaml.getLocation("firstSpawnLocation")
                     ?: throw ConfigurationException("Missing config firstSpawnLocation"),
+                serverName = yaml.getString("server_name") ?: throw ConfigurationException("Missing config server_name"),
             )
         }
     }
