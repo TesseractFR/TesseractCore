@@ -1,6 +1,7 @@
 package onl.tesseract.core.cosmetics.familier;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import onl.tesseract.core.cosmetics.CosmeticManager;
 import onl.tesseract.lib.util.ChatFormats;
 import org.bukkit.entity.ArmorStand;
@@ -38,7 +39,7 @@ public class PetManager implements Listener {
             armorStand = (ArmorStand) p.getWorld().spawnEntity(p.getLocation().add(+0, +1.5, +0.3),
                                                                EntityType.ARMOR_STAND);
             armorStand.setRotation(p.getLocation().getYaw(), p.getLocation().getPitch());
-            armorStand.setCustomName("§6" + pet);
+            armorStand.customName(p.name().color(NamedTextColor.GOLD));
             Objects.requireNonNull(armorStand.getEquipment()).setHelmet(pet.getHead());
             armorStand.setCustomNameVisible(false);
             armorStand.setSmall(true);

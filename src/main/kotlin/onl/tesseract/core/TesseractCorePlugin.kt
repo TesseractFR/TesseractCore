@@ -69,7 +69,7 @@ class TesseractCorePlugin : JavaPlugin() {
         this.server.pluginManager.registerEvents(ColoredChat(), this)
         this.server.pluginManager.registerEvents(dailyConnectionService, this)
 
-        TesseractPlaceHolder(this).register()
+        TesseractPlaceHolder().register()
         registerCommands()
 
         VoteManager.getInstance().init()

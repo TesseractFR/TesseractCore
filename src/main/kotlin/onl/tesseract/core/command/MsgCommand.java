@@ -6,7 +6,6 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import onl.tesseract.core.command.staff.SocialSpy;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -43,7 +42,7 @@ public class MsgCommand implements CommandExecutor {
             sendMessage(sender, other, message.toString(), true);
         }
         else
-            sender.sendMessage(ChatColor.RED + "Joueur introuvable");
+            sender.sendMessage(Component.text("Joueur introuvable", NamedTextColor.RED));
 
         return true;
     }
@@ -53,7 +52,7 @@ public class MsgCommand implements CommandExecutor {
         if (sender.equals(receiver)) return;
         if (receiver instanceof Player && !((OfflinePlayer) receiver).isOnline())
         {
-            sender.sendMessage(ChatColor.RED + receiver.getName() + " s'est déconnecté.");
+            sender.sendMessage(Component.text(receiver.getName() + " s'est déconnecté.", NamedTextColor.RED));
             messages.remove(sender);
             messages.remove(receiver);
             return;

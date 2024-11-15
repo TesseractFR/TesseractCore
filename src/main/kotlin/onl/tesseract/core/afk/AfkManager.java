@@ -1,5 +1,6 @@
 package onl.tesseract.core.afk;
 
+import io.papermc.paper.event.player.AsyncChatEvent;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
@@ -107,7 +108,7 @@ public class AfkManager implements Listener {
     }
 
     @EventHandler()
-    void onChat(PlayerChatEvent event) {
+    void onChat(AsyncChatEvent event) {
         lastMessage.put(event.getPlayer().getUniqueId(), Instant.now());
         if (afks.remove(event.getPlayer().getUniqueId()))
             event.getPlayer().sendMessage(Component.text("Vous n'êtes plus AFK", NamedTextColor.GRAY));

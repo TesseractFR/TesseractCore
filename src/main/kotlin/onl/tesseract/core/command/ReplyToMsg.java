@@ -1,6 +1,7 @@
 package onl.tesseract.core.command;
 
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,7 +25,7 @@ public class ReplyToMsg implements CommandExecutor {
             MsgCommand.sendMessage(sender, receiver, message.toString(), false);
         }
         else
-            sender.sendMessage(ChatColor.RED + "Il n'y a personne à qui répondre.");
+            sender.sendMessage(Component.text("Il n'y a personne à qui répondre.", NamedTextColor.RED));
         return true;
     }
 }
