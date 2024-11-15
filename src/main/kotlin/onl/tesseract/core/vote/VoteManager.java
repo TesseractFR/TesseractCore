@@ -1,7 +1,6 @@
 package onl.tesseract.core.vote;
 
 import onl.tesseract.core.persistence.hibernate.vote.VoteRepository;
-import onl.tesseract.tesseractlib.player.TPlayer;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -45,19 +44,11 @@ public class VoteManager {
         throw new IllegalArgumentException("Unknown vote site");
     }
 
-    public Map<VoteSite, Duration> getRemainingTimeUntilVote(final TPlayer player) {
-        return getRemainingTimeUntilVote(player.getUUID());
-    }
-
     public Map<VoteSite, Duration> getRemainingTimeUntilVote(final UUID player)
     {
         Map<VoteSite, Duration> map = new HashMap<>();
         voteSites.forEach(voteSite -> map.put(voteSite, getRemainingTimeUntilVote(player, voteSite)));
         return map;
-    }
-
-    public Duration getRemainingTimeUntilVote(final TPlayer player, final VoteSite voteSite) {
-        return getRemainingTimeUntilVote(player.getUUID(), voteSite);
     }
 
     public Duration getRemainingTimeUntilVote(final UUID player, final VoteSite voteSite)
