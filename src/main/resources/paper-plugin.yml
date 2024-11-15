@@ -2,3 +2,44 @@ name: TesseractCore
 version: '1.0-SNAPSHOT'
 main: onl.tesseract.core.TesseractCorePlugin
 api-version: '1.21'
+
+commands:
+  msg:
+    aliases: [ tell, w ]
+    usage: "/msg {pseudo} {message}"
+    description: Envoie un message privé
+  reply:
+    aliases: [ r ]
+    usage: "/r {message}"
+    description: Répondre à un message privé
+  socialspy:
+    usage: "/socialspy"
+    description: Espionner les conversations
+    permission: tesseract.staff.socialspy
+  familier:
+    aliases: [ pet, pets ]
+    usage: "/familier"
+    description: Permet d'ouvrir le menu des familiers
+  cosmetic:
+    usage: "/cosmetic"
+    description: Permet de donner ou reprendre des cosmetiques
+  elytraTrail:
+    usage: "/elytraTrail"
+    description: Permet d'ouvrir le menu de selection des trails d'elytra
+  boutique:
+    usage: "/boutique"
+    description: Ouvre la boutique
+  marketCurrency:
+    usage: "/marketCurrency"
+    description: Donne des lys d'or au joueur.
+  votegoal:
+    usage: "/votegoal help"
+    description: Gérer les vote goal
+    permission: tesseract.staff.votegoal
+  vote:
+    usage: "/vote"
+    description: Voter pour le serveur
+  votetopreward:
+    usage: "/votetopreward {reward_top1} {reward_top3} {reward_top3}"
+    permission: tesseract.admin
+    description: Distribuer des récompenses au top 3 voteurs
