@@ -1,5 +1,7 @@
 package onl.tesseract.core.command.staff;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import onl.tesseract.core.TesseractCorePlugin;
 import onl.tesseract.core.vote.goal.*;
 import org.bukkit.ChatColor;
@@ -51,12 +53,12 @@ public class VoteGoalCommand implements CommandExecutor, TabCompleter {
         }
         catch (ParseException e)
         {
-            sender.sendMessage(ChatColor.RED + "Date invalide");
+            sender.sendMessage(Component.text("Date invalide", NamedTextColor.RED));
             return;
         }
         catch (NumberFormatException e)
         {
-            sender.sendMessage(ChatColor.RED + "Quantité invalide");
+            sender.sendMessage(Component.text("Quantité invalide", NamedTextColor.RED));
             return;
         }
 
@@ -70,7 +72,7 @@ public class VoteGoalCommand implements CommandExecutor, TabCompleter {
             }
             catch (IllegalArgumentException e)
             {
-                sender.sendMessage(ChatColor.RED + "Type de récompense invalide");
+                sender.sendMessage(Component.text("Type de récompense invalide", NamedTextColor.RED));
                 return;
             }
             try
@@ -79,13 +81,13 @@ public class VoteGoalCommand implements CommandExecutor, TabCompleter {
             }
             catch (IllegalArgumentException e)
             {
-                sender.sendMessage(ChatColor.RED + "Options de récompense invalides");
+                sender.sendMessage(Component.text("Options de récompense invalides", NamedTextColor.RED));
                 return;
             }
         }
         VoteGoal newVoteGoal = new VoteGoal(-1, start.toInstant(), end.toInstant(), quantity, reward);
         VoteGoalRepository.createVoteGoal(newVoteGoal);
-        sender.sendMessage(ChatColor.GREEN + "Vote goal créé !");
+        sender.sendMessage(Component.text("Vote goal créé !", NamedTextColor.GREEN));
         TesseractCorePlugin.instance.getLogger().info("Created new vote goal");
     }
 

@@ -1,7 +1,8 @@
 package onl.tesseract.core.command.staff;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import onl.tesseract.core.vote.VoteTopRewardManager;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -31,12 +32,13 @@ public class VoteTopRewardCommand implements CommandExecutor {
             }
             catch (NumberFormatException e)
             {
-                sender.sendMessage(ChatColor.RED + "Nombre invalide");
+
+                sender.sendMessage(Component.text("Nombre invalide", NamedTextColor.RED));
             }
         }
 
         VoteTopRewardManager.giveReward(rewards);
-        sender.sendMessage(ChatColor.GREEN + "Récompenses distribuées");
+        sender.sendMessage(Component.text("Récompenses distribuées", NamedTextColor.GREEN));
         return true;
     }
 }

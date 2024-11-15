@@ -1,6 +1,7 @@
 package onl.tesseract.core.command.staff;
 
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,11 +25,11 @@ public class SocialSpy implements CommandExecutor {
 
         if (spies.contains(player.getUniqueId())) {
             spies.remove(player.getUniqueId());
-            sender.sendMessage(ChatColor.LIGHT_PURPLE + "Social spy désactivé");
+            sender.sendMessage(Component.text("Social spy désactivé", NamedTextColor.LIGHT_PURPLE));
         }
         else {
             spies.add(player.getUniqueId());
-            sender.sendMessage(ChatColor.LIGHT_PURPLE + "Social spy activé");
+            sender.sendMessage(Component.text("Social spy activé", NamedTextColor.LIGHT_PURPLE));
         }
 
         return true;

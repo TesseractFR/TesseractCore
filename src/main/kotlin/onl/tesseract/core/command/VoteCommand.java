@@ -1,8 +1,9 @@
 package onl.tesseract.core.command;
 
-import onl.tesseract.core.vote.VoteMenu;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import onl.tesseract.core.TesseractCorePlugin;
-import org.bukkit.ChatColor;
+import onl.tesseract.core.vote.VoteMenu;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -34,7 +35,7 @@ public class VoteCommand implements CommandExecutor {
         catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e)
         {
             TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to instantiate vote menu", e);
-            sender.sendMessage(ChatColor.RED + "Une erreur inattendue est survenue. Veuillez contactez un administrateur.");
+            sender.sendMessage(Component.text("Une erreur inattendue est survenue. Veuillez contactez un administrateur.", NamedTextColor.RED));
             return true;
         }
         voteMenu.open(player);
