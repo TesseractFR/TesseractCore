@@ -102,11 +102,10 @@ abstract class BoutiqueMenu(
     }
 
     private fun buyItem(itemStack: ItemStack, price: Int, withShopPoint: Boolean, viewer: Player) {
-        var hasBuyItem: Boolean
-        if (withShopPoint) {
-            hasBuyItem = buyItemWithShopPoint(itemStack, price)
+        var hasBuyItem: Boolean = if (withShopPoint) {
+            buyItemWithShopPoint(itemStack, price)
         } else {
-            hasBuyItem = buyItemWithLysDor(itemStack, price)
+            buyItemWithLysDor(itemStack, price)
         }
         if (!hasBuyItem) {
             val moneyType = if (withShopPoint) "points boutique" else "lys d'or"

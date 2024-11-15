@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Makes a player sit down when he right clicks a slab or stairs
+ * Makes a player sit down when he right-clicks a slab or stairs
  */
 public class PlayerSit implements Listener {
     static final Map<Player, Pig> map = new HashMap<>();

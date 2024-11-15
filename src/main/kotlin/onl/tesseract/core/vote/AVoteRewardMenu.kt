@@ -65,7 +65,7 @@ abstract class AVoteRewardMenu(val playerID: UUID, size: MenuSize, previous: Men
     }
 
     protected fun hasAmount(amount: Int): Boolean {
-        return VoteRepository.getKeys(playerID) >= amount;
+        return VoteRepository.getKeys(playerID) >= amount
     }
 
     protected fun usePoints(viewer: Player, amount: Int, callback: (Int) -> Unit) {

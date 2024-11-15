@@ -14,6 +14,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class MarketCurrencyCommand implements CommandExecutor {
     @Override
     @SuppressWarnings("deprecation")
@@ -58,7 +60,7 @@ public class MarketCurrencyCommand implements CommandExecutor {
                         boutiqueService.addMarketCurrency(player.getUniqueId(), amount);
                         commandSender.sendMessage("Le joueur " + player.getName() + " a reçu " + amount + " lys d'or");
                         if(player.isOnline())
-                            player.getPlayer().sendMessage(ChatFormats.COSMETICS.append(Component.text("Vous avez reçu "+amount+
+                            Objects.requireNonNull(player.getPlayer()).sendMessage(ChatFormats.COSMETICS.append(Component.text("Vous avez reçu "+amount+
                                                                                                     " lys d'or")));
                     }
                     case "remove" -> {
@@ -71,7 +73,7 @@ public class MarketCurrencyCommand implements CommandExecutor {
                         boutiqueService.addMarketCurrency(player.getUniqueId(), -amount);
                         commandSender.sendMessage("Le joueur " + player.getName() + " a perdu " + amount + " lys d'or");
                         if(player.isOnline())
-                            player.getPlayer().sendMessage(ChatFormats.COSMETICS.append(
+                            Objects.requireNonNull(player.getPlayer()).sendMessage(ChatFormats.COSMETICS.append(
                                     Component.text("Vous avez été déduit de "+amount+" lys d'or")));
                     }
                     case "get" -> commandSender.sendMessage(

@@ -61,7 +61,7 @@ class BoutiqueService(private val repository: BoutiqueRepository) {
                         )
                     ).clickEvent(ClickEvent.openUrl("https://tesseract.craftingstore.net/"))
                 )
-            );
+            )
         }
     }
 

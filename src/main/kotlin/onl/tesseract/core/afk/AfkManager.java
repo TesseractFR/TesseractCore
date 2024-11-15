@@ -27,7 +27,7 @@ import java.util.UUID;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AfkManager implements Listener {
-    static AfkManager INSTANCE = new AfkManager();
+    static final AfkManager INSTANCE = new AfkManager();
     Set<UUID> afks = new HashSet<>();
     HashMap<UUID, Instant> lastMessage = new HashMap<>();
     HashMap<UUID, Instant> lastMove = new HashMap<>();

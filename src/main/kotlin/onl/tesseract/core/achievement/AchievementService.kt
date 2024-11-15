@@ -46,7 +46,7 @@ class AchievementService(private val repository: AchievementRepository) {
 
         repository.addAchievementToPlayer(playerUUID, achievement)
         val player = Bukkit.getPlayer(playerUUID) ?: return
-        player.sendMessage(ChatFormats.HAUT_FAIT.append(Component.text("Vous avez obtenu le haut-fait ")));
+        player.sendMessage(ChatFormats.HAUT_FAIT.append(Component.text("Vous avez obtenu le haut-fait ")))
         player.sendMessage(
             Component.empty().append(Component.text("      « ").color(NamedTextColor.AQUA))
                 .append(Component.text(achievement.displayName).color(NamedTextColor.AQUA))
@@ -68,7 +68,7 @@ class AchievementService(private val repository: AchievementRepository) {
                                     Component.text(achievement.condition).color(NamedTextColor.AQUA)
                                 )
                             ).append(Component.text(" » ").color(NamedTextColor.AQUA))
-                    );
+                    )
                 }
         }
     }

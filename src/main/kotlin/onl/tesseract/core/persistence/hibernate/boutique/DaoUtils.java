@@ -29,8 +29,7 @@ public class DaoUtils {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<T> criteria = builder.createQuery(type);
         criteria.from(type);
-        List<T> data = session.createQuery(criteria).getResultList();
-        return data;
+        return session.createQuery(criteria).getResultList();
     }
 
 }

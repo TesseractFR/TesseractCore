@@ -1,10 +1,9 @@
 package onl.tesseract.core.cosmetics;
 
-import lombok.Getter;
-import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfo;
-import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfoService;
 import onl.tesseract.core.TesseractCorePlugin;
 import onl.tesseract.core.cosmetics.familier.Pet;
+import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfo;
+import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfoService;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -12,8 +11,6 @@ import java.util.Set;
 import java.util.UUID;
 
 public class CosmeticManager {
-    @Getter
-    private static final CosmeticManager instance = new CosmeticManager();
 
     public static void giveCosmetic(UUID uuid, Cosmetic cosmetic) {
 

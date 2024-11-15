@@ -71,7 +71,7 @@ class PetSelectionMenu(val playerID: UUID, val category: PetCategory, previous: 
                 viewer.sendMessage(
                     ChatFormats.PET.append(
                         Component.text(
-                            "Vous n'avez pas de familier invoqué", NamedTextColor.RED)));
+                            "Vous n'avez pas de familier invoqué", NamedTextColor.RED)))
             }
         }
         this.addBackButton()

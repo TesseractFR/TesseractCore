@@ -71,9 +71,9 @@ class TrailsAndFilterEventHandlers : Listener {
                         )
                     )
             else if (selectedFilter == FlyFilter.POTION || selectedFilter == FlyFilter.MUSICAL)
-                loc.getWorld().spawnParticle(particle, loc, 15, .5, .5, .5, 0.2);
+                loc.getWorld().spawnParticle(particle, loc, 15, .5, .5, .5, 0.2)
             else
-                loc.getWorld().spawnParticle(particle, loc, 15, .5, .5, .5, extra);
+                loc.getWorld().spawnParticle(particle, loc, 15, .5, .5, .5, extra)
         }, 0, 10)
     }
 }
