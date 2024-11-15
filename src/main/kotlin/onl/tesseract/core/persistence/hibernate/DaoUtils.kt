@@ -6,7 +6,6 @@ import org.hibernate.Transaction
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.lang.Exception
-import java.util.function.Consumer
 
 object DaoUtils {
     val log: Logger = LoggerFactory.getLogger(DaoUtils::class.java)

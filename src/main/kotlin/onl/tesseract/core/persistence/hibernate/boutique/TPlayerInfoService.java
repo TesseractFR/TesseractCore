@@ -1,7 +1,6 @@
 package onl.tesseract.core.persistence.hibernate.boutique;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.slf4j.Logger;

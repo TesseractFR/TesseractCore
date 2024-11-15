@@ -3,6 +3,7 @@ package onl.tesseract.core.event;
 import onl.tesseract.core.TesseractCorePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
@@ -38,7 +39,12 @@ public class EntityBossBar implements Listener {
 
         // Update the bar
         if (! map.containsKey(event.getEntity().getUniqueId())) return;
-        map.get(event.getEntity().getUniqueId()).setProgress(Math.max(0, (living.getHealth() - event.getFinalDamage())) / living.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+        AttributeInstance maxHealthAttribute = living.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        if (maxHealthAttribute == null) {
+            TesseractCorePlugin.instance.getLogger().warning(() -> "[EntityBossBar] Entity " + living.getName() + " has no attribute Max Health");
+            return;
+        }
+        map.get(event.getEntity().getUniqueId()).setProgress(Math.max(0, (living.getHealth() - event.getFinalDamage())) / maxHealthAttribute.getBaseValue());
 
         // Remove the bossBar after 5 seconds
         if (tasks.containsKey(event.getEntity().getUniqueId()))
@@ -50,7 +56,7 @@ public class EntityBossBar implements Listener {
                 BossBar b = map.get(event.getEntity().getUniqueId());
                 b.removeAll();
                 tasks.remove(event.getEntity().getUniqueId());
-                if (b.getPlayers().size() == 0)
+                if (b.getPlayers().isEmpty())
                     map.remove(event.getEntity().getUniqueId());
 
             }

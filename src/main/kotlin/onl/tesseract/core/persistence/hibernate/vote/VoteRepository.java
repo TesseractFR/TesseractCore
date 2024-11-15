@@ -4,7 +4,6 @@ import onl.tesseract.core.TesseractCorePlugin;
 import onl.tesseract.core.vote.Vote;
 import onl.tesseract.core.vote.VoteManager;
 import onl.tesseract.core.vote.VoteSite;
-import onl.tesseract.core.TesseractCorePlugin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

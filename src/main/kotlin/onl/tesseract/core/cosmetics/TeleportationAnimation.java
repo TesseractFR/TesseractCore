@@ -11,8 +11,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.function.BiFunction;
-
 public enum TeleportationAnimation implements CosmeticWithMaterial {
     WATER("Eau", Material.WATER_BUCKET, (plugin, location, duration) -> {
         return new SmoothCylinder(plugin)
@@ -208,9 +206,9 @@ public enum TeleportationAnimation implements CosmeticWithMaterial {
             }),
     ;
 
-    Component name;
-    Material icon;
-    TriFunction<Plugin, Location, Double, Animation> animation;
+    private final Component name;
+    private final Material icon;
+    private final TriFunction<Plugin, Location, Double, Animation> animation;
 
     TeleportationAnimation(String name, Material icon, TriFunction<Plugin, Location, Double, Animation> animation)
     {

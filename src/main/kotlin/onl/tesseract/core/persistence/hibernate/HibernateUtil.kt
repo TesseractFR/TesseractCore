@@ -11,6 +11,7 @@ import org.hibernate.service.ServiceRegistry
 import org.hibernate.tool.schema.Action
 import java.lang.Exception
 
+
 object HibernateUtil {
     val sessionFactory: SessionFactory = buildSessionFactory()
 
@@ -22,10 +23,10 @@ object HibernateUtil {
             configuration.addAnnotatedClass(TPlayerInfo::class.java)
             configuration.addAnnotatedClass(Achievement::class.java)
             val serviceRegistry: ServiceRegistry? =
-                StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build()
+                StandardServiceRegistryBuilder().applySettings(configuration.properties).build()
             return configuration.buildSessionFactory(serviceRegistry)
         } catch (ex: Exception) {
-            System.err.println("Initial SessionFactory creation failed." + ex)
+            System.err.println("Initial SessionFactory creation failed.$ex")
             throw ExceptionInInitializerError(ex)
         }
     }

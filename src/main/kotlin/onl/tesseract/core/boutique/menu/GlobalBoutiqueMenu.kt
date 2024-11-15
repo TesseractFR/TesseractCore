@@ -81,7 +81,7 @@ class GlobalBoutiqueMenu(val playerID: UUID, previous: Menu? = null) :
              PetBoutiqueMenu(player, this).open(viewer)
         }
         val totalTPAnimationPossessed =
-            CosmeticManager.getTotalPossessed(playerID, TeleportationAnimation.getTypeName());
+            CosmeticManager.getTotalPossessed(playerID, TeleportationAnimation.getTypeName())
         addButton(
             16, ItemBuilder(Material.ENDER_PEARL)
                 .name("Animations de Téléportation")
