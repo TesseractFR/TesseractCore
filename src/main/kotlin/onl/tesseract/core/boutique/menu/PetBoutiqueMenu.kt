@@ -26,26 +26,28 @@ class PetBoutiqueMenu(
             category.pets.forEach { pet ->
                 if (boutiqueService.hasCosmetic(player.uniqueId, Pet.getTypeName(), pet)) {
                     addButton(
-                        i++, ItemBuilder(Material.STRUCTURE_VOID, pet.getName())
-                            .lore()
-                            .append("Vous possédez déjà ce familier", NamedTextColor.GRAY)
-                            .buildLore()
-                            .build()
+                        i++, ItemBuilder(Material.STRUCTURE_VOID)
+                                .name(pet.getName())
+                                .lore()
+                                .append("Vous possédez déjà ce familier", NamedTextColor.GRAY)
+                                .buildLore()
+                                .build()
                     )
                 } else {
                     addButton(
                         i++, ItemBuilder(pet.head)
-                            .name(pet.getname())
-                            .lore()
-                            .append("Cliquez pour acheter ${pet.getname()}")
-                            .newline()
-                            .append("Coût : " + pet.price + " lys d'or", NamedTextColor.GRAY)
-                            .append(
-                                "Vous avez : " + playerBoutiqueInfo.marketCurrency + " lys d'or",
-                                NamedTextColor.GRAY
-                            )
-                            .buildLore()
-                            .build()
+                                .name(pet.getname())
+                                .lore()
+                                .append("Cliquez pour acheter ")
+                                .append(pet.getname())
+                                .newline()
+                                .append("Coût : " + pet.price + " lys d'or", NamedTextColor.GRAY)
+                                .append(
+                                    "Vous avez : " + playerBoutiqueInfo.marketCurrency + " lys d'or",
+                                    NamedTextColor.GRAY
+                                )
+                                .buildLore()
+                                .build()
                     ) {
                         boutiqueService.tryToBuy(player, this, pet)
                     }

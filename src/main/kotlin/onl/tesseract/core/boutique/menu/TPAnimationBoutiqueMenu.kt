@@ -36,7 +36,7 @@ class TPAnimationBoutiqueMenu(
                     else Component.text("prévisualiser", NamedTextColor.GRAY)
 
                     addButton(i, ItemBuilder(animation.icon)
-                        .name(animation.getName(), NamedTextColor.GOLD)
+                        .name(animation.getName())
                         .lore()
                         .newline()
                         .append("Clic gauche : ", NamedTextColor.GRAY)
@@ -76,7 +76,8 @@ class TPAnimationBoutiqueMenu(
 
     private fun alreadyPossessedButton(index: Int, animation: TeleportationAnimation) {
         addButton(
-            index, ItemBuilder(Material.STRUCTURE_VOID, animation.getName())
+            index, ItemBuilder(Material.STRUCTURE_VOID)
+                .name(animation.getName())
                 .lore()
                 .append("Vous possédez déjà ce effet de téléportation", NamedTextColor.GRAY)
                 .buildLore()

@@ -208,13 +208,13 @@ public enum TeleportationAnimation implements CosmeticWithMaterial {
             }),
     ;
 
-    String name;
+    Component name;
     Material icon;
     TriFunction<Plugin, Location, Double, Animation> animation;
 
     TeleportationAnimation(String name, Material icon, TriFunction<Plugin, Location, Double, Animation> animation)
     {
-        this.name = name;
+        this.name = Component.text(name);
         this.icon = icon;
         this.animation = animation;
     }
@@ -248,7 +248,7 @@ public enum TeleportationAnimation implements CosmeticWithMaterial {
         return 300;
     }
 
-    public String getName()
+    public Component getName()
     {
         return name;
     }

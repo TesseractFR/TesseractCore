@@ -40,17 +40,17 @@ public enum Pet implements Cosmetic {
 
 
     final PetHead head;
-    final String name;
+    final Component name;
 
     Pet(PetHead head)
     {
         this.head = head;
-        name = toString().charAt(0) + toString().substring(1).toLowerCase();
+        name = Component.text(toString().charAt(0) + toString().substring(1).toLowerCase());
     }
 
     Pet(PetHead head, String name)
     {
-        this.name = name;
+        this.name = Component.text(name);
         this.head = head;
     }
 
@@ -59,7 +59,7 @@ public enum Pet implements Cosmetic {
         return "Pet";
     }
 
-    public String getname()
+    public Component getname()
     {
         return name;
     }
@@ -78,7 +78,7 @@ public enum Pet implements Cosmetic {
     }
 
     @Override
-    public String getName()
+    public Component getName()
     {
         return name;
     }

@@ -1,29 +1,30 @@
 package onl.tesseract.core.cosmetics;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 
 public enum FlyFilter implements CosmeticWithMaterial {
-    AMOUR(ChatColor.GRAY + "Amour", Material.APPLE, 2, Particle.HEART),
-    COLERE(ChatColor.DARK_RED + "Colère", Material.NETHER_WART, 3, Particle.ANGRY_VILLAGER),
-    CONNAISSANCE(ChatColor.BLUE+"Connaissance",Material.BOOK,4,Particle.ENCHANT),
-    MUSICAL(ChatColor.DARK_AQUA + "Musical", Material.NOTE_BLOCK, 5, Particle.NOTE),
-    ENDER(ChatColor.DARK_PURPLE + "Ender", Material.ENDER_PEARL,6, Particle.DRAGON_BREATH),
-    INCENDIAIRE(ChatColor.GOLD + "Incendiaire", Material.FIRE_CHARGE, 11, Particle.LAVA),
-    REDSTONE(ChatColor.DARK_RED + "Redstone", Material.REDSTONE, 12, Particle.DUST),
-    POTION(ChatColor.LIGHT_PURPLE + "Potion", Material.DRAGON_BREATH, 13, Particle.DRAGON_BREATH),
-    FUMEE(ChatColor.DARK_GRAY + "Fumée noire", Material.CHARCOAL, 14, Particle.LARGE_SMOKE),
-    NEBULEUX(ChatColor.WHITE + "Nébuleux", Material.FEATHER, 15, Particle.END_ROD),
-    NONE(ChatColor.GOLD + "Flammes", Material.BLAZE_POWDER, 2, Particle.FLAME);
+    AMOUR(Component.text("Amour", NamedTextColor.GRAY), Material.APPLE, 2, Particle.HEART),
+    COLERE(Component.text("Colère", NamedTextColor.DARK_RED), Material.NETHER_WART, 3, Particle.ANGRY_VILLAGER),
+    CONNAISSANCE(Component.text("Connaissance", NamedTextColor.BLUE), Material.BOOK,4,Particle.ENCHANT),
+    MUSICAL(Component.text("Musical", NamedTextColor.DARK_AQUA), Material.NOTE_BLOCK, 5, Particle.NOTE),
+    ENDER(Component.text("Ender", NamedTextColor.DARK_PURPLE), Material.ENDER_PEARL,6, Particle.DRAGON_BREATH),
+    INCENDIAIRE(Component.text("Incendiaire", NamedTextColor.GOLD), Material.FIRE_CHARGE, 11, Particle.LAVA),
+    REDSTONE(Component.text("Redstone", NamedTextColor.DARK_RED), Material.REDSTONE, 12, Particle.DUST),
+    POTION(Component.text("Potion", NamedTextColor.LIGHT_PURPLE), Material.DRAGON_BREATH, 13, Particle.DRAGON_BREATH),
+    FUMEE(Component.text("Fumée noire", NamedTextColor.DARK_GRAY), Material.CHARCOAL, 14, Particle.LARGE_SMOKE),
+    NEBULEUX(Component.text("Nébuleux", NamedTextColor.WHITE), Material.FEATHER, 15, Particle.END_ROD),
+    NONE(Component.text("Flammes", NamedTextColor.GOLD), Material.BLAZE_POWDER, 2, Particle.FLAME);
 
-    final String name;
+    final Component name;
     final Material material;
     final int index;
     final Particle particle;
 
-    FlyFilter(String s, Material m, int i, Particle p)
+    FlyFilter(Component s, Material m, int i, Particle p)
     {
         name = s;
         material = m;
@@ -39,11 +40,11 @@ public enum FlyFilter implements CosmeticWithMaterial {
     @Override
     public Component getObtainMessage()
     {
-        return Component.text("Vous avez obtenu le filtre de vol " + getName());
+        return Component.text("Vous avez obtenu le filtre de vol ").append(getName());
     }
 
     @Override
-    public String getName()
+    public Component getName()
     {
         return name;
     }
