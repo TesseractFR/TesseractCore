@@ -5,7 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 
-public enum ElytraTrails implements Cosmetic {
+public enum ElytraTrails implements CosmeticWithMaterial {
     ENDER(ChatColor.DARK_PURPLE + "Ender", Material.ENDER_PEARL, 1, Particle.DRAGON_BREATH),
     FLAME(ChatColor.GOLD + "Flammes", Material.BLAZE_POWDER, 2, Particle.FLAME),
     CLOUD(ChatColor.GRAY + "Nuages", Material.PHANTOM_MEMBRANE, 3, Particle.CLOUD),

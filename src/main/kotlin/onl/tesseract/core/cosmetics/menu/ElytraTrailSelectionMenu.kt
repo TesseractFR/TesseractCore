@@ -1,21 +1,18 @@
 package onl.tesseract.core.cosmetics.menu
 
-import net.kyori.adventure.text.format.NamedTextColor
 import onl.tesseract.core.boutique.BoutiqueService
+import onl.tesseract.core.cosmetics.CosmeticManager
+import onl.tesseract.core.cosmetics.ElytraTrails
 import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.core.cosmetics.CosmeticManager
-import onl.tesseract.core.cosmetics.ElytraTrails
-import onl.tesseract.lib.util.ItemLoreBuilder
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import java.util.UUID
 
-class ElytraTrailSelectionMenu(val playerID: UUID, previous: Menu? = null) : Menu(
-    MenuSize.Three, "Sillages d'ailes", NamedTextColor.BLUE, previous
+class ElytraTrailSelectionMenu(val playerID: UUID, previous: Menu? = null) : AbstractCosmeticMenu(
+    MenuSize.Three, "Sillages d'ailes", previous
 ) {
 
     override fun placeButtons(viewer: Player) {
@@ -27,29 +24,13 @@ class ElytraTrailSelectionMenu(val playerID: UUID, previous: Menu? = null) : Men
             if (trail != ElytraTrails.NONE) {
                 val hasTrail = CosmeticManager.hasCosmetic(playerID, ElytraTrails.getTypeName(), trail)
 
-                val lore = ItemLoreBuilder().newline()
-                if (hasTrail) lore.append("Débloqué", NamedTextColor.GREEN).newline()
-                    .append("Cliquez pour utiliser le sillage ${trail.name}")
-                else lore.append("Bloqué", NamedTextColor.RED).newline().append("Cliquez pour acheter ${trail.name}")
-                    .newline().append("Coût : ${trail.price} lys d'or", NamedTextColor.GRAY).newline()
-                    .append("Vous avez : ${playerBoutiqueInfo.marketCurrency} lys d'or", NamedTextColor.GRAY)
-
-                addButton(
-                    trail.index,
-                    ItemBuilder(trail.material).name(trail.name).enchanted(playerBoutiqueInfo.activeTrail == trail)
-                        .lore(lore.get()).build()
-                ) {
-                    if (hasTrail) {
-                        boutiqueService.setActiveElytraTrail(playerID, trail)
-                        this.close()
-                    } else {
-                        boutiqueService.tryToBuy(Bukkit.getPlayer(playerID) ?: return@addButton, this, trail)
-                    }
+                placeCosmeticButton(trail.index, trail, hasTrail, playerID) {
+                    boutiqueService.setActiveElytraTrail(playerID, it)
                 }
             } else {
                 addButton(
                     22,
-                    ItemBuilder(trail.getMaterial()).name(trail.name).enchanted(playerBoutiqueInfo.activeTrail == trail)
+                    ItemBuilder(trail.material).name(trail.name).enchanted(playerBoutiqueInfo.activeTrail == trail)
                         .build()
                 ) {
                     boutiqueService.setActiveElytraTrail(playerID, trail)
