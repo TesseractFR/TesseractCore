@@ -201,7 +201,7 @@ class VoteMenu(
 
 
         val pseudo = Bukkit.getOfflinePlayer(playerID).name ?: "??"
-        addButton(4, async = {
+        addButton(4, TesseractCorePlugin.instance, async = {
             val playerHead = ServiceContainer[PlayerProfileService::class.java].getPlayerHead(playerID)
             ItemBuilder(playerHead)
                 .name(pseudo, NamedTextColor.GOLD)

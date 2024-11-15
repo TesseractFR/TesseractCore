@@ -1,12 +1,11 @@
 package onl.tesseract.core.afk;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import onl.tesseract.tesseractlib.TesseractLib;
+import onl.tesseract.core.TesseractCorePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -54,7 +53,7 @@ public class AfkManager implements Listener {
                     lastLocations.put(player.getUniqueId(), player.getLocation());
                 });
             }
-        }.runTaskTimer(TesseractLib.instance, 0L, 10 * 20L);
+        }.runTaskTimer(TesseractCorePlugin.instance, 0L, 10 * 20L);
     }
 
     private boolean isAfkChat(Player player) {

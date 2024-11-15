@@ -2,18 +2,19 @@ package onl.tesseract.core.cosmetics;
 
 import net.kyori.adventure.text.Component;
 import onl.tesseract.lib.animation.*;
-import onl.tesseract.tesseractlib.TesseractLib;
+import onl.tesseract.lib.util.TriFunction;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.function.BiFunction;
 
 public enum TeleportationAnimation implements Cosmetic {
-    WATER("Eau", Material.WATER_BUCKET, (location, duration) -> {
-        return new SmoothCylinder()
+    WATER("Eau", Material.WATER_BUCKET, (plugin, location, duration) -> {
+        return new SmoothCylinder(plugin)
                 .setParticle(Particle.DRIPPING_WATER)
                 .setLocation(location)
                 .setRadius(1)
@@ -21,8 +22,8 @@ public enum TeleportationAnimation implements Cosmetic {
                 .setDelay(duration / 30f)
                 .build();
     }),
-    LAVA("Lave", Material.LAVA_BUCKET, (location, duration) -> {
-        return new SmoothCylinder()
+    LAVA("Lave", Material.LAVA_BUCKET, (plugin, location, duration) -> {
+        return new SmoothCylinder(plugin)
                 .setParticle(Particle.DRIPPING_LAVA)
                 .setLocation(location)
                 .setRadius(1)
@@ -30,8 +31,8 @@ public enum TeleportationAnimation implements Cosmetic {
                 .setDelay(duration / 30f)
                 .build();
     }),
-    HONEY("Miel", Material.HONEYCOMB, (location, duration) -> {
-        return new SmoothCylinder()
+    HONEY("Miel", Material.HONEYCOMB, (plugin, location, duration) -> {
+        return new SmoothCylinder(plugin)
                 .setParticle(Particle.DRIPPING_HONEY)
                 .setLocation(location)
                 .setRadius(1)
@@ -39,8 +40,8 @@ public enum TeleportationAnimation implements Cosmetic {
                 .setDelay(duration / 30f)
                 .build();
     }),
-    SPIRAL("Spiral", Material.ENDER_EYE, (location, duration) -> {
-        return new Circle(Particle.DRAGON_BREATH, new AnimationTarget(location))
+    SPIRAL("Spiral", Material.ENDER_EYE, (plugin, location, duration) -> {
+        return new Circle(Particle.DRAGON_BREATH, new AnimationTarget(location), plugin)
                 .setRadius(1)
                 .setSpacing(0.05f)
                 .setDelay(duration / 250f)
@@ -49,8 +50,8 @@ public enum TeleportationAnimation implements Cosmetic {
                 .setOnDraw(circle -> circle.setOrigin(new AnimationTarget(location.add(0, 0.03, 0))))
                 .build();
     }),
-    FIRE_SPIRAL("Spiral de feu", Material.LANTERN, (location, duration) -> {
-        return new Circle(Particle.FLAME, new AnimationTarget(location))
+    FIRE_SPIRAL("Spiral de feu", Material.LANTERN, (plugin, location, duration) -> {
+        return new Circle(Particle.FLAME, new AnimationTarget(location), plugin)
                 .setRadius(1)
                 .setSpacing(0.05f)
                 .setDelay(duration / 250f)
@@ -59,8 +60,8 @@ public enum TeleportationAnimation implements Cosmetic {
                 .setOnDraw(circle -> circle.setOrigin(new AnimationTarget(location.add(0, 0.03, 0))))
                 .build();
     }),
-    SPHERE("Sphère", Material.HEART_OF_THE_SEA, (location, duration) -> {
-        return new Sphere()
+    SPHERE("Sphère", Material.HEART_OF_THE_SEA, (plugin, location, duration) -> {
+        return new Sphere(plugin)
                 .setParticle(Particle.DUST)
                 .setColor(Color.RED)
                 .setOrigin(new AnimationTarget(location.add(0, 1, 0)))
@@ -69,8 +70,8 @@ public enum TeleportationAnimation implements Cosmetic {
                 .setRotationCount(2)
                 .build();
     }),
-    DIVIN("Divin", Material.BEACON, (location, duration) -> {
-        return new Cylinder().setParticle(Particle.HAPPY_VILLAGER)
+    DIVIN("Divin", Material.BEACON, (plugin, location, duration) -> {
+        return new Cylinder(plugin).setParticle(Particle.HAPPY_VILLAGER)
                 .setLocation(location)
                 .setRadius(1)
                 .setHeight(20)
@@ -78,7 +79,7 @@ public enum TeleportationAnimation implements Cosmetic {
                 .setDelay(duration / 66.7f)
                 .build();
     }),
-    SMOKE("Fumée", Material.CHARCOAL, (location, duration) ->
+    SMOKE("Fumée", Material.CHARCOAL, (plugin, location, duration) ->
             () -> {
                 new BukkitRunnable() {
                     int count = (int) (duration / 5);
@@ -91,9 +92,9 @@ public enum TeleportationAnimation implements Cosmetic {
                         if (count-- <= 0)
                             this.cancel();
                     }
-                }.runTaskTimer(TesseractLib.instance, 0, 5);
+                }.runTaskTimer(plugin, 0, 5);
             }),
-    DESINTEGRATION("Désintégration", Material.COCOA_BEANS, (location, duration) ->
+    DESINTEGRATION("Désintégration", Material.COCOA_BEANS, (plugin, location, duration) ->
             () -> {
                 new BukkitRunnable() {
                     int count = (int) (duration / 5);
@@ -106,9 +107,9 @@ public enum TeleportationAnimation implements Cosmetic {
                         if (count-- <= 0)
                             this.cancel();
                     }
-                }.runTaskTimer(TesseractLib.instance, 0, 5);
+                }.runTaskTimer(plugin, 0, 5);
             }),
-    RAIN("Pluie", Material.SPLASH_POTION, (location, duration) ->
+    RAIN("Pluie", Material.SPLASH_POTION, (plugin, location, duration) ->
             () -> {
                 new BukkitRunnable() {
                     int count = (int) (duration / 2);
@@ -121,9 +122,9 @@ public enum TeleportationAnimation implements Cosmetic {
                         if (count-- <= 0)
                             this.cancel();
                     }
-                }.runTaskTimer(TesseractLib.instance, 0, 2);
+                }.runTaskTimer(plugin, 0, 2);
             }),
-    FLAME("Flame", Material.FLINT_AND_STEEL, (location, duration) ->
+    FLAME("Flame", Material.FLINT_AND_STEEL, (plugin, location, duration) ->
             () -> {
                 new BukkitRunnable() {
                     int count = (int) (duration / 5);
@@ -136,9 +137,9 @@ public enum TeleportationAnimation implements Cosmetic {
                         if (count-- <= 0)
                             this.cancel();
                     }
-                }.runTaskTimer(TesseractLib.instance, 0, 5);
+                }.runTaskTimer(plugin, 0, 5);
             }),
-    INCENDIARY("Incendiaire", Material.FIRE_CHARGE, (location, duration) ->
+    INCENDIARY("Incendiaire", Material.FIRE_CHARGE, (plugin, location, duration) ->
             () -> {
                 new BukkitRunnable() {
                     int count = (int) (duration / 5);
@@ -151,10 +152,10 @@ public enum TeleportationAnimation implements Cosmetic {
                         if (count-- <= 0)
                             this.cancel();
                     }
-                }.runTaskTimer(TesseractLib.instance, 0, 5);
+                }.runTaskTimer(plugin, 0, 5);
             }),
-    THUNDER("Éclair", Material.TRIDENT, (location, duration) -> {
-        return new Circle(Particle.LARGE_SMOKE, new AnimationTarget(location))
+    THUNDER("Éclair", Material.TRIDENT, (plugin, location, duration) -> {
+        return new Circle(Particle.LARGE_SMOKE, new AnimationTarget(location), plugin)
                 .setRadius(1)
                 .setOriginCount(2)
                 .setRotationCount(3)
@@ -162,7 +163,7 @@ public enum TeleportationAnimation implements Cosmetic {
                 .setOnFinish(a -> location.getWorld().strikeLightningEffect(location))
                 .build();
     }),
-    DEMONIC("Démoniaque", Material.NETHER_STAR, (location, duration) ->
+    DEMONIC("Démoniaque", Material.NETHER_STAR, (plugin, location, duration) ->
             () -> {
                 new BukkitRunnable() {
                     int i = 0;
@@ -176,27 +177,27 @@ public enum TeleportationAnimation implements Cosmetic {
                                     2.1 * Math.sin(k * Math.PI * 0.4));
                         for (int k = 0; k < 5; k++)
                         {
-                            new Line(Particle.DUST, points[k], points[(k + 2) % 5]).setColor(Color.RED).setDelay(0)
+                            new Line(Particle.DUST, points[k], points[(k + 2) % 5], plugin).setColor(Color.RED).setDelay(0)
                                     .draw();
-                            new Line(Particle.DUST, points[k], points[(k + 3) % 5]).setColor(Color.RED).setDelay(0)
+                            new Line(Particle.DUST, points[k], points[(k + 3) % 5], plugin).setColor(Color.RED).setDelay(0)
                                     .draw();
                         }
 
                         if (++i >= duration)
                             this.cancel();
                     }
-                }.runTaskTimer(TesseractLib.instance, 0, 1);
+                }.runTaskTimer(plugin, 0, 1);
             }),
-    ROSETTE("Rosace", Material.END_ROD, (location, duration) ->
+    ROSETTE("Rosace", Material.END_ROD, (plugin, location, duration) ->
             () -> {
-                new CollapsingRosette().location(location.add(0, 0.2, 0))
+                new CollapsingRosette(plugin).location(location.add(0, 0.2, 0))
                         .speed(0.25)
                         .count(75)
                         .radius(3.5)
                         .particle(Particle.END_ROD)
                         .time(duration + 5)
                         .draw();
-                new CollapsingRosette().location(location.add(0, 6, 0))
+                new CollapsingRosette(plugin).location(location.add(0, 6, 0))
                         .speed(0.2)
                         .count(75)
                         .radius(3.5)
@@ -208,9 +209,9 @@ public enum TeleportationAnimation implements Cosmetic {
 
     String name;
     Material icon;
-    BiFunction<Location, Double, Animation> animation;
+    TriFunction<Plugin, Location, Double, Animation> animation;
 
-    TeleportationAnimation(String name, Material icon, BiFunction<Location, Double, Animation> animation)
+    TeleportationAnimation(String name, Material icon, TriFunction<Plugin, Location, Double, Animation> animation)
     {
         this.name = name;
         this.icon = icon;
@@ -222,14 +223,14 @@ public enum TeleportationAnimation implements Cosmetic {
         return "TPAnimation";
     }
 
-    public void animate(Location location, double duration)
+    public void animate(Plugin plugin, Location location, double duration)
     {
-        animation.apply(location.clone(), duration).draw();
+        animation.call(plugin, location.clone(), duration).draw();
     }
 
-    public Animation getAnimation(final Location location, final double delay)
+    public Animation getAnimation(Plugin plugin, final Location location, final double delay)
     {
-        return animation.apply(location, delay);
+        return animation.call(plugin, location, delay);
     }
 
     @Override
