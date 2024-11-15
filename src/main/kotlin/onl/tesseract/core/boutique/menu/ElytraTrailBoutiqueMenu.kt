@@ -33,7 +33,8 @@ class ElytraTrailBoutiqueMenu(
                         .name(trail.getName())
                         .lore(
                             ItemLoreBuilder()
-                                .append("Cliquez pour acheter ${trail.getName()}")
+                                .append("Cliquez pour acheter ")
+                                .append(trail.getName())
                                 .newline()
                                 .append("Coût : ${trail.price} lys d'or", NamedTextColor.GRAY)
                                 .newline()

@@ -28,7 +28,8 @@ class FlyFilterBoutiqueMenu(
                 addButton(
                     filter.index, ItemBuilder(filter.material, filter.name)
                         .lore()
-                        .append("Cliquez pour acheter ${filter.getName()}")
+                        .append("Cliquez pour acheter ")
+                        .append(filter.getName())
                         .newline()
                         .append("Coût : ${filter.price} lys d'or", NamedTextColor.GRAY)
                         .newline()
