@@ -12,21 +12,42 @@ import org.bukkit.event.player.PlayerJoinEvent
 import java.time.LocalDateTime
 import java.util.UUID
 
+/**
+ * Service used to track a player's first and last connection to a server
+ */
 class DailyConnectionService(
+    /**
+     * Name of the current server
+     */
     val server: String,
     private val repository: DailyConnectionRepository,
 ) : Listener {
 
+    /**
+     * Check if a player has joined the server today
+     * @param playerID Player
+     * @param server Name of the server to check, or null to check globally across servers
+     */
     fun hasPlayedToday(playerID: UUID, server: String?): Boolean {
         val lastConnection = getLastConnectionDate(playerID, server) ?: return false
         val now = LocalDateTime.now()
         return now.year == lastConnection.year && now.dayOfYear == lastConnection.dayOfYear
     }
 
+    /**
+     * @param playerID Player
+     * @param server Name of the server to check, or null to check globally across servers
+     * @return Date of last join, or null if the player never joined the server
+     */
     fun getLastConnectionDate(playerID: UUID, server: String?): LocalDateTime? {
         return getDatesForServer(playerID, server)?.lastConnection
     }
 
+    /**
+     * @param playerID Player
+     * @param server Name of the server to check, or null to check globally across servers
+     * @return Date of first join on the server, or null if the player never joined the server
+     */
     fun getFirstConnectionDate(playerID: UUID, server: String?): LocalDateTime? {
         return getDatesForServer(playerID, server)?.firstConnection
     }
