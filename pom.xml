@@ -45,7 +45,15 @@
                     <jvmTarget>${java.version}</jvmTarget>
                     <compilerPlugins>
                         <plugin>lombok</plugin>
+                        <plugin>jpa</plugin>
+                        <plugin>all-open</plugin>
                     </compilerPlugins>
+                    <pluginOptions>
+                        <!-- Each annotation is placed on its own line -->
+                        <option>all-open:annotation=jakarta.persistence.Entity</option>
+                        <option>all-open:annotation=jakarta.persistence.Embeddable</option>
+                        <option>all-open:annotation=jakarta.persistence.MappedSuperclass</option>
+                    </pluginOptions>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -170,6 +178,17 @@
             <artifactId>placeholderapi</artifactId>
             <version>2.11.6</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-noarg</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-allopen</artifactId>
+            <version>${kotlin.version}</version>
         </dependency>
     </dependencies>
 </project>

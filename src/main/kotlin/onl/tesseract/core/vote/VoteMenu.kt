@@ -44,22 +44,22 @@ class VoteMenu(
         addCloseButton()
         addCloseButton(18)
 
-        ServiceContainer[TaskScheduler::class.java].runAsyncTimer(TesseractCorePlugin.instance, 0L, 20L) {
+        val scheduler = ServiceContainer[TaskScheduler::class.java]
+        val voteService = ServiceContainer[VoteService::class.java]
+        scheduler.runAsyncTimer(TesseractCorePlugin.instance, 0L, 20L) {
             if (!hasViewer()) {
                 it.cancel()
                 return@runAsyncTimer
             }
-            val remainingDurations: Map<VoteSite, Duration> =
-                VoteManager.getInstance().getRemainingTimeUntilVote(playerID)
+            val remainingDurations: Map<VoteSite, Duration> = voteService.getRemainingTimeUntilVote(playerID)
 
             putAllSitesButton(remainingDurations, viewer)
         }
 
-        ServiceContainer[TaskScheduler::class.java].runAsyncTimer(TesseractCorePlugin.instance) {
-            val remainingDurations: Map<VoteSite, Duration> =
-                VoteManager.getInstance().getRemainingTimeUntilVote(playerID)
+        scheduler.runAsyncTimer(TesseractCorePlugin.instance) {
+            val remainingDurations: Map<VoteSite, Duration> = voteService.getRemainingTimeUntilVote(playerID)
             var index = 10
-            VoteManager.getInstance().voteSites.forEach { site ->
+            voteService.getVoteSites().forEach { site ->
                 putSiteButton(site, remainingDurations[site] ?: Duration.ZERO, viewer, index++)
             }
             for (i in index until 18) {
@@ -144,15 +144,16 @@ class VoteMenu(
 
     fun putTopButton() {
         val lore: ItemLoreBuilder = ItemLoreBuilder()
-        val top: LinkedHashMap<UUID, Int> = VoteRepository.getTop()
+        val voteService = ServiceContainer[VoteService::class.java]
+        val top: List<Pair<UUID, Int>> = voteService.getTop()
         var index = 1
-        top.entries.forEach { (key: UUID, value: Int) ->
-            val offlinePlayer = Bukkit.getOfflinePlayer(key)
+        top.forEach { (playerID: UUID, voteAmount: Int) ->
+            val offlinePlayer = Bukkit.getOfflinePlayer(playerID)
             lore.newline()
                 .append("${index++}. ", NamedTextColor.RED)
                 .append(offlinePlayer.name, NamedTextColor.YELLOW)
                 .append(" : ", NamedTextColor.GRAY)
-                .append("$value", NamedTextColor.GOLD)
+                .append("$voteAmount", NamedTextColor.GOLD)
         }
 
         lore.newline(2)
@@ -223,14 +224,14 @@ class VoteMenu(
             .append(
                 "" + VoteRepository.GetVoteStatementBuilder().setPeriod(VoteRepository.VotePeriod.MONTHLY)
                     .setPlayerUUID(playerID)
-                    .setService(voteSite.serviceName())
+                    .setService(voteSite.serviceName)
                     .build(), NamedTextColor.GOLD
             )
             .newline()
             .append("Mes votes (total) : ", NamedTextColor.GRAY)
             .append(
                 "" + VoteRepository.GetVoteStatementBuilder().setPlayerUUID(playerID)
-                    .setService(voteSite.serviceName())
+                    .setService(voteSite.serviceName)
                     .build(), NamedTextColor.GOLD
             )
             .newline()
@@ -239,13 +240,13 @@ class VoteMenu(
             .append("Tous les votes ce mois-ci : ", NamedTextColor.GRAY)
             .append(
                 "" + VoteRepository.GetVoteStatementBuilder().setPeriod(VoteRepository.VotePeriod.MONTHLY)
-                    .setService(voteSite.serviceName())
+                    .setService(voteSite.serviceName)
                     .build(), NamedTextColor.GOLD
             )
             .newline()
             .append("Tous les votes (total) : ", NamedTextColor.GRAY)
             .append(
-                "" + VoteRepository.GetVoteStatementBuilder().setService(voteSite.serviceName())
+                "" + VoteRepository.GetVoteStatementBuilder().setService(voteSite.serviceName)
                     .build(), NamedTextColor.GOLD
             )
             .newline(2)
@@ -254,7 +255,7 @@ class VoteMenu(
         val canVote = remainingDuration.isNegative || remainingDuration.isZero
         addButton(
             index, ItemBuilder(if (canVote) Material.EMERALD_BLOCK else Material.STRUCTURE_VOID)
-                .name(voteSite.serviceName(), NamedTextColor.YELLOW)
+                .name(voteSite.serviceName, NamedTextColor.YELLOW)
                 .lore(lore.get())
                 .build()
         ) {
@@ -267,7 +268,7 @@ class VoteMenu(
         val lore = ItemLoreBuilder()
         remainingDurations.forEach { (voteSite, duration) ->
             lore.newline()
-                .append(voteSite.serviceName(), NamedTextColor.YELLOW)
+                .append(voteSite.serviceName, NamedTextColor.YELLOW)
                 .append(" : ", NamedTextColor.GRAY)
             if (duration.isZero || duration.isNegative)
                 lore.append("Va voter !", NamedTextColor.GREEN)
@@ -289,17 +290,16 @@ class VoteMenu(
     }
 
     fun sendVoteLinks(viewer: Audience) {
-        VoteManager.getInstance().getVoteSites()
-            .forEach { sendVoteLink(viewer, it) }
+        ServiceContainer[VoteService::class.java].getVoteSites().forEach { sendVoteLink(viewer, it) }
     }
 
     fun sendVoteLink(viewer: Audience, site: VoteSite) {
         viewer.sendMessage(
-            Component.text(site.serviceName(), NamedTextColor.YELLOW)
+            Component.text(site.serviceName, NamedTextColor.YELLOW)
                 .append(Component.text(" : ", NamedTextColor.GRAY))
                 .append(
-                    Component.text(site.address(), NamedTextColor.GOLD)
-                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, site.address()))
+                    Component.text(site.address, NamedTextColor.GOLD)
+                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, site.address))
                 )
         )
     }
