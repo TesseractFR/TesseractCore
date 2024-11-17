@@ -1,6 +1,7 @@
 package onl.tesseract.core.vote
 
 import onl.tesseract.lib.repository.ReadRepository
+import onl.tesseract.lib.repository.Repository
 import java.time.Duration
 import java.time.Instant
 import java.util.*
@@ -8,6 +9,7 @@ import java.util.*
 class VoteService(
     private val siteRepository: VoteSiteRepository,
     private val playerVoteRepository: PlayerVoteRepository,
+    private val playerVotePointsRepository: PlayerVotePointsRepository,
 ) {
 
     fun getVoteSites(): List<VoteSite> {
@@ -28,6 +30,14 @@ class VoteService(
     fun getTop(monthDelta: Int = 0): List<Pair<UUID, Int>> {
         return playerVoteRepository.getTopVotes(monthDelta)
     }
+
+    fun getPlayerVotePoints(playerID: UUID): Int {
+        return playerVotePointsRepository.getById(playerID)?.points ?: 0
+    }
+
+    fun remotePlayerVotePoints(playerID: UUID, amount: Int) {
+        playerVotePointsRepository.removePoints(playerID, amount)
+    }
 }
 
 interface VoteSiteRepository : ReadRepository<VoteSite, String> {
@@ -40,4 +50,9 @@ interface PlayerVoteRepository {
     fun getLastVote(playerID: UUID, site: String): PlayerVote?
 
     fun getTopVotes(monthDelta: Int): List<Pair<UUID, Int>>
+}
+
+interface PlayerVotePointsRepository : Repository<PlayerVotePoints, UUID> {
+
+    fun removePoints(playerID: UUID, amount: Int)
 }
