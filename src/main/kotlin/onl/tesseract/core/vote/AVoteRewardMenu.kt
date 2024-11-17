@@ -52,9 +52,9 @@ abstract class AVoteRewardMenu(val playerID: UUID, size: MenuSize, previous: Men
             try {
                 val amount = amountStr.toInt()
                 if (amount <= 0) return@getChatEntry
-                if (VoteRepository.getKeys(playerID) >= amount) {
+                if (ServiceContainer[VoteService::class.java].getPlayerVotePoints(playerID) >= amount) {
                     callback(amount)
-                    VoteRepository.removePoints(playerID, amount)
+                    ServiceContainer[VoteService::class.java].remotePlayerVotePoints(playerID, amount)
                 } else {
                     viewer.sendMessage(ChatFormats.CHAT_ERROR + "Vous n'avez pas suffisamment de points de vote")
                 }
@@ -65,7 +65,7 @@ abstract class AVoteRewardMenu(val playerID: UUID, size: MenuSize, previous: Men
     }
 
     protected fun hasAmount(amount: Int): Boolean {
-        return VoteRepository.getKeys(playerID) >= amount
+        return ServiceContainer[VoteService::class.java].getPlayerVotePoints(playerID) >= amount
     }
 
     protected fun usePoints(viewer: Player, amount: Int, callback: (Int) -> Unit) {
@@ -74,7 +74,7 @@ abstract class AVoteRewardMenu(val playerID: UUID, size: MenuSize, previous: Men
             viewer.sendMessage(ChatFormats.CHAT_ERROR + "Vous n'avez pas suffisamment de points de vote")
             return
         }
-        VoteRepository.removePoints(playerID, amount)
+        ServiceContainer[VoteService::class.java].remotePlayerVotePoints(playerID, amount)
         callback(amount)
     }
 }

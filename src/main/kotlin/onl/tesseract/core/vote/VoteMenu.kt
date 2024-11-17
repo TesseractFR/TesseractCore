@@ -78,7 +78,7 @@ class VoteMenu(
     }
 
     fun putRewardButton() {
-        val keys = VoteRepository.getKeys(playerID)
+        val keys = ServiceContainer[VoteService::class.java].getPlayerVotePoints(playerID)
         addButton(
             22, ItemBuilder(Material.RAW_GOLD)
                 .name("Récompenses", NamedTextColor.GOLD)

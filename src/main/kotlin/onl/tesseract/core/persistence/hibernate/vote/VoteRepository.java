@@ -85,45 +85,4 @@ public class VoteRepository {
             return this;
         }
     }
-
-    public static int getKeys(final UUID playerUUID)
-    {
-        try
-        {
-            Connection connection = TesseractCorePlugin.instance.getBddManager().getBddConnection().getConnection();
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT amount FROM t_vote_points WHERE player_uuid = ?"
-            );
-            statement.setString(1, playerUUID.toString());
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next())
-            {
-                return resultSet.getInt(1);
-            }
-            return 0;
-        }
-        catch (SQLException throwables)
-        {
-            TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to retrieve vote keys", throwables);
-        }
-        return 0;
-    }
-
-    public static void removePoints(final UUID playerUUID, final int amount)
-    {
-        try
-        {
-            Connection connection = TesseractCorePlugin.instance.getBddManager().getBddConnection().getConnection();
-            PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE t_vote_points SET amount = amount - ? WHERE player_uuid = ?"
-            );
-            statement.setInt(1, amount);
-            statement.setString(2, playerUUID.toString());
-            statement.executeUpdate();
-        }
-        catch (SQLException throwables)
-        {
-            TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to retrieve vote keys", throwables);
-        }
-    }
 }
