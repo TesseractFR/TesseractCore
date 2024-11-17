@@ -25,7 +25,7 @@ object AchievementHibernateRepository : AchievementRepository {
 
     override fun save(entity: Achievement) {
         DaoUtils.executeInsideTransaction { session ->
-            session.persist(AchievementEntity.fromModel(entity))
+            session.merge(AchievementEntity.fromModel(entity))
         }
     }
 
@@ -55,7 +55,7 @@ object AchievementHibernateRepository : AchievementRepository {
         achievement: Achievement
     ) {
         DaoUtils.executeInsideTransaction { session ->
-            session.persist(PlayerAchievementsEntity(player, achievement.id))
+            session.merge(PlayerAchievementsEntity(player, achievement.id))
         }
     }
 

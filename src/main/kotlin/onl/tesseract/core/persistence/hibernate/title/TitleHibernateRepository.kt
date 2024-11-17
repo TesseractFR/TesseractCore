@@ -8,7 +8,7 @@ object TitleHibernateRepository : TitleRepository {
 
     override fun save(entity: Title) {
         DaoUtils.executeInsideTransaction {
-            it.persist(TitleEntity.fromModel(entity))
+            it.merge(TitleEntity.fromModel(entity))
         }
     }
 

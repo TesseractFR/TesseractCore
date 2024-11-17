@@ -17,7 +17,7 @@ import onl.tesseract.core.achievement.Achievement;
         indexes = @Index(name = "idx_id", columnList = "id"))
 public class AchievementEntity {
 
-    @Column(columnDefinition = "VARCHAR(255)")
+    @Column(name = "`condition`")
     String condition;
     String name;
     @Id
