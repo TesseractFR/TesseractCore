@@ -26,6 +26,8 @@ import onl.tesseract.core.persistence.hibernate.boutique.BoutiqueHibernateReposi
 import onl.tesseract.core.persistence.hibernate.dailyConnection.DailyConnectionHibernateRepository
 import onl.tesseract.core.persistence.hibernate.title.TitleHibernateRepository
 import onl.tesseract.core.persistence.hibernate.vote.PlayerVoteHibernateRepository
+import onl.tesseract.core.persistence.hibernate.vote.PlayerVotePointsEntity
+import onl.tesseract.core.persistence.hibernate.vote.PlayerVotePointsHibernateRepository
 import onl.tesseract.core.persistence.hibernate.vote.VoteSiteHibernateRepository
 import onl.tesseract.core.placeholder.TesseractPlaceHolder
 import onl.tesseract.core.title.StaffTitle
@@ -65,7 +67,8 @@ class TesseractCorePlugin : JavaPlugin() {
         ServiceContainer.getInstance().registerService(
             VoteService::class.java, VoteService(
                 VoteSiteHibernateRepository,
-                PlayerVoteHibernateRepository))
+                PlayerVoteHibernateRepository,
+                PlayerVotePointsHibernateRepository))
 
         this.server.pluginManager.registerEvents(AfkManager.getINSTANCE(), this)
         this.server.pluginManager.registerEvents(TrailsAndFilterEventHandlers(), this)
