@@ -1,16 +1,13 @@
 package onl.tesseract.core.persistence.hibernate.vote;
 
 import onl.tesseract.core.TesseractCorePlugin;
-import onl.tesseract.core.vote.Vote;
-import onl.tesseract.core.vote.VoteManager;
-import onl.tesseract.core.vote.VoteSite;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Duration;
-import java.util.*;
+import java.util.StringJoiner;
+import java.util.UUID;
 import java.util.logging.Level;
 
 public class VoteRepository {
@@ -87,89 +84,6 @@ public class VoteRepository {
             this.serviceCondition = "service_name = '" + service + "'";
             return this;
         }
-    }
-
-    public static Collection<VoteSite> getVoteSites()
-    {
-        try
-        {
-            final Connection connection = TesseractCorePlugin.instance.getBddManager().getBddConnection().getConnection();
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM t_vote_site"
-            );
-            final Collection<VoteSite> voteSites = new HashSet<>();
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next())
-            {
-                voteSites.add(new VoteSite(
-                        resultSet.getString("service_name"),
-                        resultSet.getString("address"),
-                        Duration.ofMinutes(resultSet.getInt("delay_minutes"))
-                ));
-            }
-            return voteSites;
-        }
-        catch (SQLException throwables)
-        {
-            TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to retrieve vote sites", throwables);
-        }
-        return Collections.emptyList();
-    }
-
-    public static Optional<Vote> getLastVote(final UUID playerUUID, final String serviceName)
-    {
-        try
-        {
-            final Connection connection = TesseractCorePlugin.instance.getBddManager().getBddConnection().getConnection();
-            PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM t_vote WHERE player_uuid = ? AND service_name = ? ORDER BY date DESC LIMIT 1"
-            );
-            statement.setString(1, playerUUID.toString());
-            statement.setString(2, serviceName);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next())
-            {
-                Vote vote = new Vote(
-                        resultSet.getInt("id"),
-                        UUID.fromString(resultSet.getString("player_uuid")),
-                        resultSet.getTimestamp("date").toInstant(),
-                        VoteManager.getInstance().getVoteSite(resultSet.getString("service_name"))
-                );
-                return Optional.of(vote);
-            }
-            return Optional.empty();
-        }
-        catch (SQLException throwables)
-        {
-            TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to retrieve vote sites", throwables);
-        }
-        return Optional.empty();
-    }
-
-    public static LinkedHashMap<UUID, Integer> getTop()
-    {
-        return getTop(0);
-    }
-
-    public static LinkedHashMap<UUID, Integer> getTop(int monthDelta)
-    {
-        LinkedHashMap<UUID, Integer> map = new LinkedHashMap<>();
-        try
-        {
-            Connection connection = TesseractCorePlugin.instance.getBddManager().getBddConnection().getConnection();
-            String dateRef = String.format("DATE_SUB(NOW(), INTERVAL %d MONTH)", monthDelta);
-            PreparedStatement statement = connection.prepareStatement("SELECT player_uuid, count(*) as amount FROM t_vote WHERE MONTH(DATE(date)) = MONTH(" + dateRef + ") AND YEAR(DATE(date)) = YEAR(" + dateRef + ") GROUP BY player_uuid ORDER BY count(*) DESC LIMIT 10");
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next())
-            {
-                map.put(UUID.fromString(resultSet.getString("player_uuid")), resultSet.getInt("amount"));
-            }
-        }
-        catch (SQLException throwables)
-        {
-            TesseractCorePlugin.instance.getLogger().log(Level.SEVERE, "Failed to retrieve votes", throwables);
-        }
-        return map;
     }
 
     public static int getKeys(final UUID playerUUID)

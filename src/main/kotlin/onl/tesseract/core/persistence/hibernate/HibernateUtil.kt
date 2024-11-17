@@ -7,6 +7,7 @@ import onl.tesseract.core.persistence.hibernate.achievement.PlayerAchievementsEn
 import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfo
 import onl.tesseract.core.persistence.hibernate.dailyConnection.PlayerConnectionDatesEntity
 import onl.tesseract.core.persistence.hibernate.title.TitleEntity
+import onl.tesseract.core.persistence.hibernate.vote.VoteSiteEntity
 import org.hibernate.SessionFactory
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder
 import org.hibernate.cfg.AvailableSettings
@@ -29,6 +30,7 @@ object HibernateUtil {
             configuration.addAnnotatedClass(PlayerAchievementsEntity::class.java)
             configuration.addAnnotatedClass(PlayerConnectionDatesEntity::class.java)
             configuration.addAnnotatedClass(TitleEntity::class.java)
+            configuration.addAnnotatedClass(VoteSiteEntity::class.java)
             val serviceRegistry: ServiceRegistry? =
                 StandardServiceRegistryBuilder().applySettings(configuration.properties).build()
             return configuration.buildSessionFactory(serviceRegistry)
