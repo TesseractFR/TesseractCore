@@ -13,7 +13,7 @@ object BoutiqueHibernateRepository : BoutiqueRepository {
 
     override fun save(entity: PlayerBoutiqueInfo) {
         DaoUtils.executeInsideTransaction { session ->
-            session.persist(fromModel(entity))
+            session.merge(fromModel(entity))
         }
     }
 
@@ -30,7 +30,7 @@ object BoutiqueHibernateRepository : BoutiqueRepository {
         DaoUtils.executeInsideTransaction {
             val info = it.find(TPlayerInfo::class.java, id) ?: TPlayerInfo(id)
             info.market_currency += amount
-            it.persist(info)
+            it.merge(info)
         }
     }
 
@@ -38,7 +38,7 @@ object BoutiqueHibernateRepository : BoutiqueRepository {
         DaoUtils.executeInsideTransaction {
             val info = it.find(TPlayerInfo::class.java, id) ?: TPlayerInfo(id)
             info.active_trail = trail
-            it.persist(info)
+            it.merge(info)
         }
     }
 
@@ -46,7 +46,7 @@ object BoutiqueHibernateRepository : BoutiqueRepository {
         DaoUtils.executeInsideTransaction {
             val info = it.find(TPlayerInfo::class.java, id) ?: TPlayerInfo(id)
             info.active_fly_filter = filter
-            it.persist(info)
+            it.merge(info)
         }
     }
 
@@ -54,7 +54,7 @@ object BoutiqueHibernateRepository : BoutiqueRepository {
         DaoUtils.executeInsideTransaction {
             val info = it.find(TPlayerInfo::class.java, id) ?: TPlayerInfo(id)
             info.active_tp_animation = animation
-            it.persist(info)
+            it.merge(info)
         }
     }
 }

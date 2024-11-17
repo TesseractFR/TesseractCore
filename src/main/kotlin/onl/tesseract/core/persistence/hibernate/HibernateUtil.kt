@@ -2,7 +2,11 @@ package onl.tesseract.core.persistence.hibernate
 
 import onl.tesseract.core.Config
 import onl.tesseract.core.achievement.Achievement
+import onl.tesseract.core.persistence.hibernate.achievement.AchievementEntity
+import onl.tesseract.core.persistence.hibernate.achievement.PlayerAchievementsEntity
 import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfo
+import onl.tesseract.core.persistence.hibernate.dailyConnection.PlayerConnectionDatesEntity
+import onl.tesseract.core.persistence.hibernate.title.TitleEntity
 import org.hibernate.SessionFactory
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder
 import org.hibernate.cfg.AvailableSettings
@@ -21,7 +25,10 @@ object HibernateUtil {
 
             // Enregistrer les classes d'entité
             configuration.addAnnotatedClass(TPlayerInfo::class.java)
-            configuration.addAnnotatedClass(Achievement::class.java)
+            configuration.addAnnotatedClass(AchievementEntity::class.java)
+            configuration.addAnnotatedClass(PlayerAchievementsEntity::class.java)
+            configuration.addAnnotatedClass(PlayerConnectionDatesEntity::class.java)
+            configuration.addAnnotatedClass(TitleEntity::class.java)
             val serviceRegistry: ServiceRegistry? =
                 StandardServiceRegistryBuilder().applySettings(configuration.properties).build()
             return configuration.buildSessionFactory(serviceRegistry)
@@ -41,7 +48,7 @@ object HibernateUtil {
         configuration.setProperty(AvailableSettings.JAKARTA_JDBC_USER, config.dbUsername)
         configuration.setProperty(AvailableSettings.JAKARTA_JDBC_PASSWORD, config.dbPassword)
 
-        configuration.setProperty(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQL8Dialect")
+//        configuration.setProperty(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQL8Dialect")
 
         // Enable Hibernate's automatic session context management
         configuration.setProperty(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, "thread")
@@ -50,8 +57,7 @@ object HibernateUtil {
         configuration.setProperty(AvailableSettings.SHOW_SQL, "false")
         configuration.setProperty(AvailableSettings.FORMAT_SQL, "true")
 
-        // Drop and re-create the database schema on startup
-        configuration.setProperty(AvailableSettings.HBM2DDL_AUTO, Action.ACTION_VALIDATE)
+        configuration.setProperty(AvailableSettings.HBM2DDL_AUTO, "update")
         return configuration
     }
 }
