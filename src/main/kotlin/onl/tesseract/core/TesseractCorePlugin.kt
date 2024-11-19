@@ -29,9 +29,11 @@ import onl.tesseract.core.persistence.hibernate.vote.PlayerVoteHibernateReposito
 import onl.tesseract.core.persistence.hibernate.vote.PlayerVotePointsEntity
 import onl.tesseract.core.persistence.hibernate.vote.PlayerVotePointsHibernateRepository
 import onl.tesseract.core.persistence.hibernate.vote.VoteSiteHibernateRepository
+import onl.tesseract.core.persistence.hibernate.vote.goal.VoteGoalHibernateRepository
 import onl.tesseract.core.placeholder.TesseractPlaceHolder
 import onl.tesseract.core.title.StaffTitle
 import onl.tesseract.core.title.TitleService
+import onl.tesseract.core.vote.VoteGoalService
 import onl.tesseract.core.vote.VoteService
 import onl.tesseract.core.vote.goal.VoteGoalManager
 import onl.tesseract.lib.service.ServiceContainer
@@ -64,11 +66,13 @@ class TesseractCorePlugin : JavaPlugin() {
         )
         val dailyConnectionService = DailyConnectionService(config.serverName, DailyConnectionHibernateRepository)
         ServiceContainer.getInstance().registerService(DailyConnectionService::class.java, dailyConnectionService)
-        ServiceContainer.getInstance().registerService(
+        val voteService = ServiceContainer.getInstance().registerService(
             VoteService::class.java, VoteService(
                 VoteSiteHibernateRepository,
                 PlayerVoteHibernateRepository,
                 PlayerVotePointsHibernateRepository))
+        ServiceContainer.getInstance().registerService(
+            VoteGoalService::class.java, VoteGoalService(voteService, VoteGoalHibernateRepository))
 
         this.server.pluginManager.registerEvents(AfkManager.getINSTANCE(), this)
         this.server.pluginManager.registerEvents(TrailsAndFilterEventHandlers(), this)
