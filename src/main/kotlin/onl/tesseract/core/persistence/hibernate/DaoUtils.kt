@@ -1,5 +1,6 @@
 package onl.tesseract.core.persistence.hibernate
 
+import jakarta.persistence.EntityManager
 import jakarta.persistence.criteria.CriteriaBuilder
 import org.hibernate.Session
 import org.hibernate.Transaction
@@ -30,5 +31,9 @@ object DaoUtils {
         criteria.from<T?>(type)
         val data = session.createQuery<T?>(criteria).getResultList()
         return data
+    }
+
+    inline fun executeInsideJpaTransaction(action: (EntityManager) -> Unit) {
+        executeInsideTransaction(action)
     }
 }

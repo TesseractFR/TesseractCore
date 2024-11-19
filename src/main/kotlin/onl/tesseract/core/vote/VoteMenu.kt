@@ -13,7 +13,6 @@ import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.profile.PlayerProfileService
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.lib.task.TaskScheduler
-import onl.tesseract.core.persistence.hibernate.vote.VoteRepository
 import onl.tesseract.lib.util.ItemLoreBuilder
 import onl.tesseract.lib.util.Util
 import onl.tesseract.core.vote.goal.VoteGoal
@@ -45,7 +44,7 @@ class VoteMenu(
 
         val scheduler = ServiceContainer[TaskScheduler::class.java]
         val voteService = ServiceContainer[VoteService::class.java]
-        scheduler.runAsyncTimer(TesseractCorePlugin.instance, 0L, 20L) {
+        scheduler.runAsyncTimer(0L, 20L) {
             if (!hasViewer()) {
                 it.cancel()
                 return@runAsyncTimer
@@ -55,7 +54,7 @@ class VoteMenu(
             putAllSitesButton(remainingDurations, viewer)
         }
 
-        scheduler.runAsyncTimer(TesseractCorePlugin.instance) {
+        scheduler.runAsyncTimer {
             val remainingDurations: Map<VoteSite, Duration> = voteService.getRemainingTimeUntilVote(playerID)
             var index = 10
             voteService.getVoteSites().forEach { site ->
@@ -171,33 +170,31 @@ class VoteMenu(
     }
 
     fun putPlayerButton() {
+        val voteService = ServiceContainer[VoteService::class.java]
         val lore: ItemLoreBuilder = ItemLoreBuilder()
             .newline()
             .append("Aujourd'hui : ", NamedTextColor.YELLOW)
             .append(
-                "" + VoteRepository.GetVoteStatementBuilder().setPeriod(VoteRepository.VotePeriod.DAILY)
-                    .setPlayerUUID(playerID)
-                    .build(), NamedTextColor.GOLD
+                "${voteService.countVotesDuringPeriod(VoteService.VotePeriod.DAILY, playerID, null)}",
+                NamedTextColor.GOLD
             )
             .newline()
             .append("Semaine : ", NamedTextColor.YELLOW)
             .append(
-                "" + VoteRepository.GetVoteStatementBuilder().setPeriod(VoteRepository.VotePeriod.WEEKLY)
-                    .setPlayerUUID(playerID)
-                    .build(), NamedTextColor.GOLD
+                "${voteService.countVotesDuringPeriod(VoteService.VotePeriod.WEEKLY, playerID, null)}",
+                NamedTextColor.GOLD
             )
             .newline()
             .append("Mois : ", NamedTextColor.YELLOW)
             .append(
-                "" + VoteRepository.GetVoteStatementBuilder().setPeriod(VoteRepository.VotePeriod.MONTHLY)
-                    .setPlayerUUID(playerID)
-                    .build(), NamedTextColor.GOLD
+                "${voteService.countVotesDuringPeriod(VoteService.VotePeriod.MONTHLY, playerID, null)}",
+                NamedTextColor.GOLD
             )
             .newline()
             .append("Total : ", NamedTextColor.YELLOW)
             .append(
-                "" + VoteRepository.GetVoteStatementBuilder().setPlayerUUID(playerID)
-                    .build(), NamedTextColor.GOLD
+                "${voteService.countVotesDuringPeriod(VoteService.VotePeriod.TOTAL, playerID, null)}",
+                NamedTextColor.GOLD
             )
 
 
@@ -212,6 +209,7 @@ class VoteMenu(
     }
 
     fun putSiteButton(voteSite: VoteSite, remainingDuration: Duration, viewer: Audience, index: Int) {
+        val voteService = ServiceContainer[VoteService::class.java]
         val lore: ItemLoreBuilder = ItemLoreBuilder().newline()
         if (remainingDuration.isZero || remainingDuration.isNegative)
             lore.append("Va voter !", NamedTextColor.GREEN)
@@ -221,33 +219,28 @@ class VoteMenu(
 
         lore.newline(2)
             .append("Mes votes ce mois-ci : ", NamedTextColor.GRAY)
-            .append(
-                "" + VoteRepository.GetVoteStatementBuilder().setPeriod(VoteRepository.VotePeriod.MONTHLY)
-                    .setPlayerUUID(playerID)
-                    .setService(voteSite.serviceName)
-                    .build(), NamedTextColor.GOLD
-            )
+                .append(
+                    "${voteService.countVotesDuringPeriod(VoteService.VotePeriod.MONTHLY, playerID, voteSite)}",
+                    NamedTextColor.GOLD)
             .newline()
             .append("Mes votes (total) : ", NamedTextColor.GRAY)
             .append(
-                "" + VoteRepository.GetVoteStatementBuilder().setPlayerUUID(playerID)
-                    .setService(voteSite.serviceName)
-                    .build(), NamedTextColor.GOLD
+                "${voteService.countVotesDuringPeriod(VoteService.VotePeriod.TOTAL, playerID, voteSite)}",
+                NamedTextColor.GOLD
             )
             .newline()
             .horizontalLine(40, NamedTextColor.YELLOW)
             .newline()
             .append("Tous les votes ce mois-ci : ", NamedTextColor.GRAY)
             .append(
-                "" + VoteRepository.GetVoteStatementBuilder().setPeriod(VoteRepository.VotePeriod.MONTHLY)
-                    .setService(voteSite.serviceName)
-                    .build(), NamedTextColor.GOLD
+                "${voteService.countVotesDuringPeriod(VoteService.VotePeriod.MONTHLY, null, voteSite)}",
+                NamedTextColor.GOLD
             )
             .newline()
             .append("Tous les votes (total) : ", NamedTextColor.GRAY)
             .append(
-                "" + VoteRepository.GetVoteStatementBuilder().setService(voteSite.serviceName)
-                    .build(), NamedTextColor.GOLD
+                "${voteService.countVotesDuringPeriod(VoteService.VotePeriod.TOTAL, null, null)}",
+                NamedTextColor.GOLD
             )
             .newline(2)
             .append("Clique pour obtenir le lien", NamedTextColor.AQUA)

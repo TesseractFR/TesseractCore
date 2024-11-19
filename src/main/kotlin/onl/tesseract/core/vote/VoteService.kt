@@ -12,6 +12,8 @@ class VoteService(
     private val playerVotePointsRepository: PlayerVotePointsRepository,
 ) {
 
+    enum class VotePeriod { YEARLY, MONTHLY, WEEKLY, DAILY, TOTAL }
+
     fun getVoteSites(): List<VoteSite> {
         return siteRepository.getAll()
     }
@@ -46,6 +48,25 @@ class VoteService(
     fun getVotersBetween(start: Instant, end: Instant): Collection<UUID> {
         return playerVoteRepository.getVotesBetween(start, end).map { it.playerID }
     }
+
+    fun countVotesDuringPeriod(period: VotePeriod, playerID: UUID? = null, site: VoteSite? = null): Long {
+        return playerVoteRepository.getPlayerVoteCount(playerID, periodToStartDate(period), site?.serviceName)
+    }
+
+    private fun periodToStartDate(period: VotePeriod): Instant {
+        if (period == VotePeriod.TOTAL) return Instant.EPOCH
+        val start = Calendar.getInstance()
+        if (period == VotePeriod.YEARLY)
+            start.set(Calendar.MONTH, 0)
+        if (period == VotePeriod.MONTHLY)
+            start.set(Calendar.DAY_OF_MONTH, 0)
+        if (period == VotePeriod.WEEKLY)
+            start.set(Calendar.DAY_OF_WEEK, 0)
+        start.set(Calendar.HOUR_OF_DAY, 0)
+        start.set(Calendar.MINUTE, 0)
+        start.set(Calendar.SECOND, 0)
+        return start.toInstant()
+    }
 }
 
 interface VoteSiteRepository : ReadRepository<VoteSite, String> {
@@ -61,6 +82,7 @@ interface PlayerVoteRepository {
 
     fun countVotesBetween(start: Instant, end: Instant): Int
     fun getVotesBetween(start: Instant, end: Instant): Collection<PlayerVote>
+    fun getPlayerVoteCount(playerID: UUID?, since: Instant?, serviceName: String?): Long
 }
 
 interface PlayerVotePointsRepository : Repository<PlayerVotePoints, UUID> {

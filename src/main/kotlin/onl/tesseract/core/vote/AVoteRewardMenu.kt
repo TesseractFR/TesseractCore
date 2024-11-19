@@ -8,7 +8,6 @@ import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.core.persistence.hibernate.vote.VoteRepository
 import onl.tesseract.lib.util.ChatFormats
 import onl.tesseract.lib.util.plus
 import org.bukkit.Bukkit
