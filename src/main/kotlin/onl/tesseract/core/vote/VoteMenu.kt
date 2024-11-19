@@ -18,7 +18,6 @@ import onl.tesseract.lib.util.ItemLoreBuilder
 import onl.tesseract.lib.util.Util
 import onl.tesseract.core.vote.goal.VoteGoal
 import onl.tesseract.core.vote.goal.VoteGoalManager
-import onl.tesseract.core.vote.goal.VoteGoalRepository
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -114,12 +113,13 @@ class VoteMenu(
             )
             .newline(2)
 
+        val voteGoalService = ServiceContainer[VoteGoalService::class.java]
         val goals: Collection<VoteGoal> = VoteGoalManager.getGoals()
         if (goals.isEmpty())
             lore = lore.append("Il n'y a pas de Vote Goal en cours pour le moment...", NamedTextColor.GRAY)
         else {
             goals.forEach { goal ->
-                val voteCount = VoteGoalRepository.getVoteCount(goal)
+                val voteCount = voteGoalService.getVoteCount(goal)
                 lore = lore.append("→ ", NamedTextColor.RED)
                     .append("" + voteCount, NamedTextColor.YELLOW)
                     .append("/", NamedTextColor.GRAY)
