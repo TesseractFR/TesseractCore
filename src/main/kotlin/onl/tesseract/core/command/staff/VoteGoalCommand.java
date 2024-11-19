@@ -3,7 +3,9 @@ package onl.tesseract.core.command.staff;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import onl.tesseract.core.TesseractCorePlugin;
+import onl.tesseract.core.vote.VoteGoalService;
 import onl.tesseract.core.vote.goal.*;
+import onl.tesseract.lib.service.ServiceContainer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -85,17 +87,17 @@ public class VoteGoalCommand implements CommandExecutor, TabCompleter {
                 return;
             }
         }
-        VoteGoal newVoteGoal = new VoteGoal(-1, start.toInstant(), end.toInstant(), quantity, reward);
-        VoteGoalRepository.createVoteGoal(newVoteGoal);
+        ServiceContainer.get(VoteGoalService.class).createVoteGoal(start.toInstant(), end.toInstant(), quantity, reward);
         sender.sendMessage(Component.text("Vote goal créé !", NamedTextColor.GREEN));
         TesseractCorePlugin.instance.getLogger().info("Created new vote goal");
     }
 
     public void list(final CommandSender sender, final String[] args)
     {
+        VoteGoalService voteGoalService = ServiceContainer.get(VoteGoalService.class);
         for (VoteGoal goal : VoteGoalManager.getGoals())
         {
-            int voteCount = VoteGoalRepository.getVoteCount(goal);
+            int voteCount = voteGoalService.getVoteCount(goal);
             sender.sendMessage(String.format("- %s : %d/%d", goal.getPrintableRemainingDuration(), voteCount, goal.requiredQuantity()));
         }
     }

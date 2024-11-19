@@ -5,6 +5,10 @@ import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import onl.tesseract.core.TesseractCorePlugin;
+import onl.tesseract.core.persistence.hibernate.vote.goal.VoteGoalHibernateRepository;
+import onl.tesseract.core.vote.VoteGoalService;
+import onl.tesseract.core.vote.VoteService;
+import onl.tesseract.lib.service.ServiceContainer;
 import onl.tesseract.lib.util.ChatFormats;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -52,12 +56,12 @@ public class VoteGoalManager {
 
     public static void update()
     {
-        Collection<VoteGoal> currentGoals = VoteGoalRepository.getCurrentGoals();
+        Collection<VoteGoal> currentGoals = VoteGoalHibernateRepository.INSTANCE.getCurrentGoals();
 
         // Determine newly started goals
         for (VoteGoal currentGoal : currentGoals)
         {
-            int voteCount = VoteGoalRepository.getVoteCount(currentGoal);
+            int voteCount = ServiceContainer.get(VoteService.class).countVotesBetween(currentGoal.start(), currentGoal.end());
             if (!goals.contains(currentGoal) && voteCount < currentGoal.requiredQuantity())
             {
                 goals.add(currentGoal);
@@ -69,7 +73,7 @@ public class VoteGoalManager {
         for (Iterator<VoteGoal> iterator = goals.iterator(); iterator.hasNext(); )
         {
             VoteGoal goal = iterator.next();
-            int voteCount = VoteGoalRepository.getVoteCount(goal);
+            int voteCount = ServiceContainer.get(VoteService.class).countVotesBetween(goal.start(), goal.end());
             // If vote goal expired
             if (!currentGoals.contains(goal))
             {
@@ -103,7 +107,7 @@ public class VoteGoalManager {
     {
         bossBars.putIfAbsent(goal, Bukkit.createBossBar(" ", BarColor.GREEN, BarStyle.SEGMENTED_10));
         BossBar bar = bossBars.get(goal);
-        int voteCount = VoteGoalRepository.getVoteCount(goal);
+        int voteCount = ServiceContainer.get(VoteGoalService.class).getVoteCount(goal);
         String title = ChatColor.GOLD + String.format("VOTE GOAL | %s - %d/%d", goal.getPrintableRemainingDuration(), voteCount, goal.requiredQuantity());
         bar.setTitle(title);
         double progress = voteCount / (float) goal.requiredQuantity();
@@ -163,7 +167,7 @@ public class VoteGoalManager {
 
         final VoteGoalReward reward = goal.reward();
         reward.giveAll();
-        Collection<OfflinePlayer> contributors = VoteGoalRepository.getContributors(goal);
+        Collection<UUID> contributors = ServiceContainer.get(VoteGoalService.class).getContributors(goal);
         contributors.forEach(reward::give);
     }
 

@@ -4,6 +4,7 @@ import onl.tesseract.core.persistence.hibernate.DaoUtils
 import onl.tesseract.core.vote.PlayerVote
 import onl.tesseract.core.vote.PlayerVoteRepository
 import java.sql.Timestamp
+import java.time.Instant
 import java.util.*
 
 object PlayerVoteHibernateRepository : PlayerVoteRepository {
@@ -39,6 +40,29 @@ object PlayerVoteHibernateRepository : PlayerVoteRepository {
             query.setParameter("start", Timestamp.from(start.toInstant()))
             query.setParameter("endd", Timestamp.from(end.toInstant()))
             return query.resultList.map { it[0] as UUID to it[1] as Int }
+        }
+        return emptyList()
+    }
+
+    override fun countVotesBetween(start: Instant, end: Instant): Int {
+        DaoUtils.executeInsideTransaction { session ->
+            val query = session.createQuery("SELECT count(*) FROM PlayerVoteEntity vote WHERE vote.date BETWEEN :start AND :end", Int::class.java)
+            query.setParameter("start", Timestamp.from(start))
+            query.setParameter("end", Timestamp.from(end))
+            return query.uniqueResult()
+        }
+        return 0
+    }
+
+    override fun getVotesBetween(
+        start: Instant,
+        end: Instant,
+    ): Collection<PlayerVote> {
+        DaoUtils.executeInsideTransaction { session ->
+            val query = session.createQuery("FROM PlayerVoteEntity vote WHERE vote.date BETWEEN :start AND :end", PlayerVoteEntity::class.java)
+            query.setParameter("start", Timestamp.from(start))
+            query.setParameter("end", Timestamp.from(end))
+            return query.resultList.map { it.toModel() }
         }
         return emptyList()
     }

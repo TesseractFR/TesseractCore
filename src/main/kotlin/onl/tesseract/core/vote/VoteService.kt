@@ -38,6 +38,14 @@ class VoteService(
     fun remotePlayerVotePoints(playerID: UUID, amount: Int) {
         playerVotePointsRepository.removePoints(playerID, amount)
     }
+
+    fun countVotesBetween(start: Instant, end: Instant): Int {
+        return playerVoteRepository.countVotesBetween(start, end)
+    }
+
+    fun getVotersBetween(start: Instant, end: Instant): Collection<UUID> {
+        return playerVoteRepository.getVotesBetween(start, end).map { it.playerID }
+    }
 }
 
 interface VoteSiteRepository : ReadRepository<VoteSite, String> {
@@ -50,6 +58,9 @@ interface PlayerVoteRepository {
     fun getLastVote(playerID: UUID, site: String): PlayerVote?
 
     fun getTopVotes(monthDelta: Int): List<Pair<UUID, Int>>
+
+    fun countVotesBetween(start: Instant, end: Instant): Int
+    fun getVotesBetween(start: Instant, end: Instant): Collection<PlayerVote>
 }
 
 interface PlayerVotePointsRepository : Repository<PlayerVotePoints, UUID> {
