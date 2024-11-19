@@ -66,4 +66,23 @@ object PlayerVoteHibernateRepository : PlayerVoteRepository {
         }
         return emptyList()
     }
+
+    override fun getPlayerVoteCount(playerID: UUID?, since: Instant?, serviceName: String?): Long {
+        DaoUtils.executeInsideJpaTransaction { session ->
+            val builder = session.criteriaBuilder
+            val query = builder.createQuery(Long::class.java)
+
+            val root = query.from(PlayerVoteEntity::class.java)
+            query.select(builder.count(root))
+            if (playerID != null)
+                query.where(builder.equal(root.get<String>("playerID"), playerID))
+            if (since != null)
+                query.where(builder.between(root.get<Timestamp>("date"), Timestamp.from(since), Timestamp.from(Instant.now())))
+            if (serviceName != null)
+                query.where(builder.equal(root.get<String>("serviceName"), serviceName))
+
+            return session.createQuery(query).singleResult
+        }
+        return 0
+    }
 }
