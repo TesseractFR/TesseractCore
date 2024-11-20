@@ -77,12 +77,9 @@ public class EntityBossBar implements Listener {
                 Player player = (Player) event.getDamager();
                 showBossBar(event.getEntity(), player);
             }
-            else if (event.getDamager() instanceof Projectile projectile)
+            else if (event.getDamager() instanceof Projectile projectile && projectile.getShooter() instanceof Player player)
             {
-                if (projectile.getShooter() instanceof Player player)
-                {
-                    showBossBar(event.getEntity(), player);
-                }
+                showBossBar(event.getEntity(), player);
             }
         }
     }

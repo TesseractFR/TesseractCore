@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.UUID;
 
@@ -16,7 +17,7 @@ public class SocialSpy implements CommandExecutor {
     /**
      * Set of players who are spying
      */
-    static public final Collection<UUID> spies = new HashSet<>();
+    private static final Collection<UUID> spies = new HashSet<>();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args)
@@ -33,5 +34,9 @@ public class SocialSpy implements CommandExecutor {
         }
 
         return true;
+    }
+
+    public static Collection<UUID> getSpies() {
+        return Collections.unmodifiableCollection(spies);
     }
 }

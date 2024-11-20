@@ -2,6 +2,7 @@ package onl.tesseract.core.placeholder;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import onl.tesseract.core.afk.AfkManager;
+import onl.tesseract.lib.service.ServiceContainer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -38,7 +39,7 @@ public class TesseractPlaceHolder extends PlaceholderExpansion {
             return "";
         if (params.equals("isafk"))
         {
-            return String.valueOf(AfkManager.getINSTANCE().isAfk(p));
+            return String.valueOf(ServiceContainer.get(AfkManager.class).isAfk(p));
         }
 
         return null;

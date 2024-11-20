@@ -1,4 +1,4 @@
-package onl.tesseract.core.autoChatMessage;
+package onl.tesseract.core.autochatmessage;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

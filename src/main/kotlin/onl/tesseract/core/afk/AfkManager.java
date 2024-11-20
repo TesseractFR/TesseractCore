@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import onl.tesseract.core.TesseractCorePlugin;
 import org.bukkit.Bukkit;
@@ -12,10 +13,10 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandSendEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -27,13 +28,13 @@ import java.util.UUID;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AfkManager implements Listener {
-    static final AfkManager INSTANCE = new AfkManager();
+    public static final @NotNull TextComponent MESSAGE_NOT_AFK_ANYMORE = Component.text("Vous n'êtes plus AFK", NamedTextColor.GRAY);
     Set<UUID> afks = new HashSet<>();
     HashMap<UUID, Instant> lastMessage = new HashMap<>();
     HashMap<UUID, Instant> lastMove = new HashMap<>();
     HashMap<UUID, Location> lastLocations = new HashMap<>();
 
-    private AfkManager() {
+    public void startTask() {
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -47,7 +48,7 @@ public class AfkManager implements Listener {
                             }
                         } else {
                             if (afks.remove(player.getUniqueId())) {
-                                player.sendMessage(Component.text("Vous n'êtes plus AFK", NamedTextColor.GRAY));
+                                player.sendMessage(MESSAGE_NOT_AFK_ANYMORE);
                             }
                         }
                     }
@@ -111,7 +112,7 @@ public class AfkManager implements Listener {
     void onChat(AsyncChatEvent event) {
         lastMessage.put(event.getPlayer().getUniqueId(), Instant.now());
         if (afks.remove(event.getPlayer().getUniqueId()))
-            event.getPlayer().sendMessage(Component.text("Vous n'êtes plus AFK", NamedTextColor.GRAY));
+            event.getPlayer().sendMessage(MESSAGE_NOT_AFK_ANYMORE);
 
     }
 
@@ -119,10 +120,6 @@ public class AfkManager implements Listener {
     void onCommand(PlayerCommandSendEvent event) {
         lastMessage.put(event.getPlayer().getUniqueId(), Instant.now());
         if (afks.remove(event.getPlayer().getUniqueId()))
-            event.getPlayer().sendMessage(Component.text("Vous n'êtes plus AFK", NamedTextColor.GRAY));
-    }
-
-    public static AfkManager getINSTANCE() {
-        return INSTANCE;
+            event.getPlayer().sendMessage(MESSAGE_NOT_AFK_ANYMORE);
     }
 }

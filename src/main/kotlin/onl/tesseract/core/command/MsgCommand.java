@@ -76,7 +76,7 @@ public class MsgCommand implements CommandExecutor {
                                       .append(Component.text(message, NamedTextColor.GRAY, TextDecoration.ITALIC)));
 
         // Send to social spies
-        SocialSpy.spies.forEach(spy -> {
+        SocialSpy.getSpies().forEach(spy -> {
             Player playerSpy = Bukkit.getPlayer(spy);
             if (playerSpy != null && !playerSpy.equals(sender) && !playerSpy.equals(receiver))
             {
