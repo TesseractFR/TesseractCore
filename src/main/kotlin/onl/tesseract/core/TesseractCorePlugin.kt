@@ -2,18 +2,11 @@ package onl.tesseract.core
 
 import onl.tesseract.core.achievement.AchievementService
 import onl.tesseract.core.afk.AfkManager
+import onl.tesseract.core.autochatmessage.AutoChatMessage
+import onl.tesseract.core.autochatmessage.AutoChatMessages
 import onl.tesseract.core.boutique.BoutiqueService
-import onl.tesseract.core.command.BoutiqueCommand
-import onl.tesseract.core.command.CosmeticCommand
-import onl.tesseract.core.command.FamilierCommand
-import onl.tesseract.core.command.MsgCommand
-import onl.tesseract.core.command.ReplyToMsg
-import onl.tesseract.core.command.VoteCommand
-import onl.tesseract.core.command.staff.CosmeticCompleter
-import onl.tesseract.core.command.staff.MarketCurrencyCommand
-import onl.tesseract.core.command.staff.SocialSpy
-import onl.tesseract.core.command.staff.VoteGoalCommand
-import onl.tesseract.core.command.staff.VoteTopRewardCommand
+import onl.tesseract.core.command.*
+import onl.tesseract.core.command.staff.*
 import onl.tesseract.core.cosmetics.TrailsAndFilterEventHandlers
 import onl.tesseract.core.cosmetics.familier.PetManager
 import onl.tesseract.core.dailyConnection.DailyConnectionService
@@ -26,7 +19,6 @@ import onl.tesseract.core.persistence.hibernate.boutique.BoutiqueHibernateReposi
 import onl.tesseract.core.persistence.hibernate.dailyConnection.DailyConnectionHibernateRepository
 import onl.tesseract.core.persistence.hibernate.title.TitleHibernateRepository
 import onl.tesseract.core.persistence.hibernate.vote.PlayerVoteHibernateRepository
-import onl.tesseract.core.persistence.hibernate.vote.PlayerVotePointsEntity
 import onl.tesseract.core.persistence.hibernate.vote.PlayerVotePointsHibernateRepository
 import onl.tesseract.core.persistence.hibernate.vote.VoteSiteHibernateRepository
 import onl.tesseract.core.persistence.hibernate.vote.goal.VoteGoalHibernateRepository
@@ -74,7 +66,9 @@ class TesseractCorePlugin : JavaPlugin() {
         ServiceContainer.getInstance().registerService(
             VoteGoalService::class.java, VoteGoalService(voteService, VoteGoalHibernateRepository))
 
-        this.server.pluginManager.registerEvents(AfkManager.getINSTANCE(), this)
+        val afkManager = ServiceContainer.getInstance().registerService(AfkManager::class.java, AfkManager())
+        afkManager.startTask()
+        this.server.pluginManager.registerEvents(afkManager, this)
         this.server.pluginManager.registerEvents(TrailsAndFilterEventHandlers(), this)
         this.server.pluginManager.registerEvents(PetManager(), this)
         this.server.pluginManager.registerEvents(EntityBossBar(), this)
@@ -86,6 +80,11 @@ class TesseractCorePlugin : JavaPlugin() {
         registerCommands()
 
         VoteGoalManager.startLoops()
+        val autoChatMessage = AutoChatMessage()
+        autoChatMessage.start()
+        autoChatMessage.addMessage(AutoChatMessages.voteMessage())
+        autoChatMessage.addMessage(AutoChatMessages.discordMessage())
+        autoChatMessage.addMessage(AutoChatMessages.recrutementMessage())
     }
 
     fun registerCommands() {
@@ -93,7 +92,7 @@ class TesseractCorePlugin : JavaPlugin() {
         instance.getCommand("familier")!!.setExecutor(FamilierCommand())
         instance.getCommand("cosmetic")!!.setExecutor(CosmeticCommand())
         instance.getCommand("vote")!!.setExecutor(VoteCommand())
-        instance.getCommand("marketCurrency")!!.setExecutor(MarketCurrencyCommand())
+        MarketCurrencyCommand().register(this, "marketCurrency")
         instance.getCommand("votetopreward")!!.setExecutor(VoteTopRewardCommand())
         instance.getCommand("cosmetic")!!.tabCompleter = CosmeticCompleter()
         instance.getCommand("votegoal")!!.setExecutor(VoteGoalCommand())
