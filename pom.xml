@@ -171,6 +171,7 @@
             <groupId>onl.tesseract</groupId>
             <artifactId>tesseractlib</artifactId>
             <version>4.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>

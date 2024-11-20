@@ -1,7 +1,6 @@
 package onl.tesseract.core.persistence.hibernate
 
 import onl.tesseract.core.Config
-import onl.tesseract.core.achievement.Achievement
 import onl.tesseract.core.persistence.hibernate.achievement.AchievementEntity
 import onl.tesseract.core.persistence.hibernate.achievement.PlayerAchievementsEntity
 import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfo
@@ -15,8 +14,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder
 import org.hibernate.cfg.AvailableSettings
 import org.hibernate.cfg.Configuration
 import org.hibernate.service.ServiceRegistry
-import org.hibernate.tool.schema.Action
-import java.lang.Exception
 
 
 object HibernateUtil {
@@ -53,8 +50,6 @@ object HibernateUtil {
         )
         configuration.setProperty(AvailableSettings.JAKARTA_JDBC_USER, config.dbUsername)
         configuration.setProperty(AvailableSettings.JAKARTA_JDBC_PASSWORD, config.dbPassword)
-
-//        configuration.setProperty(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQL8Dialect")
 
         // Enable Hibernate's automatic session context management
         configuration.setProperty(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, "thread")

@@ -21,28 +21,24 @@ public class BDDConnection {
 
     private void connect(){
         try {
-            Class.forName("com.mysql.jdbc.Driver");
             this.connection = DriverManager.getConnection(database.getUrl(),database.getUser(), database.getPassword());
             log.info("[BDD] : connection done");
-        } catch (SQLException | ClassNotFoundException throwables) {
+        } catch (SQLException throwables) {
             log.error("Could not connect to database", throwables);
         }
     }
 
     public void close() throws SQLException {
-        if(this.connection != null){
-            if(!this.connection.isClosed()){
-                this.connection.close();
-            }
+        if(this.connection != null && !this.connection.isClosed()){
+            this.connection.close();
         }
     }
 
     public Connection getConnection() throws SQLException {
-        if(connection != null){
-            if(!connection.isClosed()){
-                return connection;
-            }
+        if(connection != null && !connection.isClosed()){
+            return connection;
         }
+
         connect();
         return connection;
     }
