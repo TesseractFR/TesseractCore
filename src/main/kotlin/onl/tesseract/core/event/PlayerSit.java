@@ -1,14 +1,8 @@
 package onl.tesseract.core.event;
 
+import onl.tesseract.core.sit.SeatBlock;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.Bisected;
-import org.bukkit.block.data.Directional;
-import org.bukkit.block.data.Lightable;
-import org.bukkit.block.data.type.Campfire;
-import org.bukkit.block.data.type.Slab;
-import org.bukkit.block.data.type.Stairs;
+import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
@@ -24,6 +18,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Makes a player sit down when he right-clicks a slab or stairs
@@ -34,69 +29,32 @@ public class PlayerSit implements Listener {
     @EventHandler
     public void onSit(PlayerInteractEvent event)
     {
-        if (isRightClickOnBlock(event))
-        {
-            if (event.getClickedBlock().getType().toString().contains("SLAB"))
-            {
-                if (event.getClickedBlock().getRelative(BlockFace.UP).getType().isSolid())
-                    return;
-                Slab dir = (Slab)event.getClickedBlock().getBlockData();
-                if (dir.getType() == Slab.Type.BOTTOM)
-                {
-                    Location sitLocation = event.getClickedBlock().getLocation().add(0.5, -.4, 0.5);
-                    new PlayerSitEvent(event.getPlayer(), sitLocation, event.getPlayer().getLocation().getYaw())
-                            .callEvent();
-                }
-            }
-            else if (event.getClickedBlock().getType().equals(Material.CAMPFIRE))
-            {
-                Lightable campfire = (Campfire) event.getClickedBlock().getBlockData();
-                if (!campfire.isLit())
-                {
-                    Location sitLocation = event.getClickedBlock().getLocation().add(0.5, -.4, 0.5);
-                    new PlayerSitEvent(event.getPlayer(), sitLocation, event.getPlayer().getLocation().getYaw()).callEvent();
-                }
-            }
-            else if (event.getClickedBlock().getType().toString().contains("STAIRS"))
-            {
-                if (event.getClickedBlock().getRelative(BlockFace.UP).getType().isSolid())
-                    return;
-                Bisected stairs = (Stairs)event.getClickedBlock().getBlockData();
-                if (stairs.getHalf() == Bisected.Half.TOP)
-                    return;
+        if (!isRightClickOnBlock(event))
+            return;
 
-                Location sitLocation = event.getClickedBlock().getLocation().add(0.5, -.4, 0.5);
-                Directional dir = (Directional) event.getClickedBlock().getBlockData();
-                switch (dir.getFacing())
-                {
-                    case DOWN:
-                        break;
-                    case NORTH:
-                        new PlayerSitEvent(event.getPlayer(), sitLocation, 0).callEvent();
-                        break;
-                    case SOUTH:
-                        new PlayerSitEvent(event.getPlayer(), sitLocation, 180).callEvent();
-                        break;
-                    case EAST:
-                        new PlayerSitEvent(event.getPlayer(), sitLocation, 90).callEvent();
-                        break;
-                    case WEST:
-                        new PlayerSitEvent(event.getPlayer(), sitLocation, -90).callEvent();
-                        break;
-                }
-            }
-        }
+        Block clickedBlock = Objects.requireNonNull(event.getClickedBlock());
+        SeatBlock.getEntries().stream()
+                .filter(seat -> seat.matches(event.getClickedBlock()))
+                .findAny()
+                .ifPresent(seat -> handleSit(seat, event.getPlayer(), clickedBlock));
     }
 
     private boolean isRightClickOnBlock(PlayerInteractEvent event) {
         return event.hasBlock() && event.getClickedBlock() != null && !event.hasItem() && event.getAction() == Action.RIGHT_CLICK_BLOCK;
     }
 
+    private void handleSit(SeatBlock seat, Player player, Block block) {
+        PlayerSitEvent event = new PlayerSitEvent(player, seat.getSitLocation(block), seat.getSitRotation(block, player));
+        if (!event.callEvent())
+            return;
+        sit(event.getPlayer(), event.getLocation(), event.getRotation());
+    }
+
     @EventHandler
     public void onStandUp(VehicleExitEvent event)
     {
-        if (event.getExited().getType() == EntityType.PLAYER && map.containsKey((Player) event.getExited()))
-            standUp((Player) event.getExited());
+        if (event.getExited() instanceof Player player && map.containsKey(player))
+            standUp(player);
     }
     @EventHandler
     public void onLeave(PlayerQuitEvent event)
@@ -112,7 +70,7 @@ public class PlayerSit implements Listener {
             sit(event.getPlayer(), event.getLocation(), event.getRotation());
     }
 
-    static public void sit(Player player, Location location, float rotation)
+    public static void sit(Player player, Location location, float rotation)
     {
         Pig pig = (Pig) player.getWorld().spawnEntity(location, EntityType.PIG);
         pig.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 99999, 0, false, false));
@@ -126,7 +84,7 @@ public class PlayerSit implements Listener {
         map.put(player, pig);
     }
 
-    static public void standUp(Player player)
+    public static void standUp(Player player)
     {
         var pig = map.get(player);
         player.teleport(pig.getLocation().add(0, 1, 0));
