@@ -51,7 +51,7 @@ abstract class BoutiqueMenu(
             .name(nameComponent)
             .lore(lore.get())
             .build()
-        this.addButton(size.size - 5, itemStack) { event ->
+        this.addButton(size.size - 5, itemStack) { _ ->
             viewer.sendMessage(
                 Component.text("[", NamedTextColor.GOLD)
                     .append(Component.text(" Cliquez ici pour acheter des lys d'or", NamedTextColor.YELLOW))

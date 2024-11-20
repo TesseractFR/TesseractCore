@@ -34,7 +34,7 @@ public class PlayerSit implements Listener {
     @EventHandler
     public void onSit(PlayerInteractEvent event)
     {
-        if (event.hasBlock() && event.getClickedBlock() != null && !event.hasItem() && event.getAction() == Action.RIGHT_CLICK_BLOCK)
+        if (isRightClickOnBlock(event))
         {
             if (event.getClickedBlock().getType().toString().contains("SLAB"))
             {
@@ -86,6 +86,10 @@ public class PlayerSit implements Listener {
                 }
             }
         }
+    }
+
+    private boolean isRightClickOnBlock(PlayerInteractEvent event) {
+        return event.hasBlock() && event.getClickedBlock() != null && !event.hasItem() && event.getAction() == Action.RIGHT_CLICK_BLOCK;
     }
 
     @EventHandler
