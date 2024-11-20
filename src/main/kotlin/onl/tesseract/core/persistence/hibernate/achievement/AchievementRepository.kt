@@ -9,7 +9,7 @@ object AchievementHibernateRepository : AchievementRepository {
 
     override fun getById(id: Int): Achievement? {
         DaoUtils.executeInsideTransaction { session ->
-            return session.get(AchievementEntity::class.java, id)?.toModel()
+            return session[AchievementEntity::class.java, id]?.toModel()
         }
         return null
     }

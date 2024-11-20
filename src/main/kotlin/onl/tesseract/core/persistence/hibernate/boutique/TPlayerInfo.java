@@ -74,13 +74,13 @@ public class TPlayerInfo implements Serializable {
     @PostUpdate
     private void populateCosmetics() {
         for (CosmeticEntity cosmetic : cosmetics) {
-            if (ElytraTrails.getTypeName().equals(cosmetic.getCosmetic_type())) {
+            if (ElytraTrails.getTypeName().equals(cosmetic.getCosmeticType())) {
                 elytraTrails.add(ElytraTrails.valueOf(cosmetic.getCosmetic()));
-            } else if (FlyFilter.getTypeName().equals(cosmetic.getCosmetic_type())) {
+            } else if (FlyFilter.getTypeName().equals(cosmetic.getCosmeticType())) {
                 flyFilters.add(FlyFilter.valueOf(cosmetic.getCosmetic()));
-            } else if (TeleportationAnimation.getTypeName().equals(cosmetic.getCosmetic_type())) {
+            } else if (TeleportationAnimation.getTypeName().equals(cosmetic.getCosmeticType())) {
                 teleportationAnimations.add(TeleportationAnimation.valueOf(cosmetic.getCosmetic()));
-            } else if (Pet.getTypeName().equals(cosmetic.getCosmetic_type())) {
+            } else if (Pet.getTypeName().equals(cosmetic.getCosmeticType())) {
                 pets.add(Pet.valueOf(cosmetic.getCosmetic()));
             }
         }

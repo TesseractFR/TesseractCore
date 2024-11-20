@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PlayerSitEvent extends Event implements Cancellable {
     private boolean isCancelled = false;
-    static private final HandlerList handlerList = new HandlerList();
+    private static final HandlerList handlerList = new HandlerList();
 
     private Player player;
     private Location location;
@@ -72,10 +72,10 @@ public class PlayerSitEvent extends Event implements Cancellable {
     @Override
     @NotNull
     public HandlerList getHandlers() {
-        return handlerList;
+        return getHandlerList();
     }
 
-    static public HandlerList getHandlerList() {
+    public static HandlerList getHandlerList() {
         return handlerList;
     }
 }
