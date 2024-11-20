@@ -13,11 +13,10 @@ import onl.tesseract.lib.util.ChatFormats
 import onl.tesseract.lib.util.plus
 import org.bukkit.command.CommandSender
 
-// TODO Async command
 @Command(permission = Perm(value = "cosmetic.admin"))
 class MarketCurrencyCommand : CommandContext() {
 
-    @Command
+    @Command(isAsync = true)
     fun give(
         @Argument("player") playerArg: OfflinePlayerArg,
         @Argument("amount") amount: IntegerCommandArgument,
@@ -31,7 +30,7 @@ class MarketCurrencyCommand : CommandContext() {
         player.player?.sendMessage(ChatFormats.COSMETICS + "Vous avez reçu $amount lys d'or")
     }
 
-    @Command
+    @Command(isAsync = true)
     fun remove(
         @Argument("player") playerArg: OfflinePlayerArg,
         @Argument("amount") amount: IntegerCommandArgument,
@@ -45,7 +44,7 @@ class MarketCurrencyCommand : CommandContext() {
         player.player?.sendMessage(ChatFormats.COSMETICS + "Vous avez été déduit de $amount lys d'or")
     }
 
-    @Command
+    @Command(isAsync = true)
     fun get(@Argument("player") playerArg: OfflinePlayerArg, sender: CommandSender) {
         val boutiqueService: BoutiqueService = ServiceContainer[BoutiqueService::class.java]
         val playerBoutiqueInfo: PlayerBoutiqueInfo = boutiqueService.getPlayerBoutiqueInfo(playerArg.get().uniqueId)
