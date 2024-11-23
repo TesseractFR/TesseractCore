@@ -10,7 +10,7 @@ object DailyConnectionHibernateRepository : DailyConnectionRepository {
     override fun getPlayerDates(id: UUID): Collection<PlayerConnectionDates> {
         DaoUtils.executeInsideTransaction {
             val query = it.createQuery("FROM PlayerConnectionDatesEntity e WHERE e.id.playerID = :player", PlayerConnectionDatesEntity::class.java)
-            query.setParameter("player", id.toString())
+            query.setParameter("player", id)
             return query.resultList.map { it.toModel() }
         }
         return emptyList()
@@ -18,7 +18,7 @@ object DailyConnectionHibernateRepository : DailyConnectionRepository {
 
     override fun save(dates: PlayerConnectionDates) {
         DaoUtils.executeInsideTransaction {
-            it.persist(dates.toEntity())
+            it.merge(dates.toEntity())
         }
     }
 }

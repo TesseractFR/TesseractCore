@@ -17,7 +17,7 @@ object DaoUtils {
             HibernateUtil.sessionFactory.openSession().use { session ->
                 transaction = session.beginTransaction()
                 action(session)
-                transaction.commit()
+                transaction?.commit()
             }
         } catch (e: Exception) {
             log.error("Error executing inside transaction", e)

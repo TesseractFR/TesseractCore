@@ -1,11 +1,9 @@
 package onl.tesseract.core.persistence.hibernate.dailyConnection;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import org.jetbrains.annotations.Nullable;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
 
+import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -19,7 +17,11 @@ public class PlayerConnectionDatesEntity {
     private LocalDateTime firstConnection;
 
     @Embeddable
-    public record CompositeId(UUID playerID, @Nullable String server) {
+    public record CompositeId(
+            @Column(columnDefinition = "VARCHAR(36)")
+            @JdbcTypeCode(Types.VARCHAR)
+            UUID playerID,
+            String server) {
     }
 
     public PlayerConnectionDatesEntity() {
