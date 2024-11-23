@@ -1,20 +1,24 @@
 package onl.tesseract.core.persistence.hibernate.title
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.Table
 import onl.tesseract.core.title.Title
 
 @Entity
+@Table(name = "t_title")
 class TitleEntity(
     @Id
-    var id: String?,
-    var nameM: String?,
-    var nameF: String?,
+    @Column(name = "name")
+    var id: String,
+    @Column(name = "text_m")
+    var nameM: String,
+    @Column(name = "text_f")
+    var nameF: String,
 ) {
-    constructor() : this(null, null, null)
-
     fun toModel(): Title {
-        return Title(id!!, nameM!!, nameF!!)
+        return Title(id, nameM, nameF)
     }
 
     companion object {
