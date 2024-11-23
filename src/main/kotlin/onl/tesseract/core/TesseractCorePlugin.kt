@@ -28,6 +28,7 @@ import onl.tesseract.core.title.TitleService
 import onl.tesseract.core.vote.VoteGoalService
 import onl.tesseract.core.vote.VoteService
 import onl.tesseract.core.vote.goal.VoteGoalManager
+import onl.tesseract.lib.TesseractLib
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.lib.task.TaskScheduler
 import org.bukkit.plugin.java.JavaPlugin
@@ -43,6 +44,7 @@ class TesseractCorePlugin : JavaPlugin() {
         val config = Config()
         bddManager = BDDManager(config.dbHost, config.dbPort, config.dbUsername, config.dbPassword, config.dbDatabase)
 
+        TesseractLib.registerOnEnable(this)
         ServiceContainer.getInstance().registerService(TaskScheduler::class.java, TaskScheduler(this))
         ServiceContainer.getInstance().registerService(
             AchievementService::class.java, AchievementService(AchievementHibernateRepository)
