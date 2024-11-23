@@ -14,7 +14,7 @@ object TitleHibernateRepository : TitleRepository {
 
     override fun getById(id: String): Title? {
         DaoUtils.executeInsideTransaction {
-            return it.get(TitleEntity::class.java, id).toModel()
+            return it[TitleEntity::class.java, id].toModel()
         }
         return null
     }
