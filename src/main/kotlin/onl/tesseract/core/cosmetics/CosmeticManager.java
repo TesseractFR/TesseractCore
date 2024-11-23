@@ -4,6 +4,7 @@ import onl.tesseract.core.TesseractCorePlugin;
 import onl.tesseract.core.cosmetics.familier.Pet;
 import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfo;
 import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfoService;
+import onl.tesseract.lib.service.ServiceContainer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -15,7 +16,7 @@ public class CosmeticManager {
     public static void giveCosmetic(UUID uuid, Cosmetic cosmetic) {
 
         var runnable = new BukkitRunnable() {
-            final TPlayerInfo tPlayerInfo = TPlayerInfoService.getInstance().get(uuid);
+            final TPlayerInfo tPlayerInfo = ServiceContainer.get(TPlayerInfoService.class).get(uuid);
 
             @Override
             public void run() {
@@ -28,7 +29,7 @@ public class CosmeticManager {
                 } else if (cosmetic instanceof TeleportationAnimation teleportationAnimation) {
                     tPlayerInfo.getTeleportationAnimations().add(teleportationAnimation);
                 }
-                TPlayerInfoService.getInstance().save(tPlayerInfo);
+                ServiceContainer.get(TPlayerInfoService.class).save(tPlayerInfo);
             }
         };
         runnable.runTaskAsynchronously(TesseractCorePlugin.instance);
@@ -36,7 +37,7 @@ public class CosmeticManager {
 
 
     public static void removeCosmetic(UUID uuid, Cosmetic cosmetic) {
-        final TPlayerInfo tPlayerInfo = TPlayerInfoService.getInstance().get(uuid);
+        final TPlayerInfo tPlayerInfo = ServiceContainer.get(TPlayerInfoService.class).get(uuid);
         var runnable = new BukkitRunnable() {
             @Override
             public void run() {
@@ -57,7 +58,7 @@ public class CosmeticManager {
         return hasCosmetic(player.getUniqueId(), type, cosmetic);
     }
     public static boolean hasCosmetic(UUID uuid, String type, Cosmetic cosmetic) {
-        final TPlayerInfo tPlayerInfo = TPlayerInfoService.getInstance().get(uuid);
+        final TPlayerInfo tPlayerInfo = ServiceContainer.get(TPlayerInfoService.class).get(uuid);
         if (cosmetic instanceof FlyFilter flyFilter) {
             return tPlayerInfo.getFlyFilters().contains(flyFilter);
         } else if (cosmetic instanceof Pet pet) {
@@ -84,7 +85,7 @@ public class CosmeticManager {
     }
 
     public static int getTotalPossessed(UUID uuid, String type) {
-        final TPlayerInfo tPlayerInfo = TPlayerInfoService.getInstance().get(uuid);
+        final TPlayerInfo tPlayerInfo = ServiceContainer.get(TPlayerInfoService.class).get(uuid);
         if (ElytraTrails.getTypeName().equals(type)) {
             return tPlayerInfo.getElytraTrails().size();
         } else if (FlyFilter.getTypeName().equals(type)) {

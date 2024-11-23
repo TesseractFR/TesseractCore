@@ -1,20 +1,17 @@
 package onl.tesseract.core.persistence.hibernate.boutique;
 
 import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.UUID;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TPlayerInfoService {
-    private static final TPlayerInfoService instance = new TPlayerInfoService();
     private static final Logger log = LoggerFactory.getLogger(TPlayerInfoService.class);
     TPlayerInfoDAO dao = TPlayerInfoDAO.getInstance();
-
 
     public TPlayerInfo get(UUID uniqueId) {
         TPlayerInfo tPlayerInfo = dao.get(uniqueId);
@@ -45,7 +42,4 @@ public class TPlayerInfoService {
         dao.refresh(tPlayerInfo);
     }
 
-    public static TPlayerInfoService getInstance() {
-        return instance;
-    }
 }

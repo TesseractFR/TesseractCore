@@ -32,7 +32,7 @@ abstract class BoutiqueMenu(
     }
 
     protected fun addBoutiqueButton(viewer: Player) {
-        val playerInfo = TPlayerInfoService.getInstance().get(player.uniqueId)
+        val playerInfo = ServiceContainer[TPlayerInfoService::class.java].get(player.uniqueId)
         val lore = ItemLoreBuilder()
             .newline()
             .append(Component.text("Vous avez ", NamedTextColor.GRAY))
@@ -121,21 +121,21 @@ abstract class BoutiqueMenu(
     }
 
     private fun buyItemWithLysDor(itemStack: ItemStack, price: Int): Boolean {
-        val playerInfo = TPlayerInfoService.getInstance().get(player.uniqueId)
+        val playerInfo = ServiceContainer[TPlayerInfoService::class.java].get(player.uniqueId)
         if (playerInfo.market_currency < price) {
             return false
         }
-        TPlayerInfoService.getInstance().addMarketCurrency(playerInfo, -price)
+        ServiceContainer[TPlayerInfoService::class.java].addMarketCurrency(playerInfo, -price)
         player.inventory.addItem(itemStack)
         return true
     }
 
     private fun buyItemWithShopPoint(itemStack: ItemStack, price: Int): Boolean {
-        val playerInfo = TPlayerInfoService.getInstance().get(player.uniqueId)
+        val playerInfo = ServiceContainer[TPlayerInfoService::class.java].get(player.uniqueId)
         if (playerInfo.shop_point < price) {
             return false
         }
-        TPlayerInfoService.getInstance().addShopPoint(playerInfo, -price)
+        ServiceContainer[TPlayerInfoService::class.java].addShopPoint(playerInfo, -price)
         player.inventory.addItem(itemStack)
         return true
     }
