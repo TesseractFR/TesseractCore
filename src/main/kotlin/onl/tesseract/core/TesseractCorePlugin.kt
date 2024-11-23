@@ -16,6 +16,7 @@ import onl.tesseract.core.event.PlayerSit
 import onl.tesseract.core.persistence.hibernate.BDDManager
 import onl.tesseract.core.persistence.hibernate.achievement.AchievementHibernateRepository
 import onl.tesseract.core.persistence.hibernate.boutique.BoutiqueHibernateRepository
+import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfoService
 import onl.tesseract.core.persistence.hibernate.dailyConnection.DailyConnectionHibernateRepository
 import onl.tesseract.core.persistence.hibernate.title.TitleHibernateRepository
 import onl.tesseract.core.persistence.hibernate.vote.PlayerVoteHibernateRepository
@@ -67,7 +68,7 @@ class TesseractCorePlugin : JavaPlugin() {
                 PlayerVotePointsHibernateRepository))
         ServiceContainer.getInstance().registerService(
             VoteGoalService::class.java, VoteGoalService(voteService, VoteGoalHibernateRepository))
-
+        ServiceContainer.getInstance().registerService(TPlayerInfoService::class.java, TPlayerInfoService())
         val afkManager = ServiceContainer.getInstance().registerService(AfkManager::class.java, AfkManager())
         afkManager.startTask()
         this.server.pluginManager.registerEvents(afkManager, this)
