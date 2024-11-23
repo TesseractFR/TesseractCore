@@ -11,7 +11,7 @@ import java.util.UUID
 @Table(name = "t_vote_points")
 class PlayerVotePointsEntity(
     @Id
-    @Column(name = "player_uuid")
+    @Column(name = "player_uuid",columnDefinition = "VARCHAR(36)")
     val playerID: UUID,
     var amount: Int = 0,
 ) {
