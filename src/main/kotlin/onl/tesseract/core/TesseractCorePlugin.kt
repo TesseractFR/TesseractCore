@@ -107,7 +107,8 @@ class TesseractCorePlugin : JavaPlugin() {
 
     override fun onDisable() {
         // Plugin shutdown logic
-        bddManager.close()
+        if (this::bddManager.isInitialized)
+            bddManager.close()
     }
 
     companion object {
