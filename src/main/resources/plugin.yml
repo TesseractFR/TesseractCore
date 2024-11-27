@@ -44,3 +44,15 @@ commands:
     usage: "/votetopreward {reward_top1} {reward_top3} {reward_top3}"
     permission: tesseract.admin
     description: Distribuer des récompenses au top 3 voteurs
+  equipment:
+    aliases: [ eq, equipement ]
+    usage: "/equipement"
+    description: Ouvrir le menu des équipements
+    permission: tesseract.equipment
+  log:
+    usage: "/log level"
+    permission: admin.log
+    description: Set logger levels
+  inventory:
+    usage: "/inventory"
+    permission: inventory
