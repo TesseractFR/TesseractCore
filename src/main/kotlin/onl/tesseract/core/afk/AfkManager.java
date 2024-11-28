@@ -1,13 +1,15 @@
 package onl.tesseract.core.afk;
 
 import io.papermc.paper.event.player.AsyncChatEvent;
+import kotlin.Unit;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
-import onl.tesseract.core.TesseractCorePlugin;
+import onl.tesseract.lib.service.ServiceContainer;
+import onl.tesseract.lib.task.TaskScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -15,7 +17,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandSendEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
@@ -28,34 +29,34 @@ import java.util.UUID;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AfkManager implements Listener {
-    public static final @NotNull TextComponent MESSAGE_NOT_AFK_ANYMORE = Component.text("Vous n'êtes plus AFK", NamedTextColor.GRAY);
-    Set<UUID> afks = new HashSet<>();
-    HashMap<UUID, Instant> lastMessage = new HashMap<>();
-    HashMap<UUID, Instant> lastMove = new HashMap<>();
-    HashMap<UUID, Location> lastLocations = new HashMap<>();
+    private static final @NotNull TextComponent MESSAGE_NOT_AFK_ANYMORE = Component.text("Vous n'êtes plus AFK", NamedTextColor.GRAY);
+
+    private Set<UUID> afks = new HashSet<>();
+    private HashMap<UUID, Instant> lastMessage = new HashMap<>();
+    private HashMap<UUID, Instant> lastMove = new HashMap<>();
+    private HashMap<UUID, Location> lastLocations = new HashMap<>();
 
     public void startTask() {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                Bukkit.getOnlinePlayers().forEach(player -> {
-                    if (lastLocations.containsKey(player.getUniqueId())) {
-                        if (isAfkLocation(player) && isAfkChat(player)) {
+        ServiceContainer.get(TaskScheduler.class).runTimer(0L, 10 * 20L, () -> {
+            Bukkit.getOnlinePlayers().forEach(player -> {
+                if (lastLocations.containsKey(player.getUniqueId())) {
+                    checkAndUpdateAFKState(player);
+                }
+                lastLocations.put(player.getUniqueId(), player.getLocation());
+            });
+           return Unit.INSTANCE;
+        });
+    }
 
-
-                            if (afks.add(player.getUniqueId())) {
-                                player.sendMessage(Component.text("Vous êtes désormais AFK", NamedTextColor.GRAY));
-                            }
-                        } else {
-                            if (afks.remove(player.getUniqueId())) {
-                                player.sendMessage(MESSAGE_NOT_AFK_ANYMORE);
-                            }
-                        }
-                    }
-                    lastLocations.put(player.getUniqueId(), player.getLocation());
-                });
-            }
-        }.runTaskTimer(TesseractCorePlugin.instance, 0L, 10 * 20L);
+    private void checkAndUpdateAFKState(Player player) {
+        boolean isAFK = isAfkLocation(player) && isAfkChat(player);
+        if (isAFK && !afks.contains(player.getUniqueId())) {
+            afks.add(player.getUniqueId());
+            player.sendMessage(Component.text("Vous êtes désormais AFK", NamedTextColor.GRAY));
+        } else if (!isAFK && afks.contains(player.getUniqueId())) {
+            afks.remove(player.getUniqueId());
+            player.sendMessage(MESSAGE_NOT_AFK_ANYMORE);
+        }
     }
 
     private boolean isAfkChat(Player player) {

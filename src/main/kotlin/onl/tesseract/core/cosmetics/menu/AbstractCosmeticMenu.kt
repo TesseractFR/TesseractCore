@@ -31,11 +31,11 @@ abstract class AbstractCosmeticMenu(
             lore.append("Débloqué", NamedTextColor.GREEN)
                     .newline()
                     .append("Cliquez pour utiliser le cosmétique ")
-                    .append(cosmetic.name)
+                    .append(cosmetic.displayName)
         else
             lore.append("Bloqué", NamedTextColor.RED).newline()
                     .append("Cliquez pour acheter ")
-                    .append(cosmetic.name)
+                    .append(cosmetic.displayName)
                     .newline()
                     .append("Coût : ${cosmetic.price} lys d'or", NamedTextColor.GRAY)
                     .newline()
@@ -44,7 +44,7 @@ abstract class AbstractCosmeticMenu(
         addButton(
             index,
             ItemBuilder(cosmetic.material)
-                    .name(cosmetic.name)
+                    .name(cosmetic.displayName)
                     .enchanted(playerBoutiqueInfo.activeFlyFilter == cosmetic)
                     .lore(lore.get()).build()
         ) {

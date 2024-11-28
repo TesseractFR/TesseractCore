@@ -43,7 +43,7 @@ class BoutiqueService(private val repository: BoutiqueRepository) {
         if (playerBoutiqueInfo.marketCurrency >= cosmetic.price) {
             ServiceContainer[MenuService::class.java].openConfirmationMenu(
                 player,
-                Component.text("Êtes vous sur de vouloir acheter le cosmétique ").append(cosmetic.getName()),
+                Component.text("Êtes vous sur de vouloir acheter le cosmétique ").append(cosmetic.getDisplayName()),
                 mainMenu
             ) {
                 buyCosmetic(player.uniqueId, cosmetic)
