@@ -10,33 +10,33 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 public enum Pet implements Cosmetic {
-    PIGGY(PetHead.PiggyHead),
-    BOARY(PetHead.BoaryHead),
-    WILDY(PetHead.WildyHead),
-    OWLY(PetHead.OwlyHead),
-    BIRDY(PetHead.BirdyHead),
-    OLDY(PetHead.OldyHead),
-    DOGGY(PetHead.DoggyHead),
-    PUGGY(PetHead.PuggyHead),
-    BROWNY(PetHead.BrownyHead),
-    CATTY(PetHead.CattyHead),
-    TIGER(PetHead.TigerHead),
-    NYANCAT(PetHead.NyanCatHead),
-    MOOSHY(PetHead.MooshyHead),
-    SPARCOW(PetHead.SparCowHead),
-    COWWY(PetHead.CowwyHead),
-    BEEBEE(PetHead.BeeBeeHead, "BeeBee"),
-    MAGENBEE(PetHead.MagenBeeHead),
-    BOOP(PetHead.BoopHead),
-    SNAILY(PetHead.SnailyHead),
-    GARY(PetHead.GaryHead),
-    SLOWY(PetHead.SlowyHead),
-    FISHY(PetHead.FishyHead),
-    PUFFER(PetHead.PufferHead),
-    MAGIKARP(PetHead.MagikarpHead),
-    SHEEPY(PetHead.SheepyHead),
-    BLUEPY(PetHead.BluepyHead),
-    TEEPY(PetHead.TeepyHead);
+    PIGGY(PetHead.PIGGY_HEAD),
+    BOARY(PetHead.BOARY_HEAD),
+    WILDY(PetHead.WILDY_HEAD),
+    OWLY(PetHead.OWLY_HEAD),
+    BIRDY(PetHead.BIRDY_HEAD),
+    OLDY(PetHead.OLDY_HEAD),
+    DOGGY(PetHead.DOGGY_HEAD),
+    PUGGY(PetHead.PUGGY_HEAD),
+    BROWNY(PetHead.BROWNY_HEAD),
+    CATTY(PetHead.CATTY_HEAD),
+    TIGER(PetHead.TIGER_HEAD),
+    NYANCAT(PetHead.NYAN_CAT_HEAD),
+    MOOSHY(PetHead.MOOSHY_HEAD),
+    SPARCOW(PetHead.SPAR_COW_HEAD),
+    COWWY(PetHead.COWWY_HEAD),
+    BEEBEE(PetHead.BEE_BEE_HEAD, "BeeBee"),
+    MAGENBEE(PetHead.MAGEN_BEE_HEAD),
+    BOOP(PetHead.BOOP_HEAD),
+    SNAILY(PetHead.SNAILY_HEAD),
+    GARY(PetHead.GARY_HEAD),
+    SLOWY(PetHead.SLOWY_HEAD),
+    FISHY(PetHead.FISHY_HEAD),
+    PUFFER(PetHead.PUFFER_HEAD),
+    MAGIKARP(PetHead.MAGIKARP_HEAD),
+    SHEEPY(PetHead.SHEEPY_HEAD),
+    BLUEPY(PetHead.BLUEPY_HEAD),
+    TEEPY(PetHead.TEEPY_HEAD);
 
 
     final PetHead head;
@@ -78,7 +78,7 @@ public enum Pet implements Cosmetic {
     }
 
     @Override
-    public Component getName()
+    public Component getDisplayName()
     {
         return name;
     }

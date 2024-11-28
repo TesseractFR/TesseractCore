@@ -246,7 +246,7 @@ public enum TeleportationAnimation implements CosmeticWithMaterial {
         return 300;
     }
 
-    public Component getName()
+    public Component getDisplayName()
     {
         return name;
     }

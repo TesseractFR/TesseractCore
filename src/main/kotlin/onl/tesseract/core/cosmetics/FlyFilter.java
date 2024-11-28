@@ -2,7 +2,6 @@ package onl.tesseract.core.cosmetics;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 
@@ -40,11 +39,11 @@ public enum FlyFilter implements CosmeticWithMaterial {
     @Override
     public Component getObtainMessage()
     {
-        return Component.text("Vous avez obtenu le filtre de vol ").append(getName());
+        return Component.text("Vous avez obtenu le filtre de vol ").append(getDisplayName());
     }
 
     @Override
-    public Component getName()
+    public Component getDisplayName()
     {
         return name;
     }

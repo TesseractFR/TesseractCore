@@ -46,7 +46,7 @@ public enum ElytraTrails implements CosmeticWithMaterial {
         return material;
     }
 
-    public Component getName()
+    public Component getDisplayName()
     {
         return name;
     }

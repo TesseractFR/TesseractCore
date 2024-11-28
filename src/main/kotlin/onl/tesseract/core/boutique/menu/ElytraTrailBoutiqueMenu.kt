@@ -30,11 +30,11 @@ class ElytraTrailBoutiqueMenu(
                 addButton(
                     trail.getIndex(),
                     ItemBuilder(trail.material)
-                        .name(trail.getName())
+                        .name(trail.getDisplayName())
                         .lore(
                             ItemLoreBuilder()
                                 .append("Cliquez pour acheter ")
-                                .append(trail.getName())
+                                .append(trail.getDisplayName())
                                 .newline()
                                 .append("Coût : ${trail.price} lys d'or", NamedTextColor.GRAY)
                                 .newline()
@@ -47,7 +47,7 @@ class ElytraTrailBoutiqueMenu(
                 }
             } else {
                 addButton(trail.index, ItemBuilder(Material.STRUCTURE_VOID)
-                    .name(trail.getName())
+                    .name(trail.getDisplayName())
                     .lore(ItemLoreBuilder().append("Vous possédez déjà ce sillage", NamedTextColor.GRAY).get())
                     .build())
             }

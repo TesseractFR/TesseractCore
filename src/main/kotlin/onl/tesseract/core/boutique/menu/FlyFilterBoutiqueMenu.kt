@@ -29,7 +29,7 @@ class FlyFilterBoutiqueMenu(
                     filter.index, ItemBuilder(filter.material, filter.name)
                         .lore()
                         .append("Cliquez pour acheter ")
-                        .append(filter.getName())
+                        .append(filter.getDisplayName())
                         .newline()
                         .append("Coût : ${filter.price} lys d'or", NamedTextColor.GRAY)
                         .newline()
@@ -43,7 +43,7 @@ class FlyFilterBoutiqueMenu(
                 addButton(
                     filter.index,
                     ItemBuilder(Material.STRUCTURE_VOID)
-                        .name(filter.getName())
+                        .name(filter.getDisplayName())
                         .lore()
                         .append("Vous possédez déjà ce sillage", NamedTextColor.GRAY)
                         .buildLore()

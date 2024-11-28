@@ -27,7 +27,7 @@ class PetBoutiqueMenu(
                 if (boutiqueService.hasCosmetic(player.uniqueId, Pet.getTypeName(), pet)) {
                     addButton(
                         i++, ItemBuilder(Material.STRUCTURE_VOID)
-                                .name(pet.getName())
+                                .name(pet.getDisplayName())
                                 .lore()
                                 .append("Vous possédez déjà ce familier", NamedTextColor.GRAY)
                                 .buildLore()
