@@ -20,7 +20,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class PetManager implements Listener {
-    static public final Map<UUID, ArmorStand> invokedPets = new HashMap<>();
+    public static final Map<UUID, ArmorStand> invokedPets = new HashMap<>();
 
 
     public static void invokePet(Player p, Pet pet)
@@ -33,7 +33,7 @@ public class PetManager implements Listener {
             if(pet == null)return;
         }
 
-        if (CosmeticManager.hasCosmetic(p, Pet.getTypeName(),pet))
+        if (CosmeticManager.hasCosmetic(p, pet))
         {
             ArmorStand armorStand;
             armorStand = (ArmorStand) p.getWorld().spawnEntity(p.getLocation().add(+0, +1.5, +0.3),
@@ -88,13 +88,11 @@ public class PetManager implements Listener {
                 invokedPets.get(p.getUniqueId()).teleport(p.getLocation().add(-0.3, +1.5, -0.3));
                 invokedPets.get(p.getUniqueId()).setRotation(p.getLocation().getYaw(), p.getLocation().getPitch());
             }
-            default -> {
-            }
         }
     }
 
     @EventHandler
-    public void OnLeave(PlayerQuitEvent e)
+    public void onLeave(PlayerQuitEvent e)
     {
         Player p = e.getPlayer();
         reset(p);

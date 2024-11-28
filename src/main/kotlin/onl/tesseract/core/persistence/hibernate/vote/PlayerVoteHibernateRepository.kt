@@ -23,14 +23,14 @@ object PlayerVoteHibernateRepository : PlayerVoteRepository {
     override fun getTopVotes(monthDelta: Int): List<Pair<UUID, Int>> {
         val start = Calendar.getInstance()
         start.set(
-            start.get(Calendar.YEAR),
-            start.get(Calendar.MONTH) - monthDelta,
+            start[Calendar.YEAR],
+            start[Calendar.MONTH] - monthDelta,
             0, 0, 0, 0
         )
         val end = Calendar.getInstance()
         end.set(
-            end.get(Calendar.YEAR),
-            end.get(Calendar.MONTH) - monthDelta + 1,
+            end[Calendar.YEAR],
+            end[Calendar.MONTH] - monthDelta + 1,
             0, 0, 0, 0
         )
 
@@ -75,7 +75,7 @@ object PlayerVoteHibernateRepository : PlayerVoteRepository {
             val root = query.from(PlayerVoteEntity::class.java)
             query.select(builder.count(root))
             if (playerID != null)
-                query.where(builder.equal(root.get<String>("playerID"), playerID))
+                query.where(builder.equal(root.get<String>("playerID"), playerID.toString()))
             if (since != null)
                 query.where(builder.between(root.get<Timestamp>("date"), Timestamp.from(since), Timestamp.from(Instant.now())))
             if (serviceName != null)

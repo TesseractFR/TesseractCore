@@ -2,16 +2,16 @@ package onl.tesseract.core.boutique.menu
 
 import net.kyori.adventure.text.format.NamedTextColor
 import onl.tesseract.core.boutique.BoutiqueService
+import onl.tesseract.core.cosmetics.CosmeticManager
+import onl.tesseract.core.cosmetics.FlyFilter
 import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.core.cosmetics.CosmeticManager
-import onl.tesseract.core.cosmetics.FlyFilter
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
-import java.util.UUID
+import java.util.*
 
 class FlyFilterBoutiqueMenu(
     val playerID: UUID,
@@ -24,7 +24,7 @@ class FlyFilterBoutiqueMenu(
         val playerBoutiqueInfo = boutiqueService.getPlayerBoutiqueInfo(playerID)
 
         FlyFilter.entries.filter { it != FlyFilter.NONE }.forEach { filter ->
-            if (!CosmeticManager.hasCosmetic(playerID, FlyFilter.getTypeName(), filter)) {
+            if (!CosmeticManager.hasCosmetic(playerID, filter)) {
                 addButton(
                     filter.index, ItemBuilder(filter.material, filter.name)
                         .lore()

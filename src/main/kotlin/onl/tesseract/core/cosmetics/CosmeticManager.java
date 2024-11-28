@@ -13,6 +13,9 @@ import java.util.UUID;
 
 public class CosmeticManager {
 
+    private CosmeticManager() {
+    }
+
     public static void giveCosmetic(UUID uuid, Cosmetic cosmetic) {
 
         var runnable = new BukkitRunnable() {
@@ -54,10 +57,10 @@ public class CosmeticManager {
         };
         runnable.runTaskAsynchronously(TesseractCorePlugin.instance);
     }
-    public static boolean hasCosmetic(Player player, String type, Cosmetic cosmetic) {
-        return hasCosmetic(player.getUniqueId(), type, cosmetic);
+    public static boolean hasCosmetic(Player player, Cosmetic cosmetic) {
+        return hasCosmetic(player.getUniqueId(), cosmetic);
     }
-    public static boolean hasCosmetic(UUID uuid, String type, Cosmetic cosmetic) {
+    public static boolean hasCosmetic(UUID uuid, Cosmetic cosmetic) {
         final TPlayerInfo tPlayerInfo = ServiceContainer.get(TPlayerInfoService.class).get(uuid);
         if (cosmetic instanceof FlyFilter flyFilter) {
             return tPlayerInfo.getFlyFilters().contains(flyFilter);

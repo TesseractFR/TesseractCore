@@ -14,7 +14,7 @@ import onl.tesseract.lib.util.ChatFormats
 import onl.tesseract.lib.util.plus
 import org.bukkit.Material
 import org.bukkit.entity.Player
-import java.util.UUID
+import java.util.*
 
 class CosmeticTPMenu(val playerID: UUID, previous: Menu? = null) : AbstractCosmeticMenu(
     MenuSize.Three, "Particules de téléportation", previous) {
@@ -30,7 +30,7 @@ class CosmeticTPMenu(val playerID: UUID, previous: Menu? = null) : AbstractCosme
                 .filter { it != TeleportationAnimation.ROSETTE }
                 .forEachIndexed { index, animation ->
                     var hasAnimation =
-                        CosmeticManager.hasCosmetic(playerID, TeleportationAnimation.getTypeName(), animation)
+                        CosmeticManager.hasCosmetic(playerID, animation)
                     if (animation == TeleportationAnimation.WATER && !hasAnimation) {
                         hasAnimation = true
                         CosmeticManager.giveCosmetic(playerID, animation)
@@ -44,7 +44,6 @@ class CosmeticTPMenu(val playerID: UUID, previous: Menu? = null) : AbstractCosme
         // VIP
         if (CosmeticManager.hasCosmetic(
                 playerID,
-                TeleportationAnimation.getTypeName(),
                 TeleportationAnimation.ROSETTE)) {
             addButton(
                 22, ItemBuilder(Material.END_ROD)

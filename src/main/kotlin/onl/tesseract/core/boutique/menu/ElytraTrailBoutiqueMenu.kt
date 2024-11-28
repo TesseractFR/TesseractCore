@@ -3,17 +3,17 @@ package onl.tesseract.core.boutique.menu
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import onl.tesseract.core.boutique.BoutiqueService
+import onl.tesseract.core.cosmetics.CosmeticManager
+import onl.tesseract.core.cosmetics.ElytraTrails
 import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.core.cosmetics.CosmeticManager
-import onl.tesseract.core.cosmetics.ElytraTrails
 import onl.tesseract.lib.util.ItemLoreBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
-import java.util.UUID
+import java.util.*
 
 class ElytraTrailBoutiqueMenu(
     val playerID: UUID,
@@ -26,7 +26,7 @@ class ElytraTrailBoutiqueMenu(
         fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, " ").build())
         ElytraTrails.entries.forEach { trail ->
             if (trail == ElytraTrails.NONE) return@forEach
-            if (!CosmeticManager.hasCosmetic(playerID, ElytraTrails.getTypeName(), trail)) {
+            if (!CosmeticManager.hasCosmetic(playerID, trail)) {
                 addButton(
                     trail.getIndex(),
                     ItemBuilder(trail.material)

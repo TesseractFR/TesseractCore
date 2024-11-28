@@ -9,7 +9,7 @@ import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
 import org.bukkit.Material
 import org.bukkit.entity.Player
-import java.util.UUID
+import java.util.*
 
 class FlyFilterSelectionMenu(val playerID: UUID, previous: Menu? = null) : AbstractCosmeticMenu(
     MenuSize.Three, "Filtre de vol", previous
@@ -22,7 +22,7 @@ class FlyFilterSelectionMenu(val playerID: UUID, previous: Menu? = null) : Abstr
         fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, " ").build())
         FlyFilter.entries.forEach { filter ->
             if (filter != FlyFilter.NONE) {
-                val hasFilter = CosmeticManager.hasCosmetic(playerID, FlyFilter.getTypeName(), filter)
+                val hasFilter = CosmeticManager.hasCosmetic(playerID, filter)
                 placeCosmeticButton(filter.index, filter, hasFilter, playerID) {
                     boutiqueService.setActiveFlyFilter(playerID, it)
                 }
