@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.function.Consumer;
 @Slf4j
 public class DaoUtils {
+    private DaoUtils() {
+    }
+
     public static void executeInsideTransaction(Consumer<Session> action) {
 
         Transaction transaction = null;

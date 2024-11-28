@@ -3,20 +3,19 @@ package onl.tesseract.core.cosmetics.menu
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import onl.tesseract.core.boutique.BoutiqueService
+import onl.tesseract.core.cosmetics.CosmeticManager
+import onl.tesseract.core.cosmetics.familier.PetCategory
+import onl.tesseract.core.cosmetics.familier.PetManager
 import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.core.cosmetics.CosmeticManager
-import onl.tesseract.core.cosmetics.familier.Pet
-import onl.tesseract.core.cosmetics.familier.PetCategory
-import onl.tesseract.core.cosmetics.familier.PetManager
 import onl.tesseract.lib.util.ChatFormats
 import onl.tesseract.lib.util.ItemLoreBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
-import java.util.UUID
+import java.util.*
 
 class PetSelectionMenu(val playerID: UUID, val category: PetCategory, previous: Menu? = null) : Menu(
     MenuSize.Two, "Sélection d'un familier", NamedTextColor.BLUE, previous) {
@@ -26,7 +25,7 @@ class PetSelectionMenu(val playerID: UUID, val category: PetCategory, previous: 
         val playerBoutiqueInfo = boutiqueService.getPlayerBoutiqueInfo(playerID)
         fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, " ").build())
         category.pets.forEachIndexed { index, pet ->
-            val hasPet = CosmeticManager.hasCosmetic(playerID, Pet.getTypeName(), pet)
+            val hasPet = CosmeticManager.hasCosmetic(playerID, pet)
             val lore = ItemLoreBuilder().newline()
             if (hasPet) lore.append("Possédé", NamedTextColor.GREEN)
                     .newline(2)

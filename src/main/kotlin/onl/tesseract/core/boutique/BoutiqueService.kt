@@ -4,18 +4,14 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.event.ClickEvent
 import net.kyori.adventure.text.event.HoverEvent
 import net.kyori.adventure.text.format.NamedTextColor
+import onl.tesseract.core.cosmetics.*
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuService
 import onl.tesseract.lib.repository.Repository
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.core.cosmetics.Cosmetic
-import onl.tesseract.core.cosmetics.CosmeticManager
-import onl.tesseract.core.cosmetics.ElytraTrails
-import onl.tesseract.core.cosmetics.FlyFilter
-import onl.tesseract.core.cosmetics.TeleportationAnimation
 import onl.tesseract.lib.util.ChatFormats
 import org.bukkit.entity.Player
-import java.util.UUID
+import java.util.*
 
 class BoutiqueService(private val repository: BoutiqueRepository) {
 
@@ -24,7 +20,7 @@ class BoutiqueService(private val repository: BoutiqueRepository) {
     }
 
     fun hasCosmetic(playerID: UUID, type: String, cosmetic: Cosmetic): Boolean {
-        return CosmeticManager.hasCosmetic(playerID, type, cosmetic)
+        return CosmeticManager.hasCosmetic(playerID, cosmetic)
     }
 
     fun buyCosmetic(playerID: UUID, cosmetic: Cosmetic) {

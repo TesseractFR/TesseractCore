@@ -57,14 +57,14 @@ class VoteService(
         if (period == VotePeriod.TOTAL) return Instant.EPOCH
         val start = Calendar.getInstance()
         if (period == VotePeriod.YEARLY)
-            start.set(Calendar.MONTH, 0)
+            start[Calendar.MONTH] = 0
         if (period == VotePeriod.MONTHLY)
-            start.set(Calendar.DAY_OF_MONTH, 0)
+            start[Calendar.DAY_OF_MONTH] = 0
         if (period == VotePeriod.WEEKLY)
-            start.set(Calendar.DAY_OF_WEEK, 0)
-        start.set(Calendar.HOUR_OF_DAY, 0)
-        start.set(Calendar.MINUTE, 0)
-        start.set(Calendar.SECOND, 0)
+            start[Calendar.DAY_OF_WEEK] = 0
+        start[Calendar.HOUR_OF_DAY] = 0
+        start[Calendar.MINUTE] = 0
+        start[Calendar.SECOND] = 0
         return start.toInstant()
     }
 }

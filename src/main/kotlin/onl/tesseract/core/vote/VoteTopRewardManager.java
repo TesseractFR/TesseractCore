@@ -2,18 +2,23 @@ package onl.tesseract.core.vote;
 
 import kotlin.Pair;
 import net.kyori.adventure.text.Component;
-import onl.tesseract.core.TesseractCorePlugin;
 import onl.tesseract.core.boutique.BoutiqueService;
 import onl.tesseract.lib.service.ServiceContainer;
 import onl.tesseract.lib.util.ChatFormats;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
 
 public class VoteTopRewardManager {
+
+    public static final Logger logger = LoggerFactory.getLogger(VoteTopRewardManager.class);
+
+    private VoteTopRewardManager() {
+    }
 
     public static void giveReward(final int[] rewards)
     {
@@ -26,7 +31,7 @@ public class VoteTopRewardManager {
         {
             if (index == 3)
                 break;
-            TesseractCorePlugin.instance.getLogger().log(Level.INFO, "Giving top " + (index + 1) + " vote reward to " + player.getFirst().toString());
+            logger.info("Giving top {} vote reward to {}", (index + 1), player.getFirst().toString());
             giveReward(player.getFirst(), rewards[index++]);
         }
     }

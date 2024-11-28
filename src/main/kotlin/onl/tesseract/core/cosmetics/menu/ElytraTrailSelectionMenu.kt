@@ -9,7 +9,7 @@ import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
 import org.bukkit.Material
 import org.bukkit.entity.Player
-import java.util.UUID
+import java.util.*
 
 class ElytraTrailSelectionMenu(val playerID: UUID, previous: Menu? = null) : AbstractCosmeticMenu(
     MenuSize.Three, "Sillages d'ailes", previous
@@ -22,7 +22,7 @@ class ElytraTrailSelectionMenu(val playerID: UUID, previous: Menu? = null) : Abs
         fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, " ").build())
         ElytraTrails.entries.forEach { trail ->
             if (trail != ElytraTrails.NONE) {
-                val hasTrail = CosmeticManager.hasCosmetic(playerID, ElytraTrails.getTypeName(), trail)
+                val hasTrail = CosmeticManager.hasCosmetic(playerID, trail)
 
                 placeCosmeticButton(trail.index, trail, hasTrail, playerID) {
                     boutiqueService.setActiveElytraTrail(playerID, it)

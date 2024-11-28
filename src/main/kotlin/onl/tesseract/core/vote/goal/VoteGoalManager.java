@@ -12,7 +12,6 @@ import onl.tesseract.lib.service.ServiceContainer;
 import onl.tesseract.lib.util.ChatFormats;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -29,6 +28,9 @@ public class VoteGoalManager {
     private static final Collection<VoteGoal> goals = new HashSet<>();
     private static final Map<VoteGoal, BossBar> bossBars = new HashMap<>();
     private static final int REFRESH_RATE = 30;
+
+    private VoteGoalManager() {
+    }
 
     /**
      * Start the auto-update loop. Calls to {@link VoteGoalManager#update()} are made every {@value REFRESH_RATE} seconds
@@ -51,7 +53,7 @@ public class VoteGoalManager {
                 // Display boss bars for 30 seconds every 3 minutes
                 step = (step + 1) % 6;
             }
-        }.runTaskTimerAsynchronously(TesseractCorePlugin.instance, REFRESH_RATE * 20, REFRESH_RATE * 20);
+        }.runTaskTimerAsynchronously(TesseractCorePlugin.instance, REFRESH_RATE * 20L, REFRESH_RATE * 20L);
     }
 
     public static void update()

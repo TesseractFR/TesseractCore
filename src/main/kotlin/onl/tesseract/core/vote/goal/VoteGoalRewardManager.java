@@ -8,6 +8,9 @@ import java.util.HashMap;
 public class VoteGoalRewardManager {
     private static final HashMap<String, VoteGoalRewardType> rewardTypes = new HashMap<>();
 
+    private VoteGoalRewardManager() {
+    }
+
     public static void registerRewardType(final VoteGoalRewardType reward)
     {
         rewardTypes.put(reward.getName(), reward);
