@@ -2,12 +2,12 @@ package onl.tesseract.core.persistence.hibernate.boutique
 
 import onl.tesseract.core.boutique.BoutiqueRepository
 import onl.tesseract.core.boutique.PlayerBoutiqueInfo
-import onl.tesseract.core.persistence.hibernate.DaoUtils
 import onl.tesseract.core.cosmetics.ElytraTrails
 import onl.tesseract.core.cosmetics.FlyFilter
 import onl.tesseract.core.cosmetics.TeleportationAnimation
+import onl.tesseract.core.persistence.hibernate.DaoUtils
 import onl.tesseract.lib.player.Gender
-import java.util.UUID
+import java.util.*
 
 object BoutiqueHibernateRepository : BoutiqueRepository {
 
@@ -19,7 +19,7 @@ object BoutiqueHibernateRepository : BoutiqueRepository {
 
     override fun getById(id: UUID): PlayerBoutiqueInfo? {
         DaoUtils.executeInsideTransaction { session ->
-            return session.find(TPlayerInfo::class.java, id).toModel()
+            return session.find(TPlayerInfo::class.java, id)?.toModel()
         }
         return null
     }
