@@ -26,6 +26,7 @@ class GenderMenu(private val player: Player, previous: Menu) :
         this.fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).name(" ").build())
 
         addButton(2, createMaleItem()){
+            viewer.closeInventory()
             player.sendMessage(Component.text("Vous avez bien changé votre genre en ${Gender.MALE.getName()} !", NamedTextColor.GREEN))
             val tPlayerInfo = ServiceContainer[TPlayerInfoService::class.java][player.uniqueId]
             tPlayerInfo.genre = Gender.MALE
@@ -34,6 +35,7 @@ class GenderMenu(private val player: Player, previous: Menu) :
         }
 
         addButton(4, createFemaleItem()) {
+            viewer.closeInventory()
             player.sendMessage(Component.text("Vous avez bien changé votre genre en ${Gender.FEMALE.getName()} !", NamedTextColor.GREEN))
             val tPlayerInfo = ServiceContainer[TPlayerInfoService::class.java][player.uniqueId]
             tPlayerInfo.genre = Gender.FEMALE
@@ -42,6 +44,7 @@ class GenderMenu(private val player: Player, previous: Menu) :
         }
 
         addButton(6, createOtherItem()) {
+            viewer.closeInventory()
             player.sendMessage(Component.text("Vous avez bien changé votre genre en ${Gender.OTHER.getName()} !", NamedTextColor.GREEN))
             val tPlayerInfo = ServiceContainer[TPlayerInfoService::class.java][player.uniqueId]
             tPlayerInfo.genre = Gender.OTHER
