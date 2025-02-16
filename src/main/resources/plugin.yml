@@ -56,3 +56,6 @@ commands:
   inventory:
     usage: "/inventory"
     permission: inventory
+  ptime:
+    usage: "/ptime"
+    permission: ptime
