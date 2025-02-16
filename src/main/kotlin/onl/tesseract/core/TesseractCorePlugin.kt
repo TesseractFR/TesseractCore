@@ -95,6 +95,8 @@ class TesseractCorePlugin : JavaPlugin() {
         instance.getCommand("familier")!!.setExecutor(FamilierCommand())
         instance.getCommand("ptime")!!
                 .setExecutor(PTimeCommand())
+        instance.getCommand("pweather")!!
+                .setExecutor(PWeatherCommand())
         instance.getCommand("cosmetic")!!.setExecutor(CosmeticCommand())
         instance.getCommand("vote")!!.setExecutor(VoteCommand())
         MarketCurrencyCommand().register(this, "marketCurrency")
