@@ -46,6 +46,7 @@ object HibernateUtil {
     fun setConfiguration(config: Config): Configuration {
         val configuration = Configuration()
         configuration.setProperty(AvailableSettings.JAKARTA_JDBC_DRIVER, "com.mysql.cj.jdbc.Driver")
+        configuration.setProperty(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQLDialect")
         configuration.setProperty(
             AvailableSettings.JAKARTA_JDBC_URL,
             "jdbc:mysql://" + config.dbHost + ":" + config.dbPort + "/" + config.dbDatabase
