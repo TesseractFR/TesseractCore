@@ -2,7 +2,7 @@ name: TesseractCore
 version: '1.0-SNAPSHOT'
 main: onl.tesseract.core.TesseractCorePlugin
 api-version: '1.21'
-depend: [PlaceholderAPI]
+depend: [PlaceholderAPI, MCKotlin-Paper]
 
 commands:
   msg:
