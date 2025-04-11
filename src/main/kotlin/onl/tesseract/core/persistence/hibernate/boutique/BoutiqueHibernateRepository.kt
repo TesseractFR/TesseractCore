@@ -11,10 +11,11 @@ import java.util.*
 
 object BoutiqueHibernateRepository : BoutiqueRepository {
 
-    override fun save(entity: PlayerBoutiqueInfo) {
+    override fun save(entity: PlayerBoutiqueInfo): PlayerBoutiqueInfo {
         DaoUtils.executeInsideTransaction { session ->
-            session.merge(fromModel(entity))
+            return session.merge(fromModel(entity)).toModel()
         }
+        throw AssertionError()
     }
 
     override fun getById(id: UUID): PlayerBoutiqueInfo? {
