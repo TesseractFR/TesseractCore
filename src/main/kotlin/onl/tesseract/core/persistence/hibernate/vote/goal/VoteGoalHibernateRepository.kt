@@ -12,10 +12,11 @@ object VoteGoalHibernateRepository : VoteGoalRepository {
         }
     }
 
-    override fun save(entity: VoteGoal) {
+    override fun save(entity: VoteGoal): VoteGoal {
         DaoUtils.executeInsideTransaction { session ->
             session.merge(entity.toEntity())
         }
+        return entity
     }
 
     override fun getCurrentGoals(): Collection<VoteGoal> {
