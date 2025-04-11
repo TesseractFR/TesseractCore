@@ -23,10 +23,11 @@ object AchievementHibernateRepository : AchievementRepository {
         return null
     }
 
-    override fun save(entity: Achievement) {
+    override fun save(entity: Achievement): Achievement {
         DaoUtils.executeInsideTransaction { session ->
             session.merge(AchievementEntity.fromModel(entity))
         }
+        return entity
     }
 
     override fun getAll(): List<Achievement> {
