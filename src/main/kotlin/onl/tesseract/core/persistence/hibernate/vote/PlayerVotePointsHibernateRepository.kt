@@ -3,7 +3,7 @@ package onl.tesseract.core.persistence.hibernate.vote
 import onl.tesseract.core.persistence.hibernate.DaoUtils
 import onl.tesseract.core.vote.PlayerVotePoints
 import onl.tesseract.core.vote.PlayerVotePointsRepository
-import java.util.UUID
+import java.util.*
 
 object PlayerVotePointsHibernateRepository : PlayerVotePointsRepository {
 
@@ -15,10 +15,11 @@ object PlayerVotePointsHibernateRepository : PlayerVotePointsRepository {
         }
     }
 
-    override fun save(entity: PlayerVotePoints) {
+    override fun save(entity: PlayerVotePoints): PlayerVotePoints {
         DaoUtils.executeInsideTransaction { session ->
-            session.merge(entity.toEntity())
+            return session.merge(entity.toEntity()).toModel()
         }
+        throw AssertionError()
     }
 
     override fun getById(id: UUID): PlayerVotePoints? {
