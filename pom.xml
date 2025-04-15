@@ -11,6 +11,14 @@
 
     <name>core</name>
 
+    <distributionManagement>
+        <repository>
+            <id>github-core</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/TesseractFR/TesseractCore</url>
+        </repository>
+    </distributionManagement>
+
     <properties>
         <java.version>21</java.version>
         <kotlin.version>2.0.21</kotlin.version>
@@ -122,6 +130,10 @@
         <repository>
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/TesseractFR/TesseractLib</url>
         </repository>
     </repositories>
 
