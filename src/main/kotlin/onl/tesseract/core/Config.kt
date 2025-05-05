@@ -14,6 +14,8 @@ class Config private constructor(
     var dbPassword: String,
     var dbPort: Int,
     var serverName: String,
+    var languageRepoBaseUrl: String,
+    var languageModule: List<String>,
 ) {
     companion object {
         private lateinit var instance: Config
@@ -42,6 +44,9 @@ class Config private constructor(
                 firstSpawnLocation = yaml.getLocation("firstSpawnLocation")
                     ?: throw ConfigurationException("Missing config firstSpawnLocation"),
                 serverName = yaml.getString("server_name") ?: throw ConfigurationException("Missing config server_name"),
+                languageRepoBaseUrl = yaml.getString("language_repo_base_url")
+                        ?: throw ConfigurationException("Missing config language_repo_base_url"),
+                languageModule = yaml.getStringList("language_module"),
             )
         }
     }

@@ -79,6 +79,7 @@ private fun fromModel(model: PlayerBoutiqueInfo): TPlayerInfo {
     return TPlayerInfo(
         model.playerID,
         Gender.OTHER,
+        Locale.FRANCE,
         model.activeTrail,
         model.activeFlyFilter,
         model.activeTpAnimation,

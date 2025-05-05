@@ -62,3 +62,6 @@ commands:
   pweather:
     usage: "/pweather"
     permission: pweather
+  translation:
+    usage: "/translation"
+    permission: tesseract.translation
