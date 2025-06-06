@@ -13,6 +13,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
 
@@ -30,6 +31,9 @@ public class TPlayerInfo implements Serializable {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     Gender genre = Gender.OTHER;
+
+    @Column(nullable = false)
+    Locale locale = Locale.FRANCE;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

@@ -32,6 +32,7 @@ import onl.tesseract.core.vote.goal.VoteGoalManager
 import onl.tesseract.lib.TesseractLib
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.lib.task.TaskScheduler
+import onl.tesseract.lib.translation.LanguageManager
 import org.bukkit.plugin.java.JavaPlugin
 
 class TesseractCorePlugin : JavaPlugin() {
@@ -71,6 +72,10 @@ class TesseractCorePlugin : JavaPlugin() {
         ServiceContainer.getInstance().registerService(TPlayerInfoService::class.java, TPlayerInfoService())
         val afkManager = ServiceContainer.getInstance().registerService(AfkManager::class.java, AfkManager())
         afkManager.startTask()
+        LanguageManager.loadLanguages(
+            config.languageRepoBaseUrl,
+            config.languageModule,
+            ServiceContainer[TPlayerInfoService::class.java])
         this.server.pluginManager.registerEvents(afkManager, this)
         this.server.pluginManager.registerEvents(TrailsAndFilterEventHandlers(), this)
         this.server.pluginManager.registerEvents(PetManager(), this)
