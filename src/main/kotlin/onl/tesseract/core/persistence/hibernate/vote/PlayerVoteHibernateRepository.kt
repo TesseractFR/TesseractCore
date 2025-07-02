@@ -14,7 +14,7 @@ object PlayerVoteHibernateRepository : PlayerVoteRepository {
             val query = session.createQuery(
                 "FROM PlayerVoteEntity p WHERE p.playerID = :playerID ORDER BY date DESC LIMIT 1",
                 PlayerVoteEntity::class.java)
-
+            query.setParameter("playerID", playerID)
             return query.uniqueResult()?.toModel()
         }
         return null
@@ -79,7 +79,10 @@ object PlayerVoteHibernateRepository : PlayerVoteRepository {
             if (since != null)
                 query.where(builder.between(root.get<Timestamp>("date"), Timestamp.from(since), Timestamp.from(Instant.now())))
             if (serviceName != null)
-                query.where(builder.equal(root.get<String>("serviceName"), serviceName))
+                query.where(
+                    builder.equal(
+                        root.get<String>("site")
+                                .get<String>("serviceName"), serviceName))
 
             return session.createQuery(query).singleResult
         }

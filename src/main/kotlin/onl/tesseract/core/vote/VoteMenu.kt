@@ -7,6 +7,8 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import onl.tesseract.core.TesseractCorePlugin
 import onl.tesseract.core.log
+import onl.tesseract.core.vote.goal.VoteGoal
+import onl.tesseract.core.vote.goal.VoteGoalManager
 import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
@@ -15,21 +17,18 @@ import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.lib.task.TaskScheduler
 import onl.tesseract.lib.util.ItemLoreBuilder
 import onl.tesseract.lib.util.Util
-import onl.tesseract.core.vote.goal.VoteGoal
-import onl.tesseract.core.vote.goal.VoteGoalManager
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.scheduler.BukkitTask
 import java.time.Duration
-import java.util.UUID
+import java.util.*
 import java.util.logging.Level
 
-class VoteMenu(
+open class VoteMenu(
     val playerID: UUID,
-    previous: Menu? = null,
-) : Menu(MenuSize.Three, "Votes", NamedTextColor.RED, previous) {
+) : Menu(MenuSize.Three, "Votes", NamedTextColor.RED, null) {
 
     companion object {
         var rewardMenuClass: Class<out AVoteRewardMenu> = AVoteRewardMenu::class.java

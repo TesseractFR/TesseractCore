@@ -7,7 +7,8 @@ import java.sql.Timestamp
 import java.sql.Types
 import java.util.*
 
-@Entity(name = "t_vote")
+@Entity
+@Table(name = "t_vote")
 class PlayerVoteEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +20,9 @@ class PlayerVoteEntity(
     val playerID: UUID,
     @Column(name = "`date`", nullable = false)
     val date: Timestamp,
-    @ManyToOne(targetEntity = VoteSiteEntity::class, fetch = FetchType.EAGER)
+
+    @ManyToOne(targetEntity = VoteSiteEntity::class, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "service_name")
     val site: VoteSiteEntity,
 ) {
 
