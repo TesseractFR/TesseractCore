@@ -3,7 +3,7 @@ package onl.tesseract.core.title
 import onl.tesseract.lib.player.Gender
 
 data class Title(
-    val id: String,
+    var id: String,
     val nameM: String,
     val nameF: String,
 )
