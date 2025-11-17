@@ -260,4 +260,10 @@ public enum TeleportationAnimation implements CosmeticWithMaterial {
     public @NotNull Material getMaterial() {
         return icon;
     }
+
+    public static TeleportationAnimation getTpAnimation() {
+        //ajouter plus tard les animations
+        return WATER;
+    }
+
 }
