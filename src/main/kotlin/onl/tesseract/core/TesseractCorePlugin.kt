@@ -2,8 +2,8 @@ package onl.tesseract.core
 
 import onl.tesseract.core.achievement.AchievementService
 import onl.tesseract.core.afk.AfkManager
-import onl.tesseract.core.autochatmessage.AutoChatMessage
 import onl.tesseract.core.autochatmessage.AutoChatMessages
+import onl.tesseract.core.autochatmessage.GlobalAutoChat
 import onl.tesseract.core.boutique.BoutiqueService
 import onl.tesseract.core.command.*
 import onl.tesseract.core.command.staff.*
@@ -88,11 +88,10 @@ class TesseractCorePlugin : JavaPlugin() {
         registerCommands()
 
         VoteGoalManager.startLoops()
-        val autoChatMessage = AutoChatMessage()
-        autoChatMessage.start()
-        autoChatMessage.addMessage(AutoChatMessages.voteMessage())
-        autoChatMessage.addMessage(AutoChatMessages.discordMessage())
-        autoChatMessage.addMessage(AutoChatMessages.recrutementMessage())
+        GlobalAutoChat.instance.addMessage(AutoChatMessages.voteMessage())
+        GlobalAutoChat.instance.addMessage(AutoChatMessages.discordMessage())
+        GlobalAutoChat.instance.addMessage(AutoChatMessages.recrutementMessage())
+        GlobalAutoChat.startOnce()
     }
 
     fun registerCommands() {

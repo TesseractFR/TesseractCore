@@ -1,38 +1,34 @@
-package onl.tesseract.core.autochatmessage;
+package onl.tesseract.core.autochatmessage
 
-import net.kyori.adventure.text.Component;
-import onl.tesseract.core.TesseractCorePlugin;
-import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitRunnable;
+import net.kyori.adventure.text.Component
+import onl.tesseract.core.TesseractCorePlugin
+import org.bukkit.Bukkit
+import org.bukkit.entity.Player
+import org.bukkit.scheduler.BukkitRunnable
 
-import java.util.ArrayList;
-import java.util.List;
+/**
+ * Période d'envoi de message 5*60*20 = 5min
+ */
+private const val PERIOD = (7.5 * 60 * 20).toInt()
 
-public class AutoChatMessage {
-    /**
-     * Période d'envoi de message 5*60*20 = 5min
-     */
-    private static final int PERIOD = (int) (7.5 * 60 * 20);
-    /**
-     * Instance
-     */
-    private final List<Component> messages = new ArrayList<>();
-    private int currentMessageIndex = 0;
+open class AutoChatMessage {
 
-    public void addMessage(Component message) {
-        messages.add(message);
+    private val messages: MutableList<Component> = ArrayList()
+    private var currentMessageIndex = 0
+
+    fun addMessage(message: Component) {
+        messages.add(message)
     }
 
-    public void start() {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (!messages.isEmpty()) {
-                    Component message = messages.get(currentMessageIndex++);
-                    Bukkit.getOnlinePlayers().forEach(p -> p.sendMessage(message));
-                    currentMessageIndex %= messages.size();
+    fun start() {
+        object : BukkitRunnable() {
+            override fun run() {
+                if (messages.isNotEmpty()) {
+                    val message = messages[currentMessageIndex++]
+                    Bukkit.getOnlinePlayers().forEach { p: Player? -> p!!.sendMessage(message) }
+                    currentMessageIndex %= messages.size
                 }
             }
-        }.runTaskTimer(TesseractCorePlugin.instance, 0, PERIOD);
+        }.runTaskTimer(TesseractCorePlugin.instance, 0, PERIOD.toLong())
     }
 }
