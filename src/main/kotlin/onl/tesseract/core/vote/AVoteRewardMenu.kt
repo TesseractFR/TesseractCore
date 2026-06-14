@@ -16,7 +16,7 @@ import org.bukkit.entity.Player
 import java.util.UUID
 
 abstract class AVoteRewardMenu(val playerID: UUID, size: MenuSize, previous: Menu? = null) :
-    Menu(size, "Récompenses", NamedTextColor.AQUA, previous) {
+    Menu(size, "Récompenses", NamedTextColor.BLUE, previous) {
 
     protected fun addLysDorButton(viewer: Player, index: Int) {
         val boutiqueService = ServiceContainer[BoutiqueService::class.java]

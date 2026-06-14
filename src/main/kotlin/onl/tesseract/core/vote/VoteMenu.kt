@@ -26,9 +26,10 @@ import java.time.Duration
 import java.util.*
 import java.util.logging.Level
 
-open class VoteMenu(
+open class VoteMenu @JvmOverloads constructor(
     val playerID: UUID,
-) : Menu(MenuSize.Three, "Votes", NamedTextColor.RED, null) {
+    previous: Menu? = null,
+) : Menu(MenuSize.Three, "Votes", NamedTextColor.RED, previous) {
 
     companion object {
         var rewardMenuClass: Class<out AVoteRewardMenu> = AVoteRewardMenu::class.java
@@ -39,7 +40,7 @@ open class VoteMenu(
     override fun placeButtons(viewer: Player) {
         fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, " ").build())
         addCloseButton()
-        addCloseButton(18)
+        addBackButton()
 
         val scheduler = ServiceContainer[TaskScheduler::class.java]
         val voteService = ServiceContainer[VoteService::class.java]
