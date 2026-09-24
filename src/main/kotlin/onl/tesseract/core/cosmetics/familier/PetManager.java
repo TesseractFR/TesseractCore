@@ -3,7 +3,7 @@ package onl.tesseract.core.cosmetics.familier;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import onl.tesseract.core.cosmetics.CosmeticManager;
-import onl.tesseract.lib.util.ChatFormats;
+import onl.tesseract.lib.chat.ChatFormats;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;

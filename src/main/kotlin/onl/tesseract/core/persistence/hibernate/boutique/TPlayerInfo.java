@@ -8,7 +8,7 @@ import onl.tesseract.core.cosmetics.ElytraTrails;
 import onl.tesseract.core.cosmetics.FlyFilter;
 import onl.tesseract.core.cosmetics.TeleportationAnimation;
 import onl.tesseract.core.cosmetics.familier.Pet;
-import onl.tesseract.lib.player.Gender;
+import onl.tesseract.lib.gender.Gender;
 import org.hibernate.annotations.JdbcTypeCode;
 
 import java.io.Serializable;
@@ -18,7 +18,6 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Table(name = "t_player", uniqueConstraints = {@UniqueConstraint(columnNames = "uuid")}, indexes = @Index(name = "idx_uuid", columnList = "uuid"))
@@ -72,6 +71,10 @@ public class TPlayerInfo implements Serializable {
 
     public TPlayerInfo(UUID uuid) {
         this.uuid = uuid;
+    }
+
+    public TPlayerInfo() {
+
     }
 
     @PostLoad

@@ -37,7 +37,7 @@ public enum PetCategory {
 
     public ItemStack getHead()
     {
-        return new ItemBuilder(Material.PLAYER_HEAD, null ,null)
+        return new ItemBuilder(Material.PLAYER_HEAD)
                 .customHead(head.data, head.signature)
                 .build(ServiceContainer.get(PlayerProfileService.class));
     }

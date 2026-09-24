@@ -44,7 +44,6 @@ public class AfkManager implements Listener {
                 }
                 lastLocations.put(player.getUniqueId(), player.getLocation());
             });
-           return Unit.INSTANCE;
         });
     }
 

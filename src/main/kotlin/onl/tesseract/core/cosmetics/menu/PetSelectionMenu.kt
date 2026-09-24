@@ -10,7 +10,7 @@ import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.lib.util.ChatFormats
+import onl.tesseract.lib.chat.ChatFormats
 import onl.tesseract.lib.util.ItemLoreBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -21,7 +21,7 @@ class PetSelectionMenu(val playerID: UUID, val category: PetCategory, previous: 
     MenuSize.Two, "Sélection d'un familier", NamedTextColor.BLUE, previous) {
 
     override fun placeButtons(viewer: Player) {
-        val boutiqueService = ServiceContainer[BoutiqueService::class.java]
+        val boutiqueService = ServiceContainer.get(BoutiqueService::class.java)
         val playerBoutiqueInfo = boutiqueService.getPlayerBoutiqueInfo(playerID)
         fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, " ").build())
         category.pets.forEachIndexed { index, pet ->

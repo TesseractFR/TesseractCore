@@ -8,7 +8,7 @@ import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.lib.util.ChatFormats
+import onl.tesseract.lib.chat.ChatFormats
 import onl.tesseract.lib.util.plus
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -19,7 +19,7 @@ abstract class AVoteRewardMenu(val playerID: UUID, size: MenuSize, previous: Men
     Menu(size, "Récompenses", NamedTextColor.BLUE, previous) {
 
     protected fun addLysDorButton(viewer: Player, index: Int) {
-        val boutiqueService = ServiceContainer[BoutiqueService::class.java]
+        val boutiqueService = ServiceContainer.get(BoutiqueService::class.java)
 
         addButton(
             index, ItemBuilder(Material.RAW_GOLD)
@@ -44,16 +44,16 @@ abstract class AVoteRewardMenu(val playerID: UUID, size: MenuSize, previous: Men
 
     protected fun askAmount(viewer: Player, callback: (Int) -> Unit) {
         close()
-        ServiceContainer[ChatEntryService::class.java].getChatEntry(
+        ServiceContainer.get(ChatEntryService::class.java).getChatEntry(
             viewer,
             Component.text("Combien de points de vote voulez-vous échanger ?")
         ) { amountStr ->
             try {
                 val amount = amountStr.toInt()
                 if (amount <= 0) return@getChatEntry
-                if (ServiceContainer[VoteService::class.java].getPlayerVotePoints(playerID) >= amount) {
+                if (ServiceContainer.get(VoteService::class.java).getPlayerVotePoints(playerID) >= amount) {
                     callback(amount)
-                    ServiceContainer[VoteService::class.java].remotePlayerVotePoints(playerID, amount)
+                    ServiceContainer.get(VoteService::class.java).remotePlayerVotePoints(playerID, amount)
                 } else {
                     viewer.sendMessage(ChatFormats.CHAT_ERROR + "Vous n'avez pas suffisamment de points de vote")
                 }
@@ -64,7 +64,7 @@ abstract class AVoteRewardMenu(val playerID: UUID, size: MenuSize, previous: Men
     }
 
     protected fun hasAmount(amount: Int): Boolean {
-        return ServiceContainer[VoteService::class.java].getPlayerVotePoints(playerID) >= amount
+        return ServiceContainer.get(VoteService::class.java).getPlayerVotePoints(playerID) >= amount
     }
 
     protected fun usePoints(viewer: Player, amount: Int, callback: (Int) -> Unit) {
@@ -73,7 +73,7 @@ abstract class AVoteRewardMenu(val playerID: UUID, size: MenuSize, previous: Men
             viewer.sendMessage(ChatFormats.CHAT_ERROR + "Vous n'avez pas suffisamment de points de vote")
             return
         }
-        ServiceContainer[VoteService::class.java].remotePlayerVotePoints(playerID, amount)
+        ServiceContainer.get(VoteService::class.java).remotePlayerVotePoints(playerID, amount)
         callback(amount)
     }
 }

@@ -9,7 +9,7 @@ import onl.tesseract.core.persistence.hibernate.vote.goal.VoteGoalHibernateRepos
 import onl.tesseract.core.vote.VoteGoalService;
 import onl.tesseract.core.vote.VoteService;
 import onl.tesseract.lib.service.ServiceContainer;
-import onl.tesseract.lib.util.ChatFormats;
+import onl.tesseract.lib.chat.ChatFormats;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;

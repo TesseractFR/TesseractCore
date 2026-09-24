@@ -75,7 +75,7 @@ class TesseractCorePlugin : JavaPlugin() {
         LanguageManager.loadLanguages(
             config.languageRepoBaseUrl,
             config.languageModule,
-            ServiceContainer[TPlayerInfoService::class.java])
+            ServiceContainer.get(TPlayerInfoService::class.java))
         this.server.pluginManager.registerEvents(afkManager, this)
         this.server.pluginManager.registerEvents(TrailsAndFilterEventHandlers(), this)
         this.server.pluginManager.registerEvents(PetManager(), this)

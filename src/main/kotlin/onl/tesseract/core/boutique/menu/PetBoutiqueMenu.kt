@@ -14,11 +14,11 @@ import org.bukkit.entity.Player
 class PetBoutiqueMenu(
     val player: Player,
     previous: Menu? = null,
-) : Menu(MenuSize.Six, "Boutique des familiers", previous = previous) {
+) : Menu(MenuSize.Six, "Boutique des familiers", previous) {
 
     override fun placeButtons(viewer: Player) {
         fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, " ").build())
-        val boutiqueService = ServiceContainer[BoutiqueService::class.java]
+        val boutiqueService = ServiceContainer.get(BoutiqueService::class.java)
         val playerBoutiqueInfo = boutiqueService.getPlayerBoutiqueInfo(player.uniqueId)
 
         var i = 0

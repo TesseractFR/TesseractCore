@@ -10,7 +10,7 @@ import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.lib.util.ChatFormats
+import onl.tesseract.lib.chat.ChatFormats
 import onl.tesseract.lib.util.plus
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -20,7 +20,7 @@ class CosmeticTPMenu(val playerID: UUID, previous: Menu? = null) : AbstractCosme
     MenuSize.Three, "Particules de téléportation", previous) {
 
     override fun placeButtons(viewer: Player) {
-        val boutiqueService = ServiceContainer[BoutiqueService::class.java]
+        val boutiqueService = ServiceContainer.get(BoutiqueService::class.java)
         fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, " ").build())
 
         addBackButton()

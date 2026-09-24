@@ -24,7 +24,7 @@ abstract class AbstractCosmeticMenu(
         playerID: UUID,
         onBuy: (T) -> Unit,
     ) {
-        val boutiqueService = ServiceContainer[BoutiqueService::class.java]
+        val boutiqueService = ServiceContainer.get(BoutiqueService::class.java)
         val playerBoutiqueInfo = boutiqueService.getPlayerBoutiqueInfo(playerID)
         val lore = ItemLoreBuilder().newline()
         if (possessed)

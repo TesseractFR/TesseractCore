@@ -16,7 +16,7 @@ import org.bukkit.entity.Player
 class TPAnimationBoutiqueMenu(
     val player: Player,
     previous: Menu? = null,
-) : Menu(MenuSize.Three, "Boutique des animations de téléportations", previous = previous) {
+) : Menu(MenuSize.Three, "Boutique des animations de téléportations", previous) {
 
     override fun placeButtons(viewer: Player) {
         fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, " ").build())
@@ -40,7 +40,7 @@ class TPAnimationBoutiqueMenu(
         index: Int,
         viewer: Player,
     ) {
-        val boutiqueService = ServiceContainer[BoutiqueService::class.java]
+        val boutiqueService = ServiceContainer.get(BoutiqueService::class.java)
         val playerBoutiqueInfo = boutiqueService.getPlayerBoutiqueInfo(player.uniqueId)
         if (boutiqueService.hasCosmetic(player.uniqueId, TeleportationAnimation.getTypeName(), animation)) {
             alreadyPossessedButton(index, animation)
@@ -74,7 +74,7 @@ class TPAnimationBoutiqueMenu(
             if (event.isRightClick && !CosmeticPreview.hasPreviewed(viewer.uniqueId, animation)) {
                 close()
                 animation.animate(
-                    ServiceContainer[TaskScheduler::class.java].plugin,
+                    ServiceContainer.get(TaskScheduler::class.java).plugin,
                     viewer.location,
                     3.0 * 20)
                 CosmeticPreview.setPreview(viewer.uniqueId, animation)

@@ -1,19 +1,20 @@
 package onl.tesseract.core.persistence.hibernate.boutique;
 
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import onl.tesseract.core.persistence.hibernate.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.MutationQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.UUID;
 
-@Slf4j
 public class TPlayerInfoDAO {
     @Getter
     static private final TPlayerInfoDAO instance = new TPlayerInfoDAO();
 
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     public void refresh(TPlayerInfo tPlayerInfo) {
         try {

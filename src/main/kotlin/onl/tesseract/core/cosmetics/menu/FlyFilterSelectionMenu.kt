@@ -17,7 +17,7 @@ class FlyFilterSelectionMenu(val playerID: UUID, previous: Menu? = null) : Abstr
 
     override fun placeButtons(viewer: Player) {
         // For each existing trails
-        val boutiqueService = ServiceContainer[BoutiqueService::class.java]
+        val boutiqueService = ServiceContainer.get(BoutiqueService::class.java)
         val playerBoutiqueInfo = boutiqueService.getPlayerBoutiqueInfo(playerID)
         fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, " ").build())
         FlyFilter.entries.forEach { filter ->

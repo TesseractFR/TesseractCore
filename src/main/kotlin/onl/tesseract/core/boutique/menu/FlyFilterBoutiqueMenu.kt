@@ -16,11 +16,11 @@ import java.util.*
 class FlyFilterBoutiqueMenu(
     val playerID: UUID,
     previous: Menu? = null,
-) : Menu(MenuSize.Three, "Boutique des filtres de vol", previous = previous) {
+) : Menu(MenuSize.Three, "Boutique des filtres de vol", previous) {
 
     override fun placeButtons(viewer: Player) {
         fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, " ").build())
-        val boutiqueService = ServiceContainer[BoutiqueService::class.java]
+        val boutiqueService = ServiceContainer.get(BoutiqueService::class.java)
         val playerBoutiqueInfo = boutiqueService.getPlayerBoutiqueInfo(playerID)
 
         FlyFilter.entries.filter { it != FlyFilter.NONE }.forEach { filter ->

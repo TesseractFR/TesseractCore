@@ -1,6 +1,6 @@
 package onl.tesseract.core.title
 
-import onl.tesseract.lib.player.Gender
+import onl.tesseract.lib.gender.Gender
 
 data class Title(
     val id: String,

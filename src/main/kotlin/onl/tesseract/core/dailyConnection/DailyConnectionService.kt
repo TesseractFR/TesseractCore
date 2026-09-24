@@ -60,7 +60,7 @@ class DailyConnectionService(
 
     @EventHandler
     fun onPlayerJoin(event: PlayerJoinEvent) {
-        val eventService = ServiceContainer[EventService::class.java]
+        val eventService = ServiceContainer.get(EventService::class.java)
         val now = LocalDateTime.now()
         val playerID = event.player.uniqueId
 

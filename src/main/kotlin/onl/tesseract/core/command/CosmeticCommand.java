@@ -4,7 +4,7 @@ import net.kyori.adventure.text.Component;
 import onl.tesseract.core.cosmetics.menu.CosmeticMenu;
 import onl.tesseract.core.cosmetics.Cosmetic;
 import onl.tesseract.core.cosmetics.CosmeticManager;
-import onl.tesseract.lib.util.ChatFormats;
+import onl.tesseract.lib.chat.ChatFormats;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;

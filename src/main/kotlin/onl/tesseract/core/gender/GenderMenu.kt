@@ -4,10 +4,10 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfoService
+import onl.tesseract.lib.gender.Gender
 import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
-import onl.tesseract.lib.player.Gender
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.lib.util.ItemLoreBuilder
 import org.bukkit.Material
@@ -27,25 +27,25 @@ class GenderMenu(private val player: Player, previous: Menu) :
 
         addButton(2, createMaleItem()){
             player.sendMessage(Component.text("Vous avez bien changé votre genre en ${Gender.MALE.getName()} !", NamedTextColor.GREEN))
-            val tPlayerInfo = ServiceContainer[TPlayerInfoService::class.java][player.uniqueId]
+            val tPlayerInfo = ServiceContainer.get(TPlayerInfoService::class.java)[player.uniqueId]
             tPlayerInfo.genre = Gender.MALE
-            ServiceContainer[TPlayerInfoService::class.java].save(tPlayerInfo)
+            ServiceContainer.get(TPlayerInfoService::class.java).save(tPlayerInfo)
 
         }
 
         addButton(4, createFemaleItem()) {
             player.sendMessage(Component.text("Vous avez bien changé votre genre en ${Gender.FEMALE.getName()} !", NamedTextColor.GREEN))
-            val tPlayerInfo = ServiceContainer[TPlayerInfoService::class.java][player.uniqueId]
+            val tPlayerInfo = ServiceContainer.get(TPlayerInfoService::class.java)[player.uniqueId]
             tPlayerInfo.genre = Gender.FEMALE
-            ServiceContainer[TPlayerInfoService::class.java].save(tPlayerInfo)
+            ServiceContainer.get(TPlayerInfoService::class.java).save(tPlayerInfo)
 
         }
 
         addButton(6, createOtherItem()) {
             player.sendMessage(Component.text("Vous avez bien changé votre genre en ${Gender.OTHER.getName()} !", NamedTextColor.GREEN))
-            val tPlayerInfo = ServiceContainer[TPlayerInfoService::class.java][player.uniqueId]
+            val tPlayerInfo = ServiceContainer.get(TPlayerInfoService::class.java)[player.uniqueId]
             tPlayerInfo.genre = Gender.OTHER
-            ServiceContainer[TPlayerInfoService::class.java].save(tPlayerInfo)
+            ServiceContainer.get(TPlayerInfoService::class.java).save(tPlayerInfo)
 
         }
 

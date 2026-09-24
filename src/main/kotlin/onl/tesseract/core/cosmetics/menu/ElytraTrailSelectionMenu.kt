@@ -17,7 +17,7 @@ class ElytraTrailSelectionMenu(val playerID: UUID, previous: Menu? = null) : Abs
 
     override fun placeButtons(viewer: Player) {
         // For each existing trails
-        val boutiqueService = ServiceContainer[BoutiqueService::class.java]
+        val boutiqueService = ServiceContainer.get(BoutiqueService::class.java)
         val playerBoutiqueInfo = boutiqueService.getPlayerBoutiqueInfo(playerID)
         fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, " ").build())
         ElytraTrails.entries.forEach { trail ->

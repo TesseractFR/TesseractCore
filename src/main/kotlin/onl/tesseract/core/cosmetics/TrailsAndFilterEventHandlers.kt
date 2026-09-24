@@ -22,7 +22,7 @@ class TrailsAndFilterEventHandlers : Listener {
     fun onGlide(event: EntityToggleGlideEvent) {
         if (event.entityType != EntityType.PLAYER) return
 
-        val boutiqueService = ServiceContainer[BoutiqueService::class.java]
+        val boutiqueService = ServiceContainer.get(BoutiqueService::class.java)
         val player = event.entity as Player
 
         val playerInfo = boutiqueService.getPlayerBoutiqueInfo(player.uniqueId)
@@ -52,7 +52,7 @@ class TrailsAndFilterEventHandlers : Listener {
     @EventHandler
     fun onFly(event: PlayerToggleFlightEvent) {
         val player = event.player
-        val boutiqueService = ServiceContainer[BoutiqueService::class.java]
+        val boutiqueService = ServiceContainer.get(BoutiqueService::class.java)
         val playerInfo = boutiqueService.getPlayerBoutiqueInfo(player.uniqueId)
         TesseractCorePlugin.instance.server.scheduler.runTaskTimer(TesseractCorePlugin.instance, { task ->
             if (!player.isFlying) task.cancel()

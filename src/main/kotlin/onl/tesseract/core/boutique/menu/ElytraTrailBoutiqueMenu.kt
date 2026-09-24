@@ -21,7 +21,7 @@ class ElytraTrailBoutiqueMenu(
 ) : Menu(MenuSize.Three, Component.text("Boutique des illages d'ailes"), previous) {
 
     override fun placeButtons(viewer: Player) {
-        val boutiqueService = ServiceContainer[BoutiqueService::class.java]
+        val boutiqueService = ServiceContainer.get(BoutiqueService::class.java)
         val playerInfo = boutiqueService.getPlayerBoutiqueInfo(playerID)
         fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE, " ").build())
         ElytraTrails.entries.forEach { trail ->

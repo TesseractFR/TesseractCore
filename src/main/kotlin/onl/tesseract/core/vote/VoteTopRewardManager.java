@@ -4,7 +4,7 @@ import kotlin.Pair;
 import net.kyori.adventure.text.Component;
 import onl.tesseract.core.boutique.BoutiqueService;
 import onl.tesseract.lib.service.ServiceContainer;
-import onl.tesseract.lib.util.ChatFormats;
+import onl.tesseract.lib.chat.ChatFormats;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.slf4j.Logger;

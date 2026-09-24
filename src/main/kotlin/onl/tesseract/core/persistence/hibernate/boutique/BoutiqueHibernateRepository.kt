@@ -6,7 +6,7 @@ import onl.tesseract.core.cosmetics.ElytraTrails
 import onl.tesseract.core.cosmetics.FlyFilter
 import onl.tesseract.core.cosmetics.TeleportationAnimation
 import onl.tesseract.core.persistence.hibernate.DaoUtils
-import onl.tesseract.lib.player.Gender
+import onl.tesseract.lib.gender.Gender
 import java.util.*
 
 object BoutiqueHibernateRepository : BoutiqueRepository {

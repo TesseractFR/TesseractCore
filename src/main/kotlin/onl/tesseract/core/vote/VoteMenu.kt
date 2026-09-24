@@ -42,8 +42,8 @@ open class VoteMenu @JvmOverloads constructor(
         addCloseButton()
         addBackButton()
 
-        val scheduler = ServiceContainer[TaskScheduler::class.java]
-        val voteService = ServiceContainer[VoteService::class.java]
+        val scheduler = ServiceContainer.get(TaskScheduler::class.java)
+        val voteService = ServiceContainer.get(VoteService::class.java)
         scheduler.runAsyncTimer(0L, 20L) {
             if (!hasViewer()) {
                 it.cancel()
@@ -54,7 +54,7 @@ open class VoteMenu @JvmOverloads constructor(
             putAllSitesButton(remainingDurations, viewer)
         }
 
-        scheduler.runAsyncTimer {
+        scheduler.runAsyncTimer(0,0) {
             val remainingDurations: Map<VoteSite, Duration> = voteService.getRemainingTimeUntilVote(playerID)
             var index = 10
             voteService.getVoteSites().forEach { site ->
@@ -76,7 +76,7 @@ open class VoteMenu @JvmOverloads constructor(
     }
 
     fun putRewardButton() {
-        val keys = ServiceContainer[VoteService::class.java].getPlayerVotePoints(playerID)
+        val keys = ServiceContainer.get(VoteService::class.java).getPlayerVotePoints(playerID)
         addButton(
             22, ItemBuilder(Material.RAW_GOLD)
                 .name("Récompenses", NamedTextColor.GOLD)
@@ -112,7 +112,7 @@ open class VoteMenu @JvmOverloads constructor(
             )
             .newline(2)
 
-        val voteGoalService = ServiceContainer[VoteGoalService::class.java]
+        val voteGoalService = ServiceContainer.get(VoteGoalService::class.java)
         val goals: Collection<VoteGoal> = VoteGoalManager.getGoals()
         if (goals.isEmpty())
             lore = lore.append("Il n'y a pas de Vote Goal en cours pour le moment...", NamedTextColor.GRAY)
@@ -143,7 +143,7 @@ open class VoteMenu @JvmOverloads constructor(
 
     fun putTopButton() {
         val lore: ItemLoreBuilder = ItemLoreBuilder()
-        val voteService = ServiceContainer[VoteService::class.java]
+        val voteService = ServiceContainer.get(VoteService::class.java)
         val top: List<Pair<UUID, Int>> = voteService.getTop()
         var index = 1
         top.forEach { (playerID: UUID, voteAmount: Int) ->
@@ -170,7 +170,7 @@ open class VoteMenu @JvmOverloads constructor(
     }
 
     fun putPlayerButton() {
-        val voteService = ServiceContainer[VoteService::class.java]
+        val voteService = ServiceContainer.get(VoteService::class.java)
         val lore: ItemLoreBuilder = ItemLoreBuilder()
             .newline()
             .append("Aujourd'hui : ", NamedTextColor.YELLOW)
@@ -199,8 +199,8 @@ open class VoteMenu @JvmOverloads constructor(
 
 
         val pseudo = Bukkit.getOfflinePlayer(playerID).name ?: "??"
-        addButton(4, TesseractCorePlugin.instance, async = {
-            val playerHead = ServiceContainer[PlayerProfileService::class.java].getPlayerHead(playerID)
+        addButton(4, TesseractCorePlugin.instance, {
+            val playerHead = ServiceContainer.get(PlayerProfileService::class.java).getPlayerHead(playerID)
             ItemBuilder(playerHead)
                 .name(pseudo, NamedTextColor.GOLD)
                 .lore(lore.get())
@@ -209,7 +209,7 @@ open class VoteMenu @JvmOverloads constructor(
     }
 
     fun putSiteButton(voteSite: VoteSite, remainingDuration: Duration, viewer: Audience, index: Int) {
-        val voteService = ServiceContainer[VoteService::class.java]
+        val voteService = ServiceContainer.get(VoteService::class.java)
         val lore: ItemLoreBuilder = ItemLoreBuilder().newline()
         if (remainingDuration.isZero || remainingDuration.isNegative)
             lore.append("Va voter !", NamedTextColor.GREEN)
@@ -283,7 +283,7 @@ open class VoteMenu @JvmOverloads constructor(
     }
 
     fun sendVoteLinks(viewer: Audience) {
-        ServiceContainer[VoteService::class.java].getVoteSites().forEach { sendVoteLink(viewer, it) }
+        ServiceContainer.get(VoteService::class.java).getVoteSites().forEach { sendVoteLink(viewer, it) }
     }
 
     fun sendVoteLink(viewer: Audience, site: VoteSite) {

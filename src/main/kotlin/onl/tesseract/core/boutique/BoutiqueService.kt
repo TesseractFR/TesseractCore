@@ -9,7 +9,7 @@ import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuService
 import onl.tesseract.lib.repository.Repository
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.lib.util.ChatFormats
+import onl.tesseract.lib.chat.ChatFormats
 import org.bukkit.entity.Player
 import java.util.*
 
@@ -37,7 +37,7 @@ class BoutiqueService(private val repository: BoutiqueRepository) {
     fun tryToBuy(player: Player, mainMenu: Menu, cosmetic: Cosmetic) {
         val playerBoutiqueInfo = getPlayerBoutiqueInfo(player.uniqueId)
         if (playerBoutiqueInfo.marketCurrency >= cosmetic.price) {
-            ServiceContainer[MenuService::class.java].openConfirmationMenu(
+            ServiceContainer.get(MenuService::class.java).openConfirmationMenu(
                 player,
                 Component.text("Êtes vous sur de vouloir acheter le cosmétique ").append(cosmetic.getDisplayName()),
                 mainMenu

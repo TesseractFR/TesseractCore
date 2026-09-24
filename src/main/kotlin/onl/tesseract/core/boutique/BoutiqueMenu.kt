@@ -9,7 +9,7 @@ import onl.tesseract.lib.menu.MenuService
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfoService
-import onl.tesseract.lib.util.ChatFormats
+import onl.tesseract.lib.chat.ChatFormats
 import onl.tesseract.lib.util.ItemBuilder
 import onl.tesseract.lib.util.ItemLoreBuilder
 import org.bukkit.Material
@@ -32,7 +32,7 @@ abstract class BoutiqueMenu(
     }
 
     protected fun addBoutiqueButton(viewer: Player) {
-        val playerInfo = ServiceContainer[TPlayerInfoService::class.java].get(player.uniqueId)
+        val playerInfo = ServiceContainer.get(TPlayerInfoService::class.java).get(player.uniqueId)
         val lore = ItemLoreBuilder()
             .newline()
             .append(Component.text("Vous avez ", NamedTextColor.GRAY))
@@ -96,7 +96,7 @@ abstract class BoutiqueMenu(
         val message = Component.text("Confirmer votre achat de ")
             .append(itemStack.displayName())
             .append(Component.text(" pour " + price + (if (withShopPoint) " points boutiques ?" else " lys d'or ?")))
-        ServiceContainer[MenuService::class.java].openConfirmationMenu(viewer, message, this) {
+        ServiceContainer.get(MenuService::class.java).openConfirmationMenu(viewer, message, this) {
             buyItem(itemStack, price, withShopPoint, viewer)
         }
     }
@@ -121,21 +121,21 @@ abstract class BoutiqueMenu(
     }
 
     private fun buyItemWithLysDor(itemStack: ItemStack, price: Int): Boolean {
-        val playerInfo = ServiceContainer[TPlayerInfoService::class.java].get(player.uniqueId)
+        val playerInfo = ServiceContainer.get(TPlayerInfoService::class.java).get(player.uniqueId)
         if (playerInfo.market_currency < price) {
             return false
         }
-        ServiceContainer[TPlayerInfoService::class.java].addMarketCurrency(playerInfo, -price)
+        ServiceContainer.get(TPlayerInfoService::class.java).addMarketCurrency(playerInfo, -price)
         player.inventory.addItem(itemStack)
         return true
     }
 
     private fun buyItemWithShopPoint(itemStack: ItemStack, price: Int): Boolean {
-        val playerInfo = ServiceContainer[TPlayerInfoService::class.java].get(player.uniqueId)
+        val playerInfo = ServiceContainer.get(TPlayerInfoService::class.java).get(player.uniqueId)
         if (playerInfo.shop_point < price) {
             return false
         }
-        ServiceContainer[TPlayerInfoService::class.java].addShopPoint(playerInfo, -price)
+        ServiceContainer.get(TPlayerInfoService::class.java).addShopPoint(playerInfo, -price)
         player.inventory.addItem(itemStack)
         return true
     }
