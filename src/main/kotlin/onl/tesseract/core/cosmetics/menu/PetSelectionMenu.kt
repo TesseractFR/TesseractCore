@@ -15,6 +15,7 @@ import onl.tesseract.lib.util.ItemLoreBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryClickEvent
 import java.util.*
 
 class PetSelectionMenu(val playerID: UUID, val category: PetCategory, previous: Menu? = null) : Menu(
@@ -41,7 +42,7 @@ class PetSelectionMenu(val playerID: UUID, val category: PetCategory, previous: 
                 index,
                 ItemBuilder(pet.head).name(pet.name, NamedTextColor.YELLOW)
                         .lore(lore.get())
-                        .build()) {
+                        .build()) { _: InventoryClickEvent ->
                 if (hasPet) {
                     PetManager.invokePet(viewer, pet)
                     this.close()
@@ -58,7 +59,7 @@ class PetSelectionMenu(val playerID: UUID, val category: PetCategory, previous: 
                     .newline()
                     .append("Cliquez pour désinvoquer votre familier", NamedTextColor.GRAY)
                     .buildLore()
-                    .build()) {
+                    .build()) { _: InventoryClickEvent ->
             if (PetManager.hasPetInvocked(viewer)) {
                 PetManager.invokePet(viewer, null)
                 viewer.sendMessage(

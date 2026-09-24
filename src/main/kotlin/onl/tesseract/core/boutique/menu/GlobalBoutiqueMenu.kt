@@ -17,6 +17,7 @@ import onl.tesseract.lib.util.ItemLoreBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryClickEvent
 import java.util.UUID
 
 class GlobalBoutiqueMenu(val playerID: UUID, previous: Menu? = null) :
@@ -41,7 +42,7 @@ class GlobalBoutiqueMenu(val playerID: UUID, previous: Menu? = null) :
                         .get()
                 )
                 .build()
-        ) {
+        ) { _: InventoryClickEvent ->
             ElytraTrailBoutiqueMenu(playerID, this).open(viewer)
         }
         val totalPlayerFlyFilter = CosmeticManager.getTotalPossessed(playerID, FlyFilter.getTypeName())
@@ -60,7 +61,7 @@ class GlobalBoutiqueMenu(val playerID: UUID, previous: Menu? = null) :
                         .get()
                 )
                 .build()
-        ) {
+        ) { _: InventoryClickEvent ->
             FlyFilterBoutiqueMenu(playerID, this).open(viewer)
         }
 
@@ -77,7 +78,7 @@ class GlobalBoutiqueMenu(val playerID: UUID, previous: Menu? = null) :
                         .get()
                 )
                 .build()
-        ) {
+        ) { _: InventoryClickEvent ->
              PetBoutiqueMenu(player, this).open(viewer)
         }
         val totalTPAnimationPossessed =
@@ -97,7 +98,7 @@ class GlobalBoutiqueMenu(val playerID: UUID, previous: Menu? = null) :
                         .get()
                 )
                 .build()
-        ) {
+        ) { _: InventoryClickEvent ->
              TPAnimationBoutiqueMenu(player, this).open(viewer)
         }
         addButton(
@@ -115,7 +116,7 @@ class GlobalBoutiqueMenu(val playerID: UUID, previous: Menu? = null) :
                         .get()
                 )
                 .build()
-        ) {
+        ) { _: InventoryClickEvent ->
             viewer.sendMessage(
                 Component.text()
                     .append(Component.text("[", NamedTextColor.GOLD))

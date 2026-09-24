@@ -10,6 +10,7 @@ import onl.tesseract.core.cosmetics.FlyFilter
 import onl.tesseract.core.cosmetics.familier.Pet
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryClickEvent
 import java.util.UUID
 
 class CosmeticMenu(val playerID: UUID, previous: Menu? = null) :
@@ -27,7 +28,7 @@ class CosmeticMenu(val playerID: UUID, previous: Menu? = null) :
             .newline(2)
             .append("Customisez les particules de vos ailes", NamedTextColor.GRAY)
             .buildLore()
-            .build()) {
+            .build()) { _: InventoryClickEvent ->
             ElytraTrailSelectionMenu(playerID, this).open(viewer)
         }
 
@@ -40,7 +41,7 @@ class CosmeticMenu(val playerID: UUID, previous: Menu? = null) :
             .newline(2)
             .append("Des filtres qui apparaissent lorsque vous voler en Créatif ou lors de l'utilisation du jetpack en Semi-RP", NamedTextColor.GRAY)
             .buildLore()
-            .build()) {
+            .build()) { _: InventoryClickEvent ->
             FlyFilterSelectionMenu(playerID, this).open(viewer)
         }
 
@@ -53,7 +54,7 @@ class CosmeticMenu(val playerID: UUID, previous: Menu? = null) :
             .newline(2)
             .append("De petits familiers qui vous suivent partout", NamedTextColor.GRAY)
             .buildLore()
-            .build()) {
+            .build()) { _: InventoryClickEvent ->
             PetTypeSelectionMenu(playerID, this).open(viewer)
         }
 
@@ -63,7 +64,7 @@ class CosmeticMenu(val playerID: UUID, previous: Menu? = null) :
             .newline()
             .append("Customisez les particules de téléportation", NamedTextColor.GRAY)
             .buildLore()
-            .build()) {
+            .build()) { _: InventoryClickEvent ->
              CosmeticTPMenu(playerID, this).open(viewer)
         }
 

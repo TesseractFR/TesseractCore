@@ -13,6 +13,7 @@ import onl.tesseract.lib.util.ItemLoreBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryClickEvent
 import java.util.*
 
 class ElytraTrailBoutiqueMenu(
@@ -42,7 +43,7 @@ class ElytraTrailBoutiqueMenu(
                                 .get()
                         )
                         .build()
-                ) {
+                ) { _: InventoryClickEvent ->
                     boutiqueService.tryToBuy(Bukkit.getPlayer(playerID) ?: return@addButton, this, trail)
                 }
             } else {

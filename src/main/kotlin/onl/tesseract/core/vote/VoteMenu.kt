@@ -22,6 +22,7 @@ import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.scheduler.BukkitTask
+import org.bukkit.event.inventory.InventoryClickEvent
 import java.time.Duration
 import java.util.*
 import java.util.logging.Level
@@ -89,7 +90,7 @@ open class VoteMenu @JvmOverloads constructor(
                 .append("Cliquez pour voir les différentes récompenses", NamedTextColor.AQUA, TextDecoration.ITALIC)
                 .buildLore()
                 .build()
-        ) {
+        ) { _: InventoryClickEvent ->
             try {
                 val constructor = rewardMenuClass.getDeclaredConstructor(UUID::class.java, Menu::class.java)
                 val menu: Menu = constructor.newInstance(playerID, this)
@@ -251,7 +252,7 @@ open class VoteMenu @JvmOverloads constructor(
                 .name(voteSite.serviceName, NamedTextColor.YELLOW)
                 .lore(lore.get())
                 .build()
-        ) {
+        ) { _: InventoryClickEvent ->
             close()
             sendVoteLink(viewer, voteSite)
         }
@@ -276,7 +277,7 @@ open class VoteMenu @JvmOverloads constructor(
                 .name("Tous les sites", NamedTextColor.GOLD)
                 .lore(lore.get())
                 .build()
-        ) {
+        ) { _: InventoryClickEvent ->
             close()
             sendVoteLinks(viewer)
         }

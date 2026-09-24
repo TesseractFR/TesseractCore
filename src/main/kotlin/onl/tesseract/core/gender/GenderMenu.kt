@@ -12,6 +12,7 @@ import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.lib.util.ItemLoreBuilder
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 
 private val teteHomme = ItemBuilder(Material.PLAYER_HEAD).customHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2EwOGQwZGFiYzQzNGEwOTNmMDk4YmFmNTA1YjE2NWMxNGNiZTk2NDU3M2VkOGU5ZTYxODUxNTg5MTc5NTcwIn19fQ==", "")
@@ -25,7 +26,7 @@ class GenderMenu(private val player: Player, previous: Menu) :
     override fun placeButtons(viewer: Player) {
         this.fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).name(" ").build())
 
-        addButton(2, createMaleItem()){
+        addButton(2, createMaleItem()) { _: InventoryClickEvent ->
             player.sendMessage(Component.text("Vous avez bien changé votre genre en ${Gender.MALE.getName()} !", NamedTextColor.GREEN))
             val tPlayerInfo = ServiceContainer.get(TPlayerInfoService::class.java)[player.uniqueId]
             tPlayerInfo.genre = Gender.MALE
@@ -33,7 +34,7 @@ class GenderMenu(private val player: Player, previous: Menu) :
 
         }
 
-        addButton(4, createFemaleItem()) {
+        addButton(4, createFemaleItem()) { _: InventoryClickEvent ->
             player.sendMessage(Component.text("Vous avez bien changé votre genre en ${Gender.FEMALE.getName()} !", NamedTextColor.GREEN))
             val tPlayerInfo = ServiceContainer.get(TPlayerInfoService::class.java)[player.uniqueId]
             tPlayerInfo.genre = Gender.FEMALE
@@ -41,7 +42,7 @@ class GenderMenu(private val player: Player, previous: Menu) :
 
         }
 
-        addButton(6, createOtherItem()) {
+        addButton(6, createOtherItem()) { _: InventoryClickEvent ->
             player.sendMessage(Component.text("Vous avez bien changé votre genre en ${Gender.OTHER.getName()} !", NamedTextColor.GREEN))
             val tPlayerInfo = ServiceContainer.get(TPlayerInfoService::class.java)[player.uniqueId]
             tPlayerInfo.genre = Gender.OTHER

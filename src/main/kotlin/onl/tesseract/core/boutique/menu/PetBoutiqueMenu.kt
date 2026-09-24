@@ -10,6 +10,7 @@ import onl.tesseract.core.cosmetics.familier.Pet
 import onl.tesseract.core.cosmetics.familier.PetCategory
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryClickEvent
 
 class PetBoutiqueMenu(
     val player: Player,
@@ -48,7 +49,7 @@ class PetBoutiqueMenu(
                                 )
                                 .buildLore()
                                 .build()
-                    ) {
+                    ) { _: InventoryClickEvent ->
                         boutiqueService.tryToBuy(player, this, pet)
                     }
                 }

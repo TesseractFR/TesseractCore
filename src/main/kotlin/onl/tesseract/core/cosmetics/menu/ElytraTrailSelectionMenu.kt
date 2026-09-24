@@ -9,6 +9,7 @@ import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryClickEvent
 import java.util.*
 
 class ElytraTrailSelectionMenu(val playerID: UUID, previous: Menu? = null) : AbstractCosmeticMenu(
@@ -32,7 +33,7 @@ class ElytraTrailSelectionMenu(val playerID: UUID, previous: Menu? = null) : Abs
                     22,
                     ItemBuilder(trail.material).name(trail.name).enchanted(playerBoutiqueInfo.activeTrail == trail)
                         .build()
-                ) {
+                ) { _: InventoryClickEvent ->
                     boutiqueService.setActiveElytraTrail(playerID, trail)
                     this.close()
                 }

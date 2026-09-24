@@ -11,6 +11,7 @@ import onl.tesseract.lib.service.ServiceContainer
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryClickEvent
 import java.util.*
 
 class FlyFilterBoutiqueMenu(
@@ -36,7 +37,7 @@ class FlyFilterBoutiqueMenu(
                         .append("Vous avez : ${playerBoutiqueInfo.marketCurrency} lys d'or", NamedTextColor.GRAY)
                         .buildLore()
                         .build()
-                ) {
+                ) { _: InventoryClickEvent ->
                     boutiqueService.tryToBuy(Bukkit.getPlayer(playerID) ?: return@addButton, this, filter)
                 }
             } else {

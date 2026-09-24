@@ -10,6 +10,7 @@ import onl.tesseract.core.cosmetics.familier.PetManager
 import onl.tesseract.lib.chat.ChatFormats
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryClickEvent
 import java.util.UUID
 
 class PetTypeSelectionMenu(val playerID: UUID, previous: Menu? = null) : Menu(
@@ -27,7 +28,7 @@ class PetTypeSelectionMenu(val playerID: UUID, previous: Menu? = null) : Menu(
                         .newline()
                         .append("Cliquez pour avoir la liste des familiers du type $petCategory", NamedTextColor.GRAY)
                         .buildLore()
-                        .build()) {
+                        .build()) { _: InventoryClickEvent ->
                  PetSelectionMenu(playerID, petCategory, this).open(viewer)
             }
         }
@@ -39,7 +40,7 @@ class PetTypeSelectionMenu(val playerID: UUID, previous: Menu? = null) : Menu(
                     .newline()
                     .append("Cliquez pour désinvoquer votre familier", NamedTextColor.GRAY)
                     .buildLore()
-                    .build()) {
+                    .build()) { _: InventoryClickEvent ->
             if (PetManager.invokedPets[viewer.uniqueId] != null) {
                 PetManager.invokePet(viewer, null)
                 viewer.sendMessage(

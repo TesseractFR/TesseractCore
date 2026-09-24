@@ -13,6 +13,7 @@ import onl.tesseract.lib.util.plus
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryClickEvent
 import java.util.UUID
 
 abstract class AVoteRewardMenu(val playerID: UUID, size: MenuSize, previous: Menu? = null) :
@@ -33,7 +34,7 @@ abstract class AVoteRewardMenu(val playerID: UUID, size: MenuSize, previous: Men
                 .append(" 1 Lys d'or", NamedTextColor.YELLOW)
                 .buildLore()
                 .build()
-        ) {
+        ) { _: InventoryClickEvent ->
             askAmount(viewer) { amount ->
                 boutiqueService.addMarketCurrency(playerID, amount)
                 Bukkit.getPlayer(playerID)

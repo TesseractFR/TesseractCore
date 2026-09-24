@@ -9,6 +9,7 @@ import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryClickEvent
 import java.util.*
 
 class FlyFilterSelectionMenu(val playerID: UUID, previous: Menu? = null) : AbstractCosmeticMenu(
@@ -31,7 +32,7 @@ class FlyFilterSelectionMenu(val playerID: UUID, previous: Menu? = null) : Abstr
                     22,
                     ItemBuilder(filter.material).name(filter.name).enchanted(playerBoutiqueInfo.activeFlyFilter == filter)
                         .build()
-                ) {
+                ) { _: InventoryClickEvent ->
                     boutiqueService.setActiveFlyFilter(playerID, filter)
                     this.close()
                 }

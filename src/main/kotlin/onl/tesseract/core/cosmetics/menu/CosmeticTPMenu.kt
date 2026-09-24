@@ -14,6 +14,7 @@ import onl.tesseract.lib.chat.ChatFormats
 import onl.tesseract.lib.util.plus
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.inventory.InventoryClickEvent
 import java.util.*
 
 class CosmeticTPMenu(val playerID: UUID, previous: Menu? = null) : AbstractCosmeticMenu(
@@ -52,7 +53,7 @@ class CosmeticTPMenu(val playerID: UUID, previous: Menu? = null) : AbstractCosme
                         .newline()
                         .append("Cliquez pour utiliser le filtre", TextColor.color(255, 177, 255))
                         .buildLore()
-                        .build()) {
+                        .build()) { _: InventoryClickEvent ->
                 close()
                 boutiqueService.setTpAnimation(playerID, TeleportationAnimation.ROSETTE)
                 viewer.sendMessage(ChatFormats.COSMETICS_SUCCESS + "Votre animation de téléportation a été changé.")
@@ -66,7 +67,7 @@ class CosmeticTPMenu(val playerID: UUID, previous: Menu? = null) : AbstractCosme
                         .append("Exclusive au ", TextColor.color(255, 177, 255))
                         .append("VIP", NamedTextColor.LIGHT_PURPLE)
                         .buildLore()
-                        .build()) {
+                        .build()) { _: InventoryClickEvent ->
                 GlobalBoutiqueMenu(playerID, this).open(viewer)
             }
         }

@@ -9,6 +9,7 @@ import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.lib.util.ItemLoreBuilder
 import org.bukkit.Bukkit
+import org.bukkit.event.inventory.InventoryClickEvent
 import java.util.UUID
 
 abstract class AbstractCosmeticMenu(
@@ -47,7 +48,7 @@ abstract class AbstractCosmeticMenu(
                     .name(cosmetic.displayName)
                     .enchanted(playerBoutiqueInfo.activeFlyFilter == cosmetic)
                     .lore(lore.get()).build()
-        ) {
+        ) { _: InventoryClickEvent ->
             if (possessed) {
                 onBuy(cosmetic)
                 this.close()
