@@ -1,6 +1,6 @@
 package onl.tesseract.core.cosmetics.familier;
 
-import onl.tesseract.lib.menu.ItemBuilder;
+import onl.tesseract.lib.itembuilder.ItemBuilder;
 import onl.tesseract.lib.profile.PlayerProfileService;
 import onl.tesseract.lib.service.ServiceContainer;
 import org.bukkit.Material;

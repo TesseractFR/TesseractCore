@@ -1,7 +1,7 @@
 package onl.tesseract.core.vote
 
 import net.kyori.adventure.text.format.NamedTextColor
-import onl.tesseract.lib.menu.ItemBuilder
+import onl.tesseract.lib.itembuilder.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import org.bukkit.Material

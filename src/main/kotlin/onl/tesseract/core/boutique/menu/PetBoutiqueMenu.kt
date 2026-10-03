@@ -2,12 +2,12 @@ package onl.tesseract.core.boutique.menu
 
 import net.kyori.adventure.text.format.NamedTextColor
 import onl.tesseract.core.boutique.BoutiqueService
-import onl.tesseract.lib.menu.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.core.cosmetics.familier.Pet
 import onl.tesseract.core.cosmetics.familier.PetCategory
+import onl.tesseract.lib.itembuilder.ItemBuilder
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent

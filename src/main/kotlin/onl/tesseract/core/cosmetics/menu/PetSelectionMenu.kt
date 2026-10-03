@@ -6,12 +6,12 @@ import onl.tesseract.core.boutique.BoutiqueService
 import onl.tesseract.core.cosmetics.CosmeticManager
 import onl.tesseract.core.cosmetics.familier.PetCategory
 import onl.tesseract.core.cosmetics.familier.PetManager
-import onl.tesseract.lib.menu.ItemBuilder
+import onl.tesseract.lib.itembuilder.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.lib.chat.ChatFormats
-import onl.tesseract.lib.util.ItemLoreBuilder
+import onl.tesseract.lib.itembuilder.ItemLoreBuilder
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player

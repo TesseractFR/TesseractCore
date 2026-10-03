@@ -2,7 +2,7 @@ package onl.tesseract.core.cosmetics.familier;
 
 
 import net.kyori.adventure.text.Component;
-import onl.tesseract.lib.menu.ItemBuilder;
+import onl.tesseract.lib.itembuilder.ItemBuilder;
 import onl.tesseract.lib.profile.PlayerProfileService;
 import onl.tesseract.lib.service.ServiceContainer;
 import onl.tesseract.core.cosmetics.Cosmetic;

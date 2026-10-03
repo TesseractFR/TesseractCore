@@ -4,7 +4,7 @@ import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import onl.tesseract.core.boutique.BoutiqueService
 import onl.tesseract.lib.chat.ChatEntryService
-import onl.tesseract.lib.menu.ItemBuilder
+import onl.tesseract.lib.itembuilder.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer

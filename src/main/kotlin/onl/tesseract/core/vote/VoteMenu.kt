@@ -9,13 +9,13 @@ import onl.tesseract.core.TesseractCorePlugin
 import onl.tesseract.core.log
 import onl.tesseract.core.vote.goal.VoteGoal
 import onl.tesseract.core.vote.goal.VoteGoalManager
-import onl.tesseract.lib.menu.ItemBuilder
+import onl.tesseract.lib.itembuilder.ItemBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.profile.PlayerProfileService
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.lib.task.TaskScheduler
-import onl.tesseract.lib.util.ItemLoreBuilder
+import onl.tesseract.lib.itembuilder.ItemLoreBuilder
 import onl.tesseract.lib.util.Util
 import org.bukkit.Bukkit
 import org.bukkit.Material

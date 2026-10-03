@@ -5,11 +5,11 @@ import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextDecoration
 import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfoService
 import onl.tesseract.lib.gender.Gender
-import onl.tesseract.lib.menu.ItemBuilder
+import onl.tesseract.lib.itembuilder.ItemBuilder
+import onl.tesseract.lib.itembuilder.ItemLoreBuilder
 import onl.tesseract.lib.menu.Menu
 import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
-import onl.tesseract.lib.util.ItemLoreBuilder
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent

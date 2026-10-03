@@ -10,8 +10,8 @@ import onl.tesseract.lib.menu.MenuSize
 import onl.tesseract.lib.service.ServiceContainer
 import onl.tesseract.core.persistence.hibernate.boutique.TPlayerInfoService
 import onl.tesseract.lib.chat.ChatFormats
-import onl.tesseract.lib.util.ItemBuilder
-import onl.tesseract.lib.util.ItemLoreBuilder
+import onl.tesseract.lib.itembuilder.ItemBuilder
+import onl.tesseract.lib.itembuilder.ItemLoreBuilder
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
@@ -25,7 +25,7 @@ abstract class BoutiqueMenu(
 ) : Menu(size, title, color, previous) {
 
     override fun placeButtons(viewer: Player) {
-        fill(onl.tesseract.lib.menu.ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).name(" ").build())
+        fill(ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).name(" ").build())
         addBackButton()
         addCloseButton()
         addBoutiqueButton(viewer)
