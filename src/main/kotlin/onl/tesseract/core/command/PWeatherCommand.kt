@@ -18,26 +18,25 @@ import org.bukkit.entity.Player
     args = [Argument(value = "weather", clazz = WeatherNameArg::class)])
 class PWeatherCommand : CommandContext() {
     @CommandBody
-    fun onCommand(@Env(key = "weather") weather: Weather, sender: Player): Boolean {
+    fun onCommand(@Env(key = "weather") weather: Weather, sender: Player) {
 
         if (weather == Weather.RESET) {
             sender.resetPlayerWeather()
-            sender.sendMessage(Component.text("Votre météo a été réinitialisé.", NamedTextColor.GREEN));
-            return true
+            sender.sendMessage(Component.text("Votre météo a été réinitialisée.", NamedTextColor.GREEN));
+            return
         }
 
         weather.weatherType?.let { sender.setPlayerWeather(it) }
-        sender.sendMessage(Component.text("Météo fixé à ${weather.weatherType}", NamedTextColor.GREEN))
-
-        return true
+        sender.sendMessage(Component.text("Météo fixée à ${weather.displayName}", NamedTextColor.GREEN))
     }
 
-
-    enum class Weather(val weatherType: WeatherType?) {
-        RESET(null),
-        CLEAR(WeatherType.CLEAR),
-        RAIN(WeatherType.DOWNFALL)
+    enum class Weather(
+        val weatherType: WeatherType?,
+        val displayName: String
+    ) {
+        RESET(null, "DEFAUT"),
+        CLEAR(WeatherType.CLEAR, "CLAIR"),
+        RAIN(WeatherType.DOWNFALL, "PLUVIEUX")
     }
-
 
 }
