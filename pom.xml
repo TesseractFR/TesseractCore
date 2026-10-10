@@ -116,6 +116,35 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            <!-- Copie du jar final vers le dossier externe défini par PLUGIN_OUTPUT_DIR.
+                 Déclaré en dernier pour s'exécuter après le shade dans la phase package. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-jar-to-output-dir</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <!-- Load .env during package so Maven does not freeze values earlier. -->
+                                <property file="${project.basedir}/.env"/>
+                                <property name="PLUGIN_OUTPUT_DIR" value="${project.build.directory}/dist"/>
+                                <property name="PLUGIN_OUTPUT_NAME" value="${project.build.finalName}.jar"/>
+                                <mkdir dir="${PLUGIN_OUTPUT_DIR}"/>
+                                <copy file="${project.build.directory}/${project.build.finalName}.jar"
+                                      tofile="${PLUGIN_OUTPUT_DIR}/${PLUGIN_OUTPUT_NAME}"
+                                      overwrite="true"/>
+                                <echo message="Jar copié vers ${PLUGIN_OUTPUT_DIR}/${PLUGIN_OUTPUT_NAME}"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <resources>
             <resource>
